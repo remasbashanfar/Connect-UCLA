@@ -1,0 +1,25 @@
+#### Requirements ####
+Node.js
+https://nodejs.org/en/download/
+
+MongoDB #IF you wish to inspect database locally?
+https://www.mongodb.com/try/download/community
+
+
+#### Setup ####
+Follow this guide:
+https://www.mongodb.com/languages/mern-stack-tutorial
+
+In short:
+npx create-react-app client
+
+mkdir server
+cd server
+npm init -y
+
+In the server dir run:
+npm install mongodb express cors dotenv mongoose
+npm install -g nodemon
+
+In client dir run:
+npm install bootstrap react-router-dom
