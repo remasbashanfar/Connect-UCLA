@@ -12,5 +12,6 @@ const PostSchema = new mongoose.Schema({
     {collection: "posts"}
 )
 
-const PostModel = mongoose.model("posts", PostSchema)
+// changed from "posts" to "Post"
+const PostModel = mongoose.model("Post", PostSchema)
 export default PostModel

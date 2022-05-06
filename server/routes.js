@@ -1,16 +1,29 @@
 import express from "express";
 const router = express.Router()
 
-/////	 Controller imports		/////
-import PostController from "./api/post.controller.js"
-//import CommentHandler from "./api/comment.controller.js"
+/////	 Controller Import		/////
+import Post from "./api/post.controller.js"
+import User from "./api/user.controller.js"
 
 ///// 	Establish endpoints and link to API	  /////
 
-router.get("/posts", PostController.apiGetPosts)
-router.post("/posts", PostController.apiCreatePost)
-router.get("/posts/:id", PostController.apiGetPostById)
-router.patch("/posts/:id", PostController.apiUpdatePost)
-router.delete("/posts/:id", PostController.apiDeletePost)
+///// 	POSTS 	  /////
+router.get("/posts", Post.apiGetPosts)
+router.get("/posts/:id", Post.apiGetPostById)
+router.post("/posts", Post.apiCreatePost)
+router.patch("/posts/:id", Post.apiUpdatePost)
+router.delete("/posts/:id", Post.apiDeletePost)
+
+///// 	USERS 	  /////
+router.get("/users", User.apiGetUsers)
+router.get("/users/:id", User.apiGetUserById)
+router.post("/users/register", User.apiCreateUser)
+router.post("/users/login", User.apiUserLogin)
+router.put("/users/:id", User.apiUpdateUserById)
+router.put("/users/:id", User.apiFollowUserById)
+router.put("/users/:id", User.apiUnfollowUserById)
+router.delete("/users/:id", User.apiDeleteUserById)
+
+///// 	COMMENTS 	  /////
 
 export default router;
