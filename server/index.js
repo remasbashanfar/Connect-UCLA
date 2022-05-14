@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import express from "express";
+import cors from "cors";
 import routes from "./routes.js";
 
 // more middleware
@@ -15,6 +16,7 @@ mongoose.connect(
     .then(() => {
         const app = express()
 
+        app.use(cors()) // Cross origin
         app.use(express.json())
         app.use(express.urlencoded({extended:true}));
         app.use("/api", routes)
