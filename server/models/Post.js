@@ -5,9 +5,17 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    category: {
+        type: String,
+        required: true,
+    },
     content: {
         type: String,
         required: true,
+    },
+    imgurl: {
+        type: String,
+        required: false,
     }},
     {collection: "posts"}
 )

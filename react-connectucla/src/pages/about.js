@@ -1,15 +1,15 @@
 import React from "react";
 import NavBar from '../components/navbar.js'
 
-    function Feed() {
+    function About() {
 
         return (
           <div>
               <NavBar></NavBar>
-              This is the feed page
+              This is the about page
           </div>
         );
 
     }
 
-    export default Feed;
+    export default About;
