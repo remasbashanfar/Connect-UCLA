@@ -1,9 +1,9 @@
-import Home from "./pages/home/Home"
+import Home from "./pages/Home.js"
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Feed from "../src/pages/home/feed.js"
-import ErrorPage from "../src/pages/home/errorPage.js"
-import Menu from "../src/pages/home/menu.js"
-import Login from "../src/pages/home/login.js"
+import Feed from "./pages/feed.js"
+import ErrorPage from "./pages/errorPage.js"
+import Menu from "./pages/menu.js"
+import Login from "./pages/login.js"
 
 function App() {
   return (

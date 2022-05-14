@@ -23,3 +23,7 @@ npm install -g nodemon
 
 In client dir run:
 npm install bootstrap react-router-dom
+
+In client dir run:
+npm install @mui/material @emotion/react @emotion/styled
+npm install --force @material-ui/icons   (Maybe avoid this, idk)
