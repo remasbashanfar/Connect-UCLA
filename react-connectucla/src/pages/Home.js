@@ -2,6 +2,9 @@ import NavBar from '../components/navbar.js'
 import Card from '../components/card.js'
 import PostAPI from '../services/post.js'
 import React, { useState, useEffect } from "react";
+import { makeStyles } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 // Homepage doubles as the feed.
 
 export default function Home() {
@@ -29,19 +32,28 @@ export default function Home() {
             <NavBar></NavBar>
             <h1>Connect UCLA</h1>
             <h2>Welcome home!</h2>
+            
+            <Box sx={{ flexGrow: 1 }}>
+            <Grid container justifyContent="center">
+            <Grid container spacing={3} xs={8}>
+                {posts.map(post => 
+                    {
+                    return (
+                        <Grid item xs={12} sm={6} md={4} key={post[0]}>
+                            <Card 
+                            image={post[3]} 
+                            title={post[1]}
+                            description={post[2]}
+                            />
+                        </Grid>
+                        )
+                    })
+                }
+            </Grid>
+            </Grid>
+            </Box>
 
-            {
-            posts.map(post => {
-                return (
-                <Card 
-                key={post[0]}
-                image={post[3]} 
-                title={post[1]}
-                description={post[2]}
-                />
-                );
-            })
-            }
+            
         </div>
     )
 }
