@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 export default function ImgMediaCard(props) {
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
+      <CardActionArea href={"/post/" + props.link}>
       <CardMedia
         component="img"
         height="140"

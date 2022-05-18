@@ -2,7 +2,6 @@ import NavBar from '../components/navbar.js'
 import Card from '../components/card.js'
 import PostAPI from '../services/post.js'
 import React, { useState, useEffect } from "react";
-import { makeStyles } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 // Homepage doubles as the feed.
@@ -20,9 +19,7 @@ export default function Home() {
     const retrievePosts = () => {
         PostAPI.getAll()
         .then(response => {
-            // Transform Json since Json not allowed
-            const Transform = response.data.map(d => [d._id, d.title, d.content, d.imgurl, d.category]);
-            setPosts(Transform);
+            setPosts(response.data);
         })
         .catch(error => console.log(error));
     };
@@ -39,11 +36,12 @@ export default function Home() {
                 {posts.map(post => 
                     {
                     return (
-                        <Grid item xs={12} sm={6} md={4} key={post[0]}>
+                        <Grid item xs={12} sm={6} md={4} key={post._id}>
                             <Card 
-                            image={post[3]} 
-                            title={post[1]}
-                            description={post[2]}
+                            link={post._id}
+                            image={post.imgurl} 
+                            title={post.title}
+                            description={post.content}
                             />
                         </Grid>
                         )
