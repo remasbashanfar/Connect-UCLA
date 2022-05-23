@@ -10,6 +10,7 @@ import User from "./api/user.controller.js"
 ///// 	POSTS 	  /////
 router.get("/posts", Post.apiGetPosts)
 router.get("/posts/:id", Post.apiGetPostById)
+router.get("/posts/filter/tags", Post.apiGetPostWithFilter)
 router.post("/posts", Post.apiCreatePost)
 router.patch("/posts/:id", Post.apiUpdatePost)
 router.delete("/posts/:id", Post.apiDeletePost)
