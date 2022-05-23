@@ -4,18 +4,28 @@ import PostAPI from '../services/post.js'
 import React, { useState, useEffect } from "react";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import FilterBar from "../components/searchFilter"
+
+
 // Homepage doubles as the feed.
 
 export default function Home() {
     // Variables + hooks
     const [posts, setPosts] = useState([]);
+    const [tag, setTag] = useState('');
+    const [tags, setTags] = useState([]);
+
 
     // Do on render
     useEffect(() => {
         retrievePosts();
-    }, []);
+    }, [tags]);
     
-    // Get all posts from server
+
+
+
+
+    // Get filtered posts from server
     const retrievePosts = () => {
         PostAPI.getAll()
         .then(response => {
@@ -24,12 +34,37 @@ export default function Home() {
         .catch(error => console.log(error));
     };
     
+
+    const addTags = (event) => {
+        if(tag === '')
+        {
+            return;
+        }
+        event.preventDefault();
+        setTags([...tags, tag])
+        setTag('');
+    }
+
+    const handleTagChange = (event) =>{
+        setTag(event.target.value);
+    }
+
+    const removeTag = (removedTag) =>{
+        setTags(tags.filter(tag => tag != removedTag))
+    }
+
+
+
     return (
         <div >
             <NavBar></NavBar>
             <h1>Connect UCLA</h1>
             <h2>Welcome home!</h2>
             
+            <FilterBar tag = {tag} tags = {tags} handleTagChange={handleTagChange} 
+                       addTags = {addTags} removeTag = {removeTag}>
+            </FilterBar>
+
             <Box sx={{ flexGrow: 1 }}>
             <Grid container justifyContent="center">
             <Grid container spacing={3} xs={8}>
