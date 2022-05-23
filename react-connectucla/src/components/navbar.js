@@ -18,6 +18,7 @@ export default function ButtonAppBar() {
           <Button color="inherit" href="/">Home</Button>
           <Button color="inherit" href="/about">About</Button>
           <Button color="inherit" href="/login">Login</Button>
+          <Button color="inherit" href="/maps">Maps</Button>
         </Toolbar>
       </AppBar>
     </Box>
