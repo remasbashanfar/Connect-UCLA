@@ -3,18 +3,13 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import About from "./pages/about.js"
 import ErrorPage from "./pages/errorPage.js"
-<<<<<<< HEAD
 import Login from "./pages/login/Login.jsx"
 import Register from "./pages/register/Register.jsx"
 import PostPage from "./pages/postPage.js"
-
+import Maps from "./pages/maps.js"
 // imports for Context API 
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
-=======
-import Login from "./pages/login.js"
-import Maps from "./pages/maps.js"
->>>>>>> 49c7bd9 (Added route to maps page)
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -30,14 +25,9 @@ function App() {
        <Route path="/" element={<Home/>}/>
        <Route path="/about" element={<About/>}/>
        <Route path="*" element={<ErrorPage/>}/>
-<<<<<<< HEAD
        <Route path="/login" element={user ? <Home/> : <Login/>}/>
        <Route path="/register" element={<Register/>}/>
        <Route path="/post/:id" element={<PostPage/>}/>
-=======
-       <Route path="/login" element={<Login/>}/>
-       <Route path = "/maps" element = {<Maps/>}/>
->>>>>>> 49c7bd9 (Added route to maps page)
        </Routes>
        </BrowserRouter>
       </GoogleOAuthProvider>
