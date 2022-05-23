@@ -7,6 +7,14 @@ import {
 } from "@react-google-maps/api"
 import { renderMatches } from 'react-router-dom'
 import "@reach/combobox/styles.css"
+import mapStyles from "../components/mapStyles.js"
+import { useState } from 'react'
+
+const options ={
+    styles: mapStyles,
+    disableDefaultUI:true,
+    zoomControl: true,
+}
 
 const mapContainerStyle = {
     width: '100vw',
@@ -18,8 +26,10 @@ const center = {
     lng:-118.445183,
 }
 
+
 const libraries = ["places"]
 export default function Maps() {
+    const [markers, setMarkers] = useState([])
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey:process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         libraries,
@@ -35,7 +45,17 @@ export default function Maps() {
                 mapContainerStyle={mapContainerStyle}
                 zoom = {16}
                 center = {center}
-                options = {options}>
+                options = {options}
+                onClick={(event) => {
+                    setMarkers(current => [...current, {
+                        lat:event.latLng.lat(),
+                        lng: event.latLng.lng(),
+                        time: new Date()
+                        }
+                    ])
+                }}>
+                {markers.map(marker => <Marker key = {marker.time.toISOString()}
+                                               position = {{lat: marker.lat, lng: marker.lng}}/>)}
             </GoogleMap>
         </div>
     )
