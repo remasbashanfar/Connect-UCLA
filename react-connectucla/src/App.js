@@ -4,6 +4,7 @@ import About from "./pages/about.js"
 import ErrorPage from "./pages/errorPage.js"
 import Login from "./pages/login.js"
 import PostPage from "./pages/postPage.js"
+import AddEvent from "./pages/addEvent.js"
 
 function App() {
   return (
@@ -11,14 +12,13 @@ function App() {
        <BrowserRouter>
        
        <Routes>
-        {/* @Anyone creatin new pages, when you have a page ready, import it to App.js then add it in the same format below
-        Lmk if you need help with that -Remas */}
        {/* <Route path="/login" element={<Login/>}/> */}
        <Route path="/" element={<Home/>}/>
        <Route path="/about" element={<About/>}/>
        <Route path="*" element={<ErrorPage/>}/>
        <Route path="/login" element={<Login/>}/>
        <Route path="/post/:id" element={<PostPage/>}/>
+       <Route path="/addEvent" element={<AddEvent/>}/>
 
        </Routes>
        </BrowserRouter>

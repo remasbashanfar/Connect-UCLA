@@ -4,6 +4,7 @@ import PostAPI from '../services/post.js'
 import React, { useState, useEffect } from "react";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import AddEvent from './addEvent.js';
 // Homepage doubles as the feed.
 
 export default function Home() {

@@ -1,0 +1,124 @@
+/* create new blog form
+.create {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Barlow';
+  }
+  .create label {
+    text-align: left;
+    display: block;
+  }
+  .create h2 {
+    font-size: 20px;
+    color: blue;
+    margin-bottom: 30px;
+    font-family: 'Barlow';
+  }
+  .create input, .create textarea, .create select {
+    width: 100%;
+    padding: 6px 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    display: block;
+    font-family: 'Barlow';
+  }
+  .create button {
+    background: blue;
+    color: #fff;
+    border: 0;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Barlow';
+  } */
+  body {
+    padding: 0%;
+    margin: 0%;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  a {
+    color: white;
+    text-decoration: none;
+    margin: 10px;
+    font-size: 25px;
+  }
+  
+  .createPostPage {
+    width: 100%;
+    height: calc(100vh - 80px);
+    display: grid;
+    place-items: center;
+  }
+  
+  .cpContainer {
+    width: 500px;
+    height: auto;
+    padding: 20px;
+    background-color: #1E90FF;
+    border-radius: 12px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    /* text-align:center; */
+  }
+  
+  .cpContainer h2 {
+    text-align: center;
+  }
+  .cpContainer button {
+    color: black;
+    border: 0;
+    padding: 8px;
+    border-radius: 8px;
+    right:800px;
+    cursor: pointer;
+  }
+  .cpContainer label {
+    font-size: 15px;
+  }
+  .cpContainer .inputGp {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .inputGp input,
+  .inputGp textarea {
+    font-size: 18px;
+    border: none;
+    border-radius: 2px;
+    padding: 5px;
+  }
+  
+  .inputGp input {
+    height: 40px;
+  }
+  .inputGp textarea {
+    height: 150px;
+  }
+  
+  .cpContainer button {
+    margin-top: 20px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    text-align: center;
+  }
+  input,
+  textarea {
+    margin-top: 5px;
+  }
+  
+  .post .postTextContainer {
+    word-wrap: break-word;
+    height: auto;
+    max-height: 400px;
+    width: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+  }
