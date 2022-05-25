@@ -7,11 +7,27 @@ const PostSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        required: true,
+        required: false,
     },
     content: {
         type: String,
         required: true,
+    },
+    date: {
+        type: String,
+        required: true,
+    },
+    startTime: {
+        type: String,
+        required: false,
+    },
+    endTime: {
+        type: String,
+        required: false,
+    },
+    organizer: {
+        type: String,
+        required: false,
     },
     imgurl: {
         type: String,

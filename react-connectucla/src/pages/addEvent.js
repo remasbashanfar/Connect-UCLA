@@ -1,13 +1,11 @@
-import axios from "axios";
 import { useState, useEffect} from "react";
 import React from "react";
 import "./addEvent.css";
-import {useNavigate} from 'react-router-dom'
-import api from '../api/posts.js'
+import PostAPI from '../services/post.js'
 // import NavBar from '../components/navbar.js'
 
 const AddEvent = () => {
-    const [name, setName]=useState('')
+    const [title, setTitle]=useState('')
     const [organizer, setOrganizer]=useState('')
     const [date, setDate]=useState('')
     const [startTime, setstartTime]=useState('')
@@ -16,20 +14,22 @@ const AddEvent = () => {
     const [url, setUrl]=useState('')
     const handleSubmit = (e) => {
         e.preventDefault()
-        //post object
-        const event= {name, organizer, date, startTime, endTime, details, url}
-        console.log(event)
+        //post object MUST CORRESPOND TO POST SCHEMA and be json object
+        const event= {
+            title: title, 
+            organizer: organizer, 
+            date:date, 
+            startTime:startTime, 
+            endTime:endTime, 
+            content:details, 
+            imgurl:url
+        }
+        
         //post request code, not working
-        fetch('http://localhost:5000',
-        {
-            method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(event)
-        }).then(() =>{
-            navigate('/')
-        })
+        PostAPI.createPost(event)
+        .then(response => console.log(response.data))
+        .catch(error => console.log(error));
     }
-    const navigate = useNavigate()
 
     return (
         <div className="createPostPage">
@@ -39,8 +39,8 @@ const AddEvent = () => {
             <div className="inputGp">
             <label>Event Name</label>
                 <input type="text"
-                value={name}
-                onChange={(e)=> setName(e.target.value)}
+                value={title}
+                onChange={(e)=> setTitle(e.target.value)}
                 required/>
             </div>
             <div className="inputGp">

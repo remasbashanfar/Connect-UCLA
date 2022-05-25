@@ -8,10 +8,12 @@ class PostAPI {
     }
 
     getPostById(id) {
-        console.log(`posts/${id}`);
         return ServerAPI.get(`posts/${id}`);
     }
 
+    createPost(event) {
+        return ServerAPI.post('posts', event);
+    }
 
 }
 
