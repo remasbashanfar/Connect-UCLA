@@ -27,11 +27,31 @@ export default function Home() {
 
     // Get filtered posts from server
     const retrievePosts = () => {
+<<<<<<< HEAD
         PostAPI.getAll()
         .then(response => {
             setPosts(response.data);
         })
         .catch(error => console.log(error));
+=======
+        if(tags.length === 0)
+        {
+            PostAPI.getAll()
+            .then(response =>{
+                let Transform = response.data.map(d => [d._id, d.title, d.content, d.imgurl, d.tags, d.location]);
+                setPosts(Transform)
+            })
+            .catch(error => console.log(error));
+        }
+        else{
+            PostAPI.getPostByTags(tags)
+                .then(response => {
+                    let Transform = response.data.map(d => [d._id, d.title, d.content, d.imgurl, d.tags, d.location]);
+                    setPosts(Transform)
+                })
+                .catch(error => console.log(error));
+        }
+>>>>>>> 0a3f23e (Removed category from mapping and added location instead)
     };
     
 
