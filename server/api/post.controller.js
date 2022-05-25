@@ -46,8 +46,8 @@ export default class PostController {
     const post = new PostModel({
       title: req.body.title,
       content: req.body.content,
-      category: req.body.category,
-      tags: req.body.tags.split(";")
+      tags: req.body.tags.split(";"),
+      location: req.body.location,  
     })
     await post.save()
     res.send(post)
