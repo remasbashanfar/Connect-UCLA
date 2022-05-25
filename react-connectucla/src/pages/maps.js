@@ -8,7 +8,9 @@ import {
 import { renderMatches } from 'react-router-dom'
 import "@reach/combobox/styles.css"
 import mapStyles from "../components/mapStyles.js"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import Geocode from "react-geocode";
+import PostAPI from '../services/post.js'
 
 const options ={
     styles: mapStyles,
@@ -26,15 +28,72 @@ const center = {
     lng:-118.445183,
 }
 
+Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
+/*Geocode.fromAddress("Bruin Plaza").then(
+    (response) => {
+      const { lat, lng } = response.results[0].geometry.location;
+      console.log(lat, lng);
+    },
+    (error) => {
+      console.error(error);
+    }
+  );
+
+  navigator.geolocation.getCurrentPosition((position) => {
+    console.log("Latitude is :", position.coords.latitude);
+    console.log("Longitude is :", position.coords.longitude);
+  });*/
+  
 
 const libraries = ["places"]
 export default function Maps() {
+
+
     const [markers, setMarkers] = useState([])
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey:process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         libraries,
     })
 
+    useEffect(() => {
+        locationToMarker();
+    }, []);
+
+    async function locationToCoords(location){
+        console.log(location)
+    }
+
+    const locationToMarker = () => {
+        PostAPI.getAll()
+            .then(response =>{
+                let locations = [];
+                let longAndLat = [];
+                let Transform = response.data.map(d => [d._id, d.title, d.content, d.imgurl,d.tags,d.location]);
+
+
+                console.log(Transform)
+                const length = Transform[0].length-1
+                for(let i = 0; i < Transform.length; i++ )
+                {
+                    locations.push(Transform[i][length])
+                }
+
+                console.log(locations)
+                for(let j = 0; j < locations.length; j++)
+                {
+                    Geocode.fromAddress(locations[j]).then(
+                        async (response) => {
+                          const { lat, lng } = await response.results[0].geometry.location;
+
+                          setMarkers(current => [...current, {
+                            lat:lat,
+                            lng: lng,
+                            time: new Date()
+                            }])})
+                }
+                
+    })}
+    
     if(loadError)
         return "Error loading Maps"
     if(!isLoaded)
@@ -54,8 +113,11 @@ export default function Maps() {
                         }
                     ])
                 }}>
-                {markers.map(marker => <Marker key = {marker.time.toISOString()}
-                                               position = {{lat: marker.lat, lng: marker.lng}}/>)}
+                {markers.map(marker => <Marker key = {marker.time.toISOString() + marker.lat}
+                                               position = {{lat: marker.lat, lng: marker.lng}}
+                                        />
+                            )
+                }
             </GoogleMap>
         </div>
     )
