@@ -1,5 +1,6 @@
 import React from "react";
 import NavBar from '../components/navbar.js'
+import CalendarButton from '../components/googleCalendar.js'
 
     function About() {
 
@@ -7,6 +8,7 @@ import NavBar from '../components/navbar.js'
           <div>
               <NavBar></NavBar>
               This is the about page
+              <CalendarButton></CalendarButton>
           </div>
         );
 

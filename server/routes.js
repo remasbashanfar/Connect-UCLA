@@ -24,6 +24,7 @@ router.put("/users/:id", User.apiFollowUserById)
 router.put("/users/:id", User.apiUnfollowUserById)
 router.delete("/users/:id", User.apiDeleteUserById)
 
-///// 	COMMENTS 	  /////
+///// 	GOOGLE CALENDAR 	  /////
+
 
 export default router;

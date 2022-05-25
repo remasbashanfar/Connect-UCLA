@@ -11,6 +11,13 @@ class PostAPI {
         console.log(`posts/${id}`);
         return ServerAPI.get(`posts/${id}`);
     }
+    /* Implement later
+    addToCalendar(code) {
+        return ServerAPI.post('posts/add-to-calendar', { code })
+        .then(response => {
+            console.log(response.data);
+        })
+    }*/
 
 
 }

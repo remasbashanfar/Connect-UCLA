@@ -52,6 +52,15 @@ export default class PostController {
       res.send({ error: "Post does not exist" })
     }
   }
-
+  
+  static async apiAddToCalendar(req, res){
+    try {
+      const { code } = req.body
+      res.send(code)
+    } catch {
+      res.status(404)
+      res.send({ error: "Post cannot be added to calendar" })
+    }
+  }
 
 }
