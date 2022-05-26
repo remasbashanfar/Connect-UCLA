@@ -1,4 +1,5 @@
-import PostModel from "../models/Post.js"
+import PostModel from "../models/Post.js";
+import { google } from "googleapis";  // Must use {} destructor
 
 export default class PostController {
 
@@ -55,11 +56,23 @@ export default class PostController {
   
   static async apiAddToCalendar(req, res){
     try {
+      // code from sign in and consent in client
       const { code } = req.body
-      res.send(code)
-    } catch {
-      res.status(404)
-      res.send({ error: "Post cannot be added to calendar" })
+      console.log(code);
+      // Auth instance
+      const oauth2Client = new google.auth.OAuth2(
+        "1074046883630-561fblnmo26ek7lppki22d1ldflgir10.apps.googleusercontent.com",
+        "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",
+        "http://localhost:3000"
+      );
+      // Request token
+      const token = await oauth2Client.getToken(code)
+
+      res.send(token)
+    } catch (error) {
+      console.log(error);
+      res.status(404);
+      res.send({ error: "Post cannot be added to calendar" });
     }
   }
 

@@ -1,6 +1,6 @@
 import React from "react";
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
-import axios from 'axios';
+import { useGoogleLogin, GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+
 import PostAPI from '../services/post.js'
 // From 
 // https://www.npmjs.com/package/react-google-login
@@ -13,15 +13,25 @@ export default function CalendarButton(props) {
         console.log(response);
         const { code } = response
         PostAPI.addToCalendar(code)
-        .then(response => {console.log(response)})
-        .catch(error => {console.log(error)})
+        .then(response => {
+            console.log("API response success")
+            console.log(response)})
+        .catch(error => {
+            console.log("API response failure")
+            console.log(error)})
     }
     
-    const failureGoogle = (response) => {
+    const errorGoogle = (response) => {
         console.log("Did not work - FAILURE");
         console.log(response);
     }
     
+    const login = useGoogleLogin({
+        onSuccess: responseGoogle,
+        onError: errorGoogle,
+        flow: 'auth-code',
+        scope: "openid email profile https://www.googleapis.com/auth/calendar",
+    });
 
     return(
         <div>
@@ -32,14 +42,16 @@ export default function CalendarButton(props) {
             
             buttonText="Add to calendar"
             onSuccess={responseGoogle}
-            onError={failureGoogle}
+            onError={errorGoogle}
             cookiePolicy={'single_host_origin'}
             responseType="code" //Retrieve auth code
-            accessType="offline" // Get refresh token
             scope="openid email profile https://www.googleapis.com/auth/calendar"
             >
-            
             </GoogleLogin>
+
+            <button onClick={() => login()}>
+                Sign in with Google
+            </button>
             </GoogleOAuthProvider>
         </div>
     );
