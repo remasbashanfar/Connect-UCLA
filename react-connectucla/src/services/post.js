@@ -15,6 +15,10 @@ class PostAPI {
         return ServerAPI.post('posts/add-to-calendar', { code, props });
     }
 
+    deletePost(id) {
+        return ServerAPI.delete(`posts/${id}`);
+    }
+
 
 }
 

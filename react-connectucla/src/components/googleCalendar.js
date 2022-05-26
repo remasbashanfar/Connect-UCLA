@@ -1,6 +1,7 @@
 import React from "react";
 import { useGoogleLogin } from '@react-oauth/google';
-
+import Button from '@mui/material/Button';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import PostAPI from '../services/post.js'
 // From 
 // https://www.npmjs.com/package/react-google-login
@@ -33,9 +34,9 @@ export default function CalendarButton(props) {
 
     return(
         <div>
-            <button onClick={() => login()}>
-                Sign in with Google
-            </button>
+            <Button variant="outlined" endIcon={<EventAvailableIcon />} onClick={() => login()}>
+            Add to Calendar
+            </Button>
         </div>
     );
 }

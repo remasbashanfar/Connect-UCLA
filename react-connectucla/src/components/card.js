@@ -7,6 +7,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import SendIcon from '@mui/icons-material/Send';
 
 export default function ImgMediaCard(props) {
   return (
@@ -27,7 +28,9 @@ export default function ImgMediaCard(props) {
       </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small">Interested</Button>
+        <Button variant="outlined" endIcon={<SendIcon />}>
+        RSVP
+        </Button>
         <Button size="small">See Post</Button>
       </CardActions>
     </Card>

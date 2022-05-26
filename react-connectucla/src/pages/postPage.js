@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import NavBar from '../components/navbar.js'
 import PostAPI from '../services/post.js'
 import CalendarButton from '../components/googleCalendar.js'
+import DeleteButton from '../components/deleteButton.js'
 
 export default function PostPage() {
     // Variables + hooks
@@ -34,6 +35,9 @@ export default function PostPage() {
               start="2022-05-26T13:00:00"
               end="2022-05-26T14:00:00"
               ></CalendarButton>
+
+            <DeleteButton id={id}>
+            </DeleteButton>
         </div>
     );
 
