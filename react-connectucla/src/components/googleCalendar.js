@@ -12,15 +12,15 @@ export default function CalendarButton(props) {
         const { code } = response // destruct code from response
         PostAPI.addToCalendar(code) // call api with code to generate tokens
         .then(response => {
-            console.log("API tokens")
-            console.log(response.data)})
+            console.log("Successfully added to calendar")
+            console.log(response)})
         .catch(error => {
-            console.log("API response failure")
+            console.log("Cannot add to calendar")
             console.log(error)})
     }
     
     const errorGoogle = (response) => {
-        console.log("Did not work - FAILURE");
+        console.log("Could not sign in with Google");
         console.log(response);
     }
     
