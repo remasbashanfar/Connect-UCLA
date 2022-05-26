@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 
 const PostSchema = new mongoose.Schema({
@@ -18,7 +19,7 @@ const PostSchema = new mongoose.Schema({
         required: false,
     },
     RSVP_counter: {
-        type: Array,
+        type: Number,
         required: true,
     },
     tags: {
@@ -26,7 +27,7 @@ const PostSchema = new mongoose.Schema({
         required: false,
     },
     author: {
-        type: String,
+        type: ObjectId,
         required: true,
     },
     content:{
