@@ -1,5 +1,8 @@
 import PostModel from "../models/Post.js";
 import { google } from "googleapis";  // Must use {} destructor
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export default class PostController {
 
@@ -54,21 +57,43 @@ export default class PostController {
     }
   }
   
+  // Creates Auth + Refresh token for Google Calendar
   static async apiAddToCalendar(req, res){
     try {
       // code from sign in and consent in client
       const { code } = req.body
-      console.log(code);
+
       // Auth instance
       const oauth2Client = new google.auth.OAuth2(
-        "1074046883630-561fblnmo26ek7lppki22d1ldflgir10.apps.googleusercontent.com",
-        "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",
+        process.env.GOOGLE_CLIENT_ID,
+        process.env.GOOGLE_CLIENT_SECRET,
         "http://localhost:3000"
       );
+
       // Request token
       const token = await oauth2Client.getToken(code)
 
-      res.send(token)
+      // set credentials to access calendar
+      oauth2Client.setCredentials({
+        access_token: token.tokens.access_token,
+        refresh_token: token.tokens.refresh_token,
+        expiry_date: token.tokens.expiry_date,
+      });
+
+      const calendar = google.calendar('v3');
+      const result = calendar.events.insert({
+        auth: oauth2Client,
+        calendarId: 'primary',
+        requestBody: {
+          summary: "test summary",
+          description: "description test",
+          location: "location test",
+          start: {dateTime: new Date("2022-05-26T10:00:00")},
+          end: {dateTime: new Date("2022-05-26T12:00:00")},
+        },
+      })
+
+      res.send(result)
     } catch (error) {
       console.log(error);
       res.status(404);

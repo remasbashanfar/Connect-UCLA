@@ -9,13 +9,11 @@ import PostAPI from '../services/post.js'
 export default function CalendarButton(props) {
 
     const responseGoogle = (response) => {
-        console.log("SUCCESS");
-        console.log(response);
-        const { code } = response
-        PostAPI.addToCalendar(code)
+        const { code } = response // destruct code from response
+        PostAPI.addToCalendar(code) // call api with code to generate tokens
         .then(response => {
-            console.log("API response success")
-            console.log(response)})
+            console.log("API tokens")
+            console.log(response.data)})
         .catch(error => {
             console.log("API response failure")
             console.log(error)})
