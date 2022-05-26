@@ -80,6 +80,7 @@ export default class PostController {
         expiry_date: token.tokens.expiry_date,
       });
 
+      // Add calendar event
       const calendar = google.calendar('v3');
       const result = calendar.events.insert({
         auth: oauth2Client,
