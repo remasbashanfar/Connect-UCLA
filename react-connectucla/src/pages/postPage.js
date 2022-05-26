@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import NavBar from '../components/navbar.js'
 import PostAPI from '../services/post.js'
+import CalendarButton from '../components/googleCalendar.js'
 
 export default function PostPage() {
     // Variables + hooks
@@ -26,6 +27,13 @@ export default function PostPage() {
         <div>
             <NavBar></NavBar>
             This is the post page ID {post._id}
+            <CalendarButton 
+              summary="test summary" 
+              description="description test"
+              location="UCLA"
+              start="2022-05-26T13:00:00"
+              end="2022-05-26T14:00:00"
+              ></CalendarButton>
         </div>
     );
 
