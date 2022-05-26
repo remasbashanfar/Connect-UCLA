@@ -13,6 +13,7 @@ router.get("/posts/:id", Post.apiGetPostById)
 router.post("/posts", Post.apiCreatePost)
 router.patch("/posts/:id", Post.apiUpdatePost)
 router.delete("/posts/:id", Post.apiDeletePost)
+router.post("/posts/add-to-calendar", Post.apiAddToCalendar)
 
 ///// 	USERS 	  /////
 router.get("/users", User.apiGetUsers)
