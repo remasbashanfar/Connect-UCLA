@@ -1,5 +1,5 @@
 import React from "react";
-import { useGoogleLogin, GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
 
 import PostAPI from '../services/post.js'
 // From 
@@ -33,24 +33,9 @@ export default function CalendarButton(props) {
 
     return(
         <div>
-            <GoogleOAuthProvider 
-            clientId="1074046883630-561fblnmo26ek7lppki22d1ldflgir10.apps.googleusercontent.com"
-            >
-            <GoogleLogin 
-            
-            buttonText="Add to calendar"
-            onSuccess={responseGoogle}
-            onError={errorGoogle}
-            cookiePolicy={'single_host_origin'}
-            responseType="code" //Retrieve auth code
-            scope="openid email profile https://www.googleapis.com/auth/calendar"
-            >
-            </GoogleLogin>
-
             <button onClick={() => login()}>
                 Sign in with Google
             </button>
-            </GoogleOAuthProvider>
         </div>
     );
 }
