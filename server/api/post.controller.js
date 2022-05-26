@@ -60,8 +60,8 @@ export default class PostController {
   // Creates Auth + Refresh token for Google Calendar
   static async apiAddToCalendar(req, res){
     try {
-      // code from sign in and consent in client
-      const { code } = req.body
+      // code from sign in and consent in client and props passed to component
+      const { code, props } = req.body;
 
       // Auth instance
       const oauth2Client = new google.auth.OAuth2(
@@ -85,11 +85,11 @@ export default class PostController {
         auth: oauth2Client,
         calendarId: 'primary',
         requestBody: {
-          summary: "test summary",
-          description: "description test",
-          location: "location test",
-          start: {dateTime: new Date("2022-05-26T10:00:00")},
-          end: {dateTime: new Date("2022-05-26T12:00:00")},
+          summary: props.summary,
+          description: props.description,
+          location: props.location,
+          start: {dateTime: new Date(props.start)},
+          end: {dateTime: new Date(props.end)},
         },
       })
 

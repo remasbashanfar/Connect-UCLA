@@ -11,8 +11,8 @@ class PostAPI {
         return ServerAPI.get(`posts/${id}`);
     }
 
-    addToCalendar(code) {
-        return ServerAPI.post('posts/add-to-calendar', { code });
+    addToCalendar(code, props) {
+        return ServerAPI.post('posts/add-to-calendar', { code, props });
     }
 
 

@@ -10,7 +10,7 @@ export default function CalendarButton(props) {
 
     const responseGoogle = (response) => {
         const { code } = response // destruct code from response
-        PostAPI.addToCalendar(code) // call api with code to generate tokens
+        PostAPI.addToCalendar(code, props) // call api with code to generate tokens
         .then(response => {
             console.log("Successfully added to calendar")
             console.log(response)})
