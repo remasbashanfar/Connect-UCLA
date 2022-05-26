@@ -8,8 +8,11 @@ class PostAPI {
     }
 
     getPostById(id) {
-        console.log(`posts/${id}`);
         return ServerAPI.get(`posts/${id}`);
+    }
+
+    addToCalendar(code, props) {
+        return ServerAPI.post('posts/add-to-calendar', { code, props });
     }
 
 
