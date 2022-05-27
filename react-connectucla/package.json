@@ -6,13 +6,9 @@
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.8.0",
-<<<<<<< HEAD
     "@mui/material": "^5.8.1",
-=======
-    "@mui/material": "^5.7.0",
     "@reach/combobox": "^0.17.0",
     "@react-google-maps/api": "^2.11.8",
->>>>>>> 9d11988b89171d9f0236b2ee9b69058184d6f313
     "@react-oauth/google": "^0.2.4",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
