@@ -7,13 +7,9 @@ import Login from "./pages/login/Login.jsx"
 import Register from "./pages/register/Register.jsx"
 import PostPage from "./pages/postPage.js"
 import Maps from "./pages/maps.js"
-<<<<<<< HEAD
 // imports for Context API 
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
-=======
-import React from 'react'
->>>>>>> d8f7f6b (Finally fixed all dependency issues after removing certain ones)
 
 function App() {
   const { user } = useContext(AuthContext);
