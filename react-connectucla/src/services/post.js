@@ -19,7 +19,19 @@ class PostAPI {
         return ServerAPI.delete(`posts/${id}`);
     }
 
+    getPostByTags(tags){
+        let queryString = "";
 
+        for(let i = 0; i < tags.length; i++)
+        {
+            if(i === tags.length -1)
+                queryString += 'tags=' + tags[i]
+            else
+                queryString+= 'tags=' + tags[i] + '&'
+        }
+        console.log(queryString)
+        return ServerAPI.get(`posts/filter/tags?` + queryString)
+    }
 }
 
 export default new PostAPI();
