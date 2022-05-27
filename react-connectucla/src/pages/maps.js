@@ -29,17 +29,9 @@ const center = {
 }
 
 Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
-/*Geocode.fromAddress("Bruin Plaza").then(
-    (response) => {
-      const { lat, lng } = response.results[0].geometry.location;
-      console.log(lat, lng);
-    },
-    (error) => {
-      console.error(error);
-    }
-  );
 
-  navigator.geolocation.getCurrentPosition((position) => {
+
+  /*navigator.geolocation.getCurrentPosition((position) => {
     console.log("Latitude is :", position.coords.latitude);
     console.log("Longitude is :", position.coords.longitude);
   });*/
@@ -59,10 +51,6 @@ export default function Maps() {
         locationToMarker();
     }, []);
 
-    async function locationToCoords(location){
-        console.log(location)
-    }
-
     const locationToMarker = () => {
         PostAPI.getAll()
             .then(response =>{
@@ -71,14 +59,12 @@ export default function Maps() {
                 let Transform = response.data.map(d => [d._id, d.title, d.content, d.imgurl,d.tags,d.location]);
 
 
-                console.log(Transform)
                 const length = Transform[0].length-1
                 for(let i = 0; i < Transform.length; i++ )
                 {
                     locations.push(Transform[i][length])
                 }
 
-                console.log(locations)
                 for(let j = 0; j < locations.length; j++)
                 {
                     Geocode.fromAddress(locations[j]).then(
