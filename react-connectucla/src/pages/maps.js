@@ -67,6 +67,8 @@ export default function Maps() {
 
                 for(let j = 0; j < locations.length; j++)
                 {
+                    if (locations[j] == null)
+                        continue;
                     Geocode.fromAddress(locations[j]).then(
                         async (response) => {
                           const { lat, lng } = await response.results[0].geometry.location;
