@@ -4,6 +4,7 @@
     "@reach/combobox": "^0.17.0",
     "@react-google-maps/api": "^2.11.8",
     "geolocation": "^0.2.0",
+    "googleapis": "^100.0.0",
     "react-geocode": "^0.2.3",
     "react-google-login": "^5.2.2",
     "react-simple-maps": "^2.3.0"

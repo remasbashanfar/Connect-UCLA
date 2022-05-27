@@ -28,6 +28,7 @@ function App() {
        <Route path="*" element={<ErrorPage/>}/>
        <Route path="/login" element={user ? <Home/> : <Login/>}/>
        <Route path="/register" element={<Register/>}/>
+       <Route path="/addEvent" element={<AddEvent/>}/>
        <Route path="/post/:id" element={<PostPage/>}/>
        <Route path="/maps" element={<Maps/>}/>
        </Routes>

@@ -46,16 +46,13 @@ export default class PostController {
     const post = new PostModel({
       title: req.body.title,
       content: req.body.content,
-<<<<<<< HEAD
       imgurl: req.body.imgurl,
       date: req.body.date,
       startTime: req.body.startTime,
       endTime: req.body.endTime,
       organizer: req.body.organizer,
-=======
       tags: req.body.tags.split(";"),
       location: req.body.location,  
->>>>>>> 9d11988b89171d9f0236b2ee9b69058184d6f313
     })
     await post.save()
     res.send(post)
