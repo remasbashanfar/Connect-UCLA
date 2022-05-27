@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 
 const PostSchema = new mongoose.Schema({
@@ -5,11 +6,11 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    category: {
+    location:{
         type: String,
         required: false,
     },
-    content: {
+    startTime:{
         type: String,
         required: true,
     },
@@ -32,9 +33,30 @@ const PostSchema = new mongoose.Schema({
     imgurl: {
         type: String,
         required: false,
+    },
+    RSVP_counter: {
+        type: Number,
+        required: true,
+    },
+    tags: {
+        type: Array,
+        required: false,
+    },
+    author: {
+        type: ObjectId,
+        required: true,
+    },
+    content:{
+        type: String,
+        required: true,
+    },
+    endTime: {
+        type: String,
+        required: false,
     }},
     {collection: "posts"}
-)
+);
+ 
 
 // changed from "posts" to "Post"
 const PostModel = mongoose.model("Post", PostSchema)

@@ -5,6 +5,28 @@ import bodyParser from "body-parser"
 export default class UserController {
 
   ///// 	Create User	        /////
+  static async apiRegisterUser(req, res){
+    try {
+        // create and encrypt a password using bcrypt (salt = random string)
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    
+        // create new user
+        const newUser = new UserModel({
+          username: req.body.username,
+          password: hashedPassword,
+          isOrganization: req.body.isOrganization,
+          email: req.body.email ? req.body.email : null,
+        });
+        console.log(req.body.email);
+        // save the new user and send back HTTP response
+        const user = await newUser.save();
+        res.status(200).json(user);
+    } catch {
+        res.status(500).json({ error: "Registration Error" })
+    }
+  } 
+    ///// 	Create User	        /////
   static async apiCreateUser(req, res){
     try {
         // create and encrypt a password using bcrypt (salt = random string)
