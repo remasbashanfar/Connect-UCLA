@@ -88,7 +88,7 @@ export default function Maps() {
                             time: new Date(),
                             startTime: Posts[j][3] == null ? "n/a" : Posts[j][3],
                             endTime: Posts[j][9]  == null ? "n/a" : Posts[j][9],
-                            date: Posts[j][4],
+                            date: Posts[j][4] == null ? "n/a" : Posts[j][9],
                             location: Posts[j][10],
                             }])})
                 }
@@ -101,6 +101,8 @@ export default function Maps() {
         return "Loading Maps"
     return(
         <div>
+            <button>
+            </button>
             <GoogleMap 
                 mapContainerStyle={mapContainerStyle}
                 zoom = {16}
