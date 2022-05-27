@@ -55,7 +55,6 @@ export default function Maps() {
         PostAPI.getAll()
             .then(response =>{
                 let locations = [];
-                let longAndLat = [];
                 let Transform = response.data.map(d => [d._id, d.title, d.content, d.imgurl,d.tags,d.location]);
 
 

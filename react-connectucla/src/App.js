@@ -10,6 +10,7 @@ import Maps from "./pages/maps.js"
 // imports for Context API 
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
+import React from 'react'
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -28,6 +29,7 @@ function App() {
        <Route path="/login" element={user ? <Home/> : <Login/>}/>
        <Route path="/register" element={<Register/>}/>
        <Route path="/post/:id" element={<PostPage/>}/>
+       <Route path="/maps" element={<Maps/>}/>
        </Routes>
        </BrowserRouter>
       </GoogleOAuthProvider>

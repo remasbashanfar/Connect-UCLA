@@ -27,13 +27,6 @@ export default function Home() {
 
     // Get filtered posts from server
     const retrievePosts = () => {
-<<<<<<< HEAD
-        PostAPI.getAll()
-        .then(response => {
-            setPosts(response.data);
-        })
-        .catch(error => console.log(error));
-=======
         if(tags.length === 0)
         {
             PostAPI.getAll()
@@ -51,7 +44,6 @@ export default function Home() {
                 })
                 .catch(error => console.log(error));
         }
->>>>>>> 0a3f23e (Removed category from mapping and added location instead)
     };
     
 
@@ -70,7 +62,7 @@ export default function Home() {
     }
 
     const removeTag = (removedTag) =>{
-        setTags(tags.filter(tag => tag != removedTag))
+        setTags(tags.filter(tag => tag !== removedTag))
     }
 
 
