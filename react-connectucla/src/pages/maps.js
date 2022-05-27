@@ -28,6 +28,7 @@ const center = {
     lng:-118.445183,
 }
 
+
 Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
 
 
@@ -40,8 +41,10 @@ Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
 const libraries = ["places"]
 export default function Maps() {
 
-
+    
     const [markers, setMarkers] = useState([])
+    const [selected, setSelected] = useState(null);
+
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey:process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         libraries,
@@ -51,17 +54,23 @@ export default function Maps() {
         locationToMarker();
     }, []);
 
+    const mapRef = React.useRef();
+
+    const onMapLoad = React.useCallback((map) => {
+        mapRef.current = map;
+    },[])
+
     const locationToMarker = () => {
         PostAPI.getAll()
             .then(response =>{
                 let locations = [];
-                let Transform = response.data.map(d => [d._id, d.title, d.content, d.imgurl,d.tags,d.location]);
+                let Posts = response.data.map(d => [d._id, d.title, d.location, d.startTime, d.date, 
+                                                        d.RSVP_counter, d.tags, d.author, d.content, d.endTime, d.location]);
 
-
-                const length = Transform[0].length-1
-                for(let i = 0; i < Transform.length; i++ )
+                const locationIndex = Posts[0].length-1
+                for(let i = 0; i < Posts.length; i++ )
                 {
-                    locations.push(Transform[i][length])
+                    locations.push(Posts[i][locationIndex])
                 }
 
                 for(let j = 0; j < locations.length; j++)
@@ -72,10 +81,15 @@ export default function Maps() {
                         async (response) => {
                           const { lat, lng } = await response.results[0].geometry.location;
 
+                        //I shouldn't hard code these indices but it is ok for time being
                           setMarkers(current => [...current, {
                             lat:lat,
                             lng: lng,
-                            time: new Date()
+                            time: new Date(),
+                            startTime: Posts[j][3] == null ? "n/a" : Posts[j][3],
+                            endTime: Posts[j][9]  == null ? "n/a" : Posts[j][9],
+                            date: Posts[j][4],
+                            location: Posts[j][10],
                             }])})
                 }
                 
@@ -92,18 +106,27 @@ export default function Maps() {
                 zoom = {16}
                 center = {center}
                 options = {options}
-                onClick={(event) => {
-                    setMarkers(current => [...current, {
-                        lat:event.latLng.lat(),
-                        lng: event.latLng.lng(),
-                        time: new Date()
-                        }
-                    ])
-                }}>
+                onLoad = {onMapLoad}
+            >
                 {markers.map(marker => <Marker key = {marker.time.toISOString() + marker.lat}
                                                position = {{lat: marker.lat, lng: marker.lng}}
+                                               onClick = {()=>{setSelected(marker)}}
                                         />
                             )
+                }
+                {selected ? (
+                    <InfoWindow position = {{lat:selected.lat, lng:selected.lng}} 
+                                onCloseClick = { () =>{
+                                    setSelected(null)}
+                                }
+                    >
+                        <div>
+                            <p>Location: {selected.location}</p>
+                            <p>Date: {selected.date}</p>
+                            <p>Start Time: {selected.startTime}</p>
+                            <p>End Time: {selected.endTime}</p>
+                        </div>
+                    </InfoWindow>) : null
                 }
             </GoogleMap>
         </div>
