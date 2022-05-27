@@ -18,7 +18,7 @@ router.post("/posts/add-to-calendar", Post.apiAddToCalendar)
 ///// 	USERS 	  /////
 router.get("/users", User.apiGetUsers)
 router.get("/users/:id", User.apiGetUserById)
-router.post("/users/register", User.apiCreateUser)
+router.post("/users/register", User.apiRegisterUser)
 router.post("/users/login", User.apiUserLogin)
 router.put("/users/:id", User.apiUpdateUserById)
 router.put("/users/:id", User.apiFollowUserById)

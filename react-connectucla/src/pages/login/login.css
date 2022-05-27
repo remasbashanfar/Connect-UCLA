@@ -1,0 +1,86 @@
+.login {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    background-color: #dce6f0;
+}
+.login .loginLogoBox {
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    height: 130px;
+    background-color: rgba(3, 52, 90, .9);
+    font-family: Impact, sans-serif;
+    font-family: 'open sans', sans-serif;
+    text-align: center;
+    font-style: italic;
+    font-size: 40px;
+    color: white;
+    font-weight: 500;
+}
+.login .loginLogoBox:hover {
+    background-image: url(./login-bg-crop.jpeg);
+    background-size: cover;
+}
+
+.login .loginBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 1rem;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: rgba(139, 184, 232, 0.5);
+}
+
+.login .loginBox .loginInput{
+    margin-bottom: 1rem;
+    height: 60px;
+    border-radius: 10px;
+    border: 1px solid #DAEBFE;
+    font-size: 18px;
+    padding-left: 20px;
+}
+
+.login .loginBox .loginInput:focus{
+    outline: none;
+}
+
+.login .loginBox span {
+    text-align: center;
+    color: rgb(3, 52, 90);
+}
+
+.login .loginBox .loginButton{
+    margin-bottom: 1rem;
+    height: 55px;
+    width: 480px;
+    border-radius: 10px;
+    border: none;
+    align-self: center;
+    background-color: rgb(3, 52, 90);
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.loginRegisterButton {
+    margin-top: 1rem;
+    height: 45px;
+    border-radius: 10px;
+    border: none;
+    width: 300px;
+    align-self: center;
+    color: white;    
+    background-color: #6b9ed5;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+}
