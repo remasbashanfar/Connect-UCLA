@@ -31,15 +31,31 @@ export default class PostController {
     }
   }
 
+  static async apiGetPostWithFilter(req,res){
+    try{
+      const postTags = req.query.tags
+      
+      const posts = await PostModel.find({tags : {$in : postTags}})
+      res.send(posts)
+    }catch{
+      res.status(404).send("Cant filter posts")
+    }
+  }
+
   static async apiCreatePost(req, res){
     const post = new PostModel({
       title: req.body.title,
       content: req.body.content,
+<<<<<<< HEAD
       imgurl: req.body.imgurl,
       date: req.body.date,
       startTime: req.body.startTime,
       endTime: req.body.endTime,
       organizer: req.body.organizer,
+=======
+      tags: req.body.tags.split(";"),
+      location: req.body.location,  
+>>>>>>> 9d11988b89171d9f0236b2ee9b69058184d6f313
     })
     await post.save()
     res.send(post)

@@ -14,6 +14,7 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+<<<<<<< HEAD
     date: {
         type: String,
         required: true,
@@ -30,6 +31,12 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+=======
+    date:{
+        type: String,
+        required: true,
+    },
+>>>>>>> 9d11988b89171d9f0236b2ee9b69058184d6f313
     imgurl: {
         type: String,
         required: false,
@@ -51,6 +58,10 @@ const PostSchema = new mongoose.Schema({
         required: true,
     },
     endTime: {
+        type:String,
+        required: false,
+    },
+    location:{
         type: String,
         required: false,
     }},

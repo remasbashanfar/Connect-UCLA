@@ -7,9 +7,13 @@ import Login from "./pages/login/Login.jsx"
 import Register from "./pages/register/Register.jsx"
 import PostPage from "./pages/postPage.js"
 // imports for Context API 
+import AddEvent from "./pages/addEvent.js";
+import Maps from "./pages/maps.js"
+// imports for Context API 
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
-import AddEvent from "./pages/addEvent.js";
+import React from 'react'
+
 function App() {
   const { user } = useContext(AuthContext);
   return (
@@ -25,9 +29,7 @@ function App() {
        <Route path="/login" element={user ? <Home/> : <Login/>}/>
        <Route path="/register" element={<Register/>}/>
        <Route path="/post/:id" element={<PostPage/>}/>
-       <Route path="/addEvent" element={<AddEvent/>}/>
-
-
+       <Route path="/maps" element={<Maps/>}/>
        </Routes>
        </BrowserRouter>
       </GoogleOAuthProvider>
