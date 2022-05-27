@@ -4,6 +4,7 @@ import NavBar from '../components/navbar.js'
 import PostAPI from '../services/post.js'
 import CalendarButton from '../components/googleCalendar.js'
 import DeleteButton from '../components/deleteButton.js'
+import "./addEvent.css";
 
 export default function PostPage() {
     // Variables + hooks
@@ -27,17 +28,22 @@ export default function PostPage() {
     return (
         <div>
             <NavBar></NavBar>
-            This is the post page ID {post._id}
-            <div>
+            <div className="createPostPage">
+            <div className="cpContainer">
             <h2>Event Name</h2>
             {post.title}
            <h2>Organizer</h2>
+           {post.organizer}
            <h2>When?</h2>
+           On {post.date} from {post.startTime} to {post.endTime}
            <h2>Where?</h2>
+           {post.location}
            <h2>Details</h2>
            {post.conent}
            <h2>Poster Link</h2>
            {post.imgurl}
+           <h2>Tags</h2>
+           {post.tags}
             </div>
 
             <CalendarButton 
@@ -50,6 +56,8 @@ export default function PostPage() {
 
             <DeleteButton id={id}>
             </DeleteButton>
+            </div>
+            {/* This is the post page ID {post._id} */}
         </div>
     );
 

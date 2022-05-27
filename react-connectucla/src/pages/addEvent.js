@@ -5,8 +5,12 @@ import PostAPI from '../services/post.js'
 import {useNavigate} from 'react-router-dom'
 import Button from '@material-ui/core'
 // import NavBar from '../components/navbar.js'
+import TagsInput from './inputTags.js';
 
 const AddEvent = () => {
+    const selectedTags = tags => {
+		console.log(tags);
+	};
     const navigate = useNavigate()
     const [title, setTitle]=useState('')
     const [organizer, setOrganizer]=useState('')
@@ -15,17 +19,20 @@ const AddEvent = () => {
     const [endTime, setendTime]=useState('')
     const [details, setDetails]=useState('')
     const [url, setUrl]=useState('')
+    const [location, setLocation]=useState('')
+    const [tags, setTags] = React.useState(tags);
     const handleSubmit = (e) => {
         e.preventDefault()
         //post object MUST CORRESPOND TO POST SCHEMA and be json object
         const event= {
             title: title, 
-            organizer: organizer, 
+            author: organizer, 
             date:date, 
             startTime:startTime, 
             endTime:endTime, 
             content:details, 
-            imgurl:url
+            imgurl:url,
+            tags: tags
         }
         
         //post request code, not working
@@ -84,11 +91,52 @@ const AddEvent = () => {
                 </textarea>
             </div>
             <div className="inputGp">
+            <label>Location</label>
+                <textarea
+                value={location}
+                onChange={(e)=> setLocation(e.target.value)}
+                required>
+                </textarea>
+            </div>
+            <div className="inputGp">
             <label>Poster URL</label>
                 <input type="url"
                 value={url}
                 onChange={(e)=> setUrl(e.target.value)}
                 required/>
+            </div>
+            {/* <div className="inputGp">
+            <label>Tags</label>
+                <input type="tags"
+                value={tags}
+                onChange={(e)=> setTags(e.target.value)}
+                required/>
+            </div> */}
+            {/* <div className="tags-input">
+			<ul id="tags">
+				{tags.map((tag, index) => (
+					<li key={index} className="tag">
+						<span className='tag-title'>{tag}</span>
+						<span className='tag-close-icon'
+							onClick={() => removeTags(index)}
+						>
+							x
+						</span>
+					</li>
+				))}
+			</ul>
+			<input
+				type="text"
+				onKeyUp={event => event.key === "Enter" ? addTags(event) : null}
+				placeholder="Press enter to add tags"
+			/>
+		</div> */}
+        <div className="inputGp">
+            <label>Add Tags</label>
+            <TagsInput selectedTags={selectedTags} tags={[]} //might not be inputting
+            value={tags} //???
+            onChange={(e)=> setTags(e.target.value)}
+            />
             </div>
             <button>Add Event</button>
             </form>

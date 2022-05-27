@@ -27,26 +27,18 @@ export default function Home() {
 
     // Get filtered posts from server
     const retrievePosts = () => {
-        PostAPI.getAll()
-        .then(response => {
-            setPosts(response.data);
-            // setPosts(response.event);// added?
-        })
-        .catch(error => console.log(error));
         if(tags.length === 0)
         {
             PostAPI.getAll()
             .then(response =>{
-                let Transform = response.data.map(d => [d._id, d.title, d.content, d.imgurl, d.tags, d.location]);
-                setPosts(Transform)
+                setPosts(response.data)
             })
             .catch(error => console.log(error));
         }
         else{
             PostAPI.getPostByTags(tags)
                 .then(response => {
-                    let Transform = response.data.map(d => [d._id, d.title, d.content, d.imgurl, d.tags, d.location]);
-                    setPosts(Transform)
+                    setPosts(response.data)
                 })
                 .catch(error => console.log(error));
         }

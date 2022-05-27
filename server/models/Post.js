@@ -31,7 +31,7 @@ const PostSchema = new mongoose.Schema({
         required: false,
     },
     author: {
-        type: ObjectId,
+        type: String,
         required: true,
     },
     content:{
