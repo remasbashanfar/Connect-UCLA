@@ -26,6 +26,20 @@ export default function PostPage() {
         <div>
             <NavBar></NavBar>
             This is the post page ID {post._id}
+            <div
+            style={{
+            }}>
+            <h2>Event Name</h2>
+            {post.title}
+           <h2>Organizer</h2>
+           <h2>When?</h2>
+           <h2>Where?</h2>
+           <h2>Details</h2>
+           {post.conent}
+           <h2>Poster Link</h2>
+           {post.imgurl}
+            </div>
+
         </div>
     );
 

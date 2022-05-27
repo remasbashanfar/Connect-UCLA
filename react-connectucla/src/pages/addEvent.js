@@ -2,9 +2,12 @@ import { useState, useEffect} from "react";
 import React from "react";
 import "./addEvent.css";
 import PostAPI from '../services/post.js'
+import {useNavigate} from 'react-router-dom'
+import Button from '@material-ui/core'
 // import NavBar from '../components/navbar.js'
 
 const AddEvent = () => {
+    const navigate = useNavigate()
     const [title, setTitle]=useState('')
     const [organizer, setOrganizer]=useState('')
     const [date, setDate]=useState('')
@@ -27,7 +30,8 @@ const AddEvent = () => {
         
         //post request code, not working
         PostAPI.createPost(event)
-        .then(response => console.log(response.data))
+        .then(response => {console.log(response.data) 
+            navigate('/')})
         .catch(error => console.log(error));
     }
 
@@ -86,7 +90,7 @@ const AddEvent = () => {
                 onChange={(e)=> setUrl(e.target.value)}
                 required/>
             </div>
-                <button style={{textAlign:'center'}}>Add Event</button>
+            <button>Add Event</button>
             </form>
             </div>
         </div>

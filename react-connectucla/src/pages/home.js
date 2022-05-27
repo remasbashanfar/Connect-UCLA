@@ -21,6 +21,7 @@ export default function Home() {
         PostAPI.getAll()
         .then(response => {
             setPosts(response.data);
+            // setPosts(response.event);// added?
         })
         .catch(error => console.log(error));
     };
@@ -42,7 +43,7 @@ export default function Home() {
                             link={post._id}
                             image={post.imgurl} 
                             title={post.title}
-                            description={post.content}
+                            description={post.content} //add event stuff, event.title? etc
                             />
                         </Grid>
                         )
