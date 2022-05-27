@@ -31,16 +31,14 @@ export default function Home() {
         {
             PostAPI.getAll()
             .then(response =>{
-                let Transform = response.data.map(d => [d._id, d.title, d.content, d.imgurl, d.tags, d.location]);
-                setPosts(Transform)
+                setPosts(response.data)
             })
             .catch(error => console.log(error));
         }
         else{
             PostAPI.getPostByTags(tags)
                 .then(response => {
-                    let Transform = response.data.map(d => [d._id, d.title, d.content, d.imgurl, d.tags, d.location]);
-                    setPosts(Transform)
+                    setPosts(response.data)
                 })
                 .catch(error => console.log(error));
         }
