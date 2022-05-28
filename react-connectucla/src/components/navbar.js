@@ -15,6 +15,7 @@ export default function ButtonAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             UCLA Connect
           </Typography>
+          <Button color="inherit" href="/addEvent">Add Event</Button>
           <Button color="inherit" href="/">Home</Button>
           <Button color="inherit" href="/about">About</Button>
           <Button color="inherit" href="/login">Login</Button>

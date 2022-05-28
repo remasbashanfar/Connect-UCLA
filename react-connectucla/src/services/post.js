@@ -10,7 +10,11 @@ class PostAPI {
     getPostById(id) {
         return ServerAPI.get(`posts/${id}`);
     }
-
+    createPost(event) {
+        console.log("serverAPI front end");
+        console.log(event);
+        return ServerAPI.post('posts', event);
+    }
     addToCalendar(code, props) {
         return ServerAPI.post('posts/add-to-calendar', { code, props });
     }

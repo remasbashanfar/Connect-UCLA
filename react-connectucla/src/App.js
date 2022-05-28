@@ -6,6 +6,8 @@ import ErrorPage from "./pages/errorPage.js"
 import Login from "./pages/login/Login.jsx"
 import Register from "./pages/register/Register.jsx"
 import PostPage from "./pages/postPage.js"
+// imports for Context API 
+import AddEvent from "./pages/addEvent.js";
 import Maps from "./pages/maps.js"
 // imports for Context API 
 import { useContext } from "react";
@@ -20,14 +22,13 @@ function App() {
        <BrowserRouter>
        
        <Routes>
-        {/* @Anyone creatin new pages, when you have a page ready, import it to App.js then add it in the same format below
-        Lmk if you need help with that -Remas */}
        {/* <Route path="/login" element={<Login/>}/> */}
        <Route path="/" element={<Home/>}/>
        <Route path="/about" element={<About/>}/>
        <Route path="*" element={<ErrorPage/>}/>
        <Route path="/login" element={user ? <Home/> : <Login/>}/>
        <Route path="/register" element={<Register/>}/>
+       <Route path="/addEvent" element={<AddEvent/>}/>
        <Route path="/post/:id" element={<PostPage/>}/>
        <Route path="/maps" element={<Maps/>}/>
        </Routes>

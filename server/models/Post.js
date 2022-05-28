@@ -8,7 +8,7 @@ const PostSchema = new mongoose.Schema({
     },
     location:{
         type: String,
-        required: true,
+        required: false,
     },
     startTime:{
         type: String,
@@ -27,7 +27,7 @@ const PostSchema = new mongoose.Schema({
         required: false,
     },
     author: {
-        type: ObjectId,
+        type: String,
         required: true,
     },
     content:{

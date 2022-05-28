@@ -86,7 +86,7 @@ export default function Home() {
                             link={post._id}
                             image={post.imgurl} 
                             title={post.title}
-                            description={post.content}
+                            description={post.content} //add event stuff, event.title? etc
                             />
                         </Grid>
                         )
