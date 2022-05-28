@@ -27,6 +27,7 @@ const AddEvent = () => {
             title: title, 
             author: organizer, 
             date:date, 
+            location:location,
             startTime:startTime, 
             endTime:endTime, 
             content:details, 

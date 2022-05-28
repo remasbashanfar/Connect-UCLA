@@ -33,18 +33,19 @@ export default function PostPage() {
             <h2>Event Name</h2>
             {post.title}
            <h2>Organizer</h2>
-           {post.organizer}
+           {post.author}
            <h2>When?</h2>
            On {post.date} from {post.startTime} to {post.endTime}
            <h2>Where?</h2>
            {post.location}
            <h2>Details</h2>
-           {post.conent}
+           {post.content}
            <h2>Poster Link</h2>
            {post.imgurl}
            <h2>Tags</h2>
            {post.tags}
             </div>
+
 
             <CalendarButton 
               summary="test summary" 
