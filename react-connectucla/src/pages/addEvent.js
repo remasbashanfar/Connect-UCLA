@@ -3,7 +3,6 @@ import React from "react";
 import "./addEvent.css";
 import PostAPI from '../services/post.js'
 import {useNavigate} from 'react-router-dom'
-import Button from '@material-ui/core'
 // import NavBar from '../components/navbar.js'
 import TagsInput from './inputTags.js';
 

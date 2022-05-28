@@ -43,6 +43,7 @@ export default class PostController {
   }
 
   static async apiCreatePost(req, res){
+    console.log(req.body);
     const post = new PostModel({
       title: req.body.title,
       content: req.body.content,
@@ -50,9 +51,10 @@ export default class PostController {
       date: req.body.date,
       startTime: req.body.startTime,
       endTime: req.body.endTime,
-      organizer: req.body.organizer,
-      tags: req.body.tags.split(";"),
+      author: req.body.author,
+      tags: req.body.tags,
       location: req.body.location,  
+      RSVP_counter: 0,
     })
     await post.save()
     res.send(post)

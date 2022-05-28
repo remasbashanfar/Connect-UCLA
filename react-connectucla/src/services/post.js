@@ -11,6 +11,8 @@ class PostAPI {
         return ServerAPI.get(`posts/${id}`);
     }
     createPost(event) {
+        console.log("serverAPI front end");
+        console.log(event);
         return ServerAPI.post('posts', event);
     }
     addToCalendar(code, props) {
