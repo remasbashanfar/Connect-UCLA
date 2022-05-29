@@ -48,11 +48,11 @@ export default function PostPage() {
 
 
             <CalendarButton 
-              summary="test summary" 
-              description="description test"
-              location="UCLA"
-              start="2022-05-26T13:00:00"
-              end="2022-05-26T14:00:00"
+              summary={post.title}
+              description={post.content}
+              location={post.location}
+              start={post.startTime}
+              end={post.endTime}
               ></CalendarButton>
 
             <DeleteButton id={id}>
