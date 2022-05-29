@@ -11,6 +11,7 @@ import mapStyles from "../components/mapStyles.js"
 import { useState, useEffect } from 'react'
 import Geocode from "react-geocode";
 import PostAPI from '../services/post.js'
+import MapFilter from '../components/mapFilter.js'
 
 const options ={
     styles: mapStyles,
@@ -44,6 +45,8 @@ export default function Maps() {
     
     const [markers, setMarkers] = useState([])
     const [selected, setSelected] = useState(null);
+    const [locationFilterStatus, setLocationFilterStatus] = useState(false)
+    const [locationFilter, setLocationFilter] = useState("")
 
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey:process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -52,7 +55,7 @@ export default function Maps() {
 
     useEffect(() => {
         locationToMarker();
-    }, []);
+    }, [locationFilter]);
 
     const mapRef = React.useRef();
 
@@ -64,33 +67,56 @@ export default function Maps() {
         PostAPI.getAll()
             .then(response =>{
                 let locations = [];
-                let Posts = response.data.map(d => [d._id, d.title, d.location, d.startTime, d.date, 
-                                                        d.RSVP_counter, d.tags, d.author, d.content, d.endTime, d.location]);
-
-                const locationIndex = Posts[0].length-1
+                let Posts = response.data
+                
                 for(let i = 0; i < Posts.length; i++ )
                 {
-                    locations.push(Posts[i][locationIndex])
+                    locations.push(Posts[i].location)
                 }
-
+                
+                setMarkers([])
                 for(let j = 0; j < locations.length; j++)
                 {
-                    if (locations[j] == null)
-                        continue;
-                    Geocode.fromAddress(locations[j]).then(
-                        async (response) => {
-                          const { lat, lng } = await response.results[0].geometry.location;
+                    if(!locationFilterStatus)
+                    {
+                        Geocode.fromAddress(locations[j]).then(
+                            async (response) => {
+                              const { lat, lng } = await response.results[0].geometry.location;
+    
+                              
+                              setMarkers(current => [...current, {
+                                lat:lat,
+                                lng: lng,
+                                time: new Date(),
+                                startTime: Posts[j].startTime == null ? "n/a" : Posts[j].startTime,
+                                endTime: Posts[j].endTime  == null ? "n/a" : Posts[j].endTime,
+                                location: Posts[j].location == null ? "n/a" : Posts[j].location,
+                                }])})
+                    }
+                    else
+                    {
+                        if(locations[j] !== locationFilter)
+                        {
+                            
+                        }
+                        else
+                        {
+                            Geocode.fromAddress(locations[j]).then(
+                                async (response) => {
+                                  const { lat, lng } = await response.results[0].geometry.location;
+        
+                                  
+                                  setMarkers(current => [...current, {
+                                    lat:lat,
+                                    lng: lng,
+                                    time: new Date(),
+                                    startTime: Posts[j].startTime == null ? "n/a" : Posts[j].startTime,
+                                    endTime: Posts[j].endTime  == null ? "n/a" : Posts[j].endTime,
+                                    location: Posts[j].location == null ? "n/a" : Posts[j].location,
+                                    }])})
+                        }
+                    }
 
-                        //I shouldn't hard code these indices but it is ok for time being
-                          setMarkers(current => [...current, {
-                            lat:lat,
-                            lng: lng,
-                            time: new Date(),
-                            startTime: Posts[j][3] == null ? "n/a" : Posts[j][3],
-                            endTime: Posts[j][9]  == null ? "n/a" : Posts[j][9],
-                            date: Posts[j][4] == null ? "n/a" : Posts[j][9],
-                            location: Posts[j][10],
-                            }])})
                 }
                 
     })}
@@ -101,8 +127,12 @@ export default function Maps() {
         return "Loading Maps"
     return(
         <div>
-            <button>
-            </button>
+            <MapFilter 
+                       locationFilterStatus = {locationFilterStatus} 
+                       setLocationFilterStatus = {setLocationFilterStatus}
+                       locationFilter = {locationFilter}
+                       setLocationFilter = {setLocationFilter}
+            />
             <GoogleMap 
                 mapContainerStyle={mapContainerStyle}
                 zoom = {16}
@@ -110,7 +140,7 @@ export default function Maps() {
                 options = {options}
                 onLoad = {onMapLoad}
             >
-                {markers.map(marker => <Marker key = {marker.time.toISOString() + marker.lat}
+                {markers.map(marker => <Marker key = {marker.time.toISOString() + marker.location + marker.startTime}
                                                position = {{lat: marker.lat, lng: marker.lng}}
                                                onClick = {()=>{setSelected(marker)}}
                                         />
