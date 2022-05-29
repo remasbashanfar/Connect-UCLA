@@ -40,23 +40,20 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function mapFilter({markers, setMarkers}) {
-  const [dateFilter, setDateFilter] = React.useState('');
-  const [locationFilter, setLocationFilter] = React.useState('')
-
-  const handleDateChange = (event) => {
-    event.preventDefault()
-    if(event.target.value == '')
-      return;
-    setDateFilter(event.target.value)
-  }
+export default function mapFilter({locationFilterStatus, setLocationFilterStatus,
+                                   locationFilter, setLocationFilter})
+ {                           
 
   const handleLocationChange = (event) => {
     event.preventDefault()
-    if(event.target.value == '')
+    if(event.target.value === "")
+    {
+      setLocationFilter("")
+      setLocationFilterStatus(false)
       return;
+    }
+    setLocationFilterStatus(true)
     setLocationFilter(event.target.value)
-    setMarkers(markers.filter(marker => marker.location == locationFilter))
   }
 
 
@@ -65,8 +62,7 @@ export default function mapFilter({markers, setMarkers}) {
     <div>
       <FormControl sx={{ m: 1 }} variant="standard">
         <InputLabel htmlFor="date-textbox">Date</InputLabel>
-        <BootstrapInput id="date-textbox"
-                        onChange = {handleDateChange}/>
+        <BootstrapInput id="date-textbox"/>
       </FormControl>
       <FormControl sx={{ m: 1 }} variant="standard">
         <InputLabel htmlFor="location-textbox">Location</InputLabel>
