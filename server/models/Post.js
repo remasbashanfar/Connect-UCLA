@@ -6,10 +6,6 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    location:{
-        type: String,
-        required: false,
-    },
     startTime:{
         type: String,
         required: true,
