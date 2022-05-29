@@ -4,6 +4,7 @@ import NavBar from '../components/navbar.js'
 import PostAPI from '../services/post.js'
 import CalendarButton from '../components/googleCalendar.js'
 import DeleteButton from '../components/deleteButton.js'
+import RsvpButton from '../components/rsvpButton'
 import "./addEvent.css";
 
 export default function PostPage() {
@@ -57,6 +58,8 @@ export default function PostPage() {
 
             <DeleteButton id={id}>
             </DeleteButton>
+
+            <RsvpButton id={id}></RsvpButton>
             </div>
             {/* This is the post page ID {post._id} */}
         </div>

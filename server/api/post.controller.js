@@ -121,4 +121,16 @@ export default class PostController {
     }
   }
 
+
+  static async apiLikePost(req, res) {
+    try {
+      const post = await PostModel.findByIdAndUpdate({ _id: req.params.id },{$inc:{RSVP_counter: 1}})
+		  res.send(post)
+    } catch (error) {
+      console.log(error);
+      res.status(404);
+      res.send({ error: "Cannot RSVP to post" });
+    }
+  }
+
 }

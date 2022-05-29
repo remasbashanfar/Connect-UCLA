@@ -23,6 +23,10 @@ class PostAPI {
         return ServerAPI.delete(`posts/${id}`);
     }
 
+    likePost(id) {
+        return ServerAPI.patch(`posts/rsvp1/${id}`);
+    }
+
     getPostByTags(tags){
         let queryString = "";
 

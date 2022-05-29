@@ -15,6 +15,7 @@ router.post("/posts", Post.apiCreatePost)
 router.patch("/posts/:id", Post.apiUpdatePost)
 router.delete("/posts/:id", Post.apiDeletePost)
 router.post("/posts/add-to-calendar", Post.apiAddToCalendar)
+router.patch("/posts/rsvp1/:id",Post.apiLikePost)
 
 ///// 	USERS 	  /////
 router.get("/users", User.apiGetUsers)

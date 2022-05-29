@@ -8,6 +8,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import SendIcon from '@mui/icons-material/Send';
+import RsvpButton from '../components/rsvpButton'
 
 export default function ImgMediaCard(props) {
   return (
@@ -28,9 +29,7 @@ export default function ImgMediaCard(props) {
       </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button variant="outlined" endIcon={<SendIcon />}>
-        RSVP
-        </Button>
+        <RsvpButton id={props.link}></RsvpButton>
         <Button size="small">See Post</Button>
       </CardActions>
     </Card>
