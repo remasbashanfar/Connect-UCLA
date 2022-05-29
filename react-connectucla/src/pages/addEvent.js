@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react";
+import { useState } from "react";
 import React from "react";
 import "./addEvent.css";
 import PostAPI from '../services/post.js'
@@ -7,9 +7,6 @@ import {useNavigate} from 'react-router-dom'
 import TagsInput from './inputTags.js';
 
 const AddEvent = () => {
-    const selectedTags = tags => {
-		console.log(tags);
-	};
     const navigate = useNavigate()
     const [title, setTitle]=useState('')
     const [organizer, setOrganizer]=useState('')
@@ -19,7 +16,7 @@ const AddEvent = () => {
     const [details, setDetails]=useState('')
     const [url, setUrl]=useState('')
     const [location, setLocation]=useState('')
-    const [tags, setTags] = React.useState(tags);
+    const [tags, setTags] = useState([]);
     const handleSubmit = (e) => {
         e.preventDefault()
         //post object MUST CORRESPOND TO POST SCHEMA and be json object
@@ -41,6 +38,10 @@ const AddEvent = () => {
             navigate('/')})
         .catch(error => console.log(error));
     }
+
+    const selectedTags = tags => {
+		console.log(tags);
+	};
 
     return (
         <div className="createPostPage">
@@ -104,39 +105,11 @@ const AddEvent = () => {
                 value={url}
                 onChange={(e)=> setUrl(e.target.value)}
                 required/>
-            </div>
-            {/* <div className="inputGp">
-            <label>Tags</label>
-                <input type="tags"
-                value={tags}
-                onChange={(e)=> setTags(e.target.value)}
-                required/>
-            </div> */}
-            {/* <div className="tags-input">
-			<ul id="tags">
-				{tags.map((tag, index) => (
-					<li key={index} className="tag">
-						<span className='tag-title'>{tag}</span>
-						<span className='tag-close-icon'
-							onClick={() => removeTags(index)}
-						>
-							x
-						</span>
-					</li>
-				))}
-			</ul>
-			<input
-				type="text"
-				onKeyUp={event => event.key === "Enter" ? addTags(event) : null}
-				placeholder="Press enter to add tags"
-			/>
-		</div> */}
-        <div className="inputGp">
+            </div>            
+            <div className="inputGp">
             <label>Add Tags</label>
-            <TagsInput selectedTags={selectedTags} tags={[]} //might not be inputting
-            value={tags} //???
-            onChange={(e)=> setTags(e.target.value)}
-            />
+                <TagsInput selectedTags={selectedTags} tags={[]}
+                />
             </div>
             <button>Add Event</button>
             </form>

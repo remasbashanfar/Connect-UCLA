@@ -1,17 +1,15 @@
 import "./inputTags.css"
 import React from "react"
-const TagsInput = props => {
-    const selectedTags = tags => {
-		console.log(tags);
-	};
+
+const TagsInput = (props) => {
 	const [tags, setTags] = React.useState(props.tags);
 	const removeTags = indexToRemove => {
 		setTags([...tags.filter((_, index) => index !== indexToRemove)]);
 	};
 	const addTags = event => {
-		if (event.target.value !== "") {
-			setTags([...tags, event.target.value]);
-			props.selectedTags([...tags, event.target.value]);
+		if (event.target.value.trim() !== "") {
+			setTags([...tags, event.target.value.trim()]);
+			props.selectedTags([...tags, event.target.value.trim()]);
 			event.target.value = "";
 		}
 	};
@@ -31,22 +29,10 @@ const TagsInput = props => {
 			</ul>
 			<input
 				type="text"
-				onKeyUp={event => event.key === "Enter" ? addTags(event) : null}
-				placeholder="Press enter to add tags"
+				onKeyPress={(event) => event.key === " " ? addTags(event) : null}
+				placeholder="Press the spacebar to add tags"
 			/>
 		</div>
 	);
 };
 export default TagsInput;
-// const App = () => {
-// 	const selectedTags = tags => {
-// 		console.log(tags);
-// 	};
-// 	return (
-// 		<div className="App">
-// 			<TagsInput selectedTags={selectedTags}  tags={['Nodejs', 'MongoDB']}/>
-// 		</div>
-// 	);
-// };
-
-// ReactDOM.render(<App />, document.getElementById("root"));
