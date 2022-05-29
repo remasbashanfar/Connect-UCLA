@@ -10,7 +10,6 @@ const AddEvent = () => {
     const navigate = useNavigate()
     const [title, setTitle]=useState('')
     const [organizer, setOrganizer]=useState('')
-    const [date, setDate]=useState('')
     const [startTime, setstartTime]=useState('')
     const [endTime, setendTime]=useState('')
     const [details, setDetails]=useState('')
@@ -23,7 +22,6 @@ const AddEvent = () => {
         const event= {
             title: title, 
             author: organizer, 
-            date:date, 
             location:location,
             startTime:startTime, 
             endTime:endTime, 
@@ -59,22 +57,15 @@ const AddEvent = () => {
                 required/>
             </div>
             <div className="inputGp">
-            <label>Date</label>
-                <input type="date"
-                value={date}
-                onChange={(e)=> setDate(e.target.value)}
-                required/>
-            </div>
-            <div className="inputGp">
             <label>Start Time</label>
-                <input type="time"
+                <input type="datetime-local"
                 value={startTime}
                 onChange={(e)=> setstartTime(e.target.value)}
                 required/>
             </div>
             <div className="inputGp">
             <label>End Time</label>
-                <input type="time"
+                <input type="datetime-local"
                 value={endTime}
                 onChange={(e)=> setendTime(e.target.value)}
                 required/>
