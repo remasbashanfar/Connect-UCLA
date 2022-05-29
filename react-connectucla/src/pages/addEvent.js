@@ -39,10 +39,6 @@ const AddEvent = () => {
         .catch(error => console.log(error));
     }
 
-    const selectedTags = tags => {
-		console.log(tags);
-	};
-
     return (
         <div className="createPostPage">
             <div className="cpContainer">
@@ -108,8 +104,7 @@ const AddEvent = () => {
             </div>            
             <div className="inputGp">
             <label>Add Tags</label>
-                <TagsInput selectedTags={selectedTags} tags={[]}
-                />
+                <TagsInput tags={tags} setTags={setTags}/>
             </div>
             <button>Add Event</button>
             </form>
