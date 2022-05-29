@@ -48,7 +48,6 @@ export default class PostController {
       title: req.body.title,
       content: req.body.content,
       imgurl: req.body.imgurl,
-      date: req.body.date,
       startTime: req.body.startTime,
       endTime: req.body.endTime,
       author: req.body.author,
