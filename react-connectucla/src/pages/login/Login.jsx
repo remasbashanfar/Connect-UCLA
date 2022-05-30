@@ -4,11 +4,13 @@ import {loginCall} from "../../services/loginCall"
 import {AuthContext} from "../../context/AuthContext"
 import CircularProgress from '@mui/material/CircularProgress';
 import "./login.css";
+import {useNavigate} from 'react-router-dom';
 
 export default function Login() {
     const username= useRef();
     const password= useRef();
     const {isFetching, dispatch} = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleLogin= (e)=>{
         e.preventDefault();
@@ -21,6 +23,8 @@ export default function Login() {
             }, 
             dispatch
         );
+        navigate("/");
+
     };
     const handleRegister=()=> {
         window.location.href = "/register";

@@ -19,7 +19,8 @@ router.patch("/posts/rsvp1/:id",Post.apiLikePost)
 
 ///// 	USERS 	  /////
 router.get("/users", User.apiGetUsers)
-router.get("/users/:id", User.apiGetUserById)
+router.get("/users/:username", User.apiGetUser)
+// router.get("/users/:username", User.apiGetUserByUsername)
 router.post("/users/register", User.apiRegisterUser)
 router.post("/users/login", User.apiUserLogin)
 router.put("/users/:id", User.apiUpdateUserById)

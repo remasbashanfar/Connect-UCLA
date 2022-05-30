@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {useNavigate} from 'react-router';
+import {useNavigate} from 'react-router-dom';
 import Button from '@mui/material/Button';
 import "./register.css"
 import UserAPI from '../../services/user.js'

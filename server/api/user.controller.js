@@ -69,14 +69,23 @@ export default class UserController {
     const users = await UserModel.find()
     res.status(200).json(users)
 }
-  static async apiGetUserById(req, res) {
+  // static async apiGetUserById(req, res) {
+  //   try {
+  //       const user = await UserModel.findById(req.params.id)
+  //       // create object "other" that contains the unlisted elements within user._doc
+  //       const {password, updatedAt, isAdmin, isOrganization, createdAt, ...other} = user._doc
+  //       res.status(200).json(other)
+  //   } catch {
+  //       res.status(404).json({ error: "User does not exist" })
+  //   }
+  // }   
+  static async apiGetUser(req, res) {
     try {
-        const user = await UserModel.findOne({ _id: req.params.id })
-        // create object "other" that contains the unlisted elements within user._doc
-        const {password, updatedAt, isAdmin, isOrganization, createdAt, ...other} = user._doc
-        res.status(200).json(other)
-    } catch {
-        res.status(404).json({ error: "User does not exist" })
+      const user = await UserModel.findOne({ username: req.params.username });
+      const {password, updatedAt, isAdmin, isOrganization, createdAt, ...other} = user._doc
+      res.status(200).json(other);
+    } catch (err) {
+      res.status(500).json(err);
     }
 }   
   ///// 	Update User	        /////

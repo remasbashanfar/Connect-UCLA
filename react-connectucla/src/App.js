@@ -5,6 +5,7 @@ import About from "./pages/about.js"
 import ErrorPage from "./pages/errorPage.js"
 import Login from "./pages/login/Login.jsx"
 import Register from "./pages/register/Register.jsx"
+import Profile from "./pages/profile/Profile.jsx"
 import PostPage from "./pages/postPage.js"
 // imports for Context API 
 import AddEvent from "./pages/addEvent.js";
@@ -29,6 +30,7 @@ function App() {
        <Route path="/login" element={user ? <Home/> : <Login/>}/>
        <Route path="/register" element={<Register/>}/>
        <Route path="/addEvent" element={<AddEvent/>}/>
+       <Route path="/profile/:username" element={<Profile/>}/>
        <Route path="/post/:id" element={<PostPage/>}/>
        <Route path="/maps" element={<Maps/>}/>
        </Routes>
