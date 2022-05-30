@@ -155,8 +155,8 @@ export default function Maps() {
                         <div>
                             <p>Location: {selected.location}</p>
                             <p>Date: {selected.date}</p>
-                            <p>Start Time: {selected.startTime}</p>
-                            <p>End Time: {selected.endTime}</p>
+                            <p>Start Time: {selected.startTime.split('T')[0]} at {selected.startTime.split('T')[1]}</p>
+                            <p>End Time: {selected.endTime.split('T')[0]} at {selected.endTime.split('T')[1]}</p>
                         </div>
                     </InfoWindow>) : null
                 }
