@@ -27,7 +27,7 @@
     right: 0;
     margin: auto;
     top: 150px;
-    border: 3px solid white;
+    border: none;
 }
 
 .profileInfo{
@@ -44,7 +44,40 @@
 .profileInfoDesc{
     font-weight: 300;
 }
-
-.profileRightBottom{
+.editButton {
+    height: 80px;
+    background-color: rgba(139, 184, 232, 0.5);
+}
+.editBox {
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 1rem;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: rgba(139, 184, 232, 0.5);
+}
+.logoutButton {
+    height: 80px;
+    background-color: rgba(139, 184, 232, 0.5);
+}
+.profileBottom{
+    margin-left: 20px;
+    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+.profileBottomLeft{
+    flex: .5;
+    display: flex;
+}
+.profileBottomMiddle{
+    flex: 3;
+    display: flex;
+}
+.profileBottomRight{
+    flex: 1;
     display: flex;
 }

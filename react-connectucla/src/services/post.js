@@ -1,6 +1,5 @@
 // For post HTTP requests to backend api
 import ServerAPI from './http-base.js';
-
 class PostAPI {
 
     getAll() {
@@ -10,11 +9,11 @@ class PostAPI {
     getPostById(id) {
         return ServerAPI.get(`posts/${id}`);
     }
+ 
     createPost(event) {
-        console.log("serverAPI front end");
-        console.log(event);
-        return ServerAPI.post('posts', event);
+        return ServerAPI.post(`posts/`, event);
     }
+
     addToCalendar(code, props) {
         return ServerAPI.post('posts/add-to-calendar', { code, props });
     }
@@ -39,6 +38,10 @@ class PostAPI {
         }
         console.log(queryString)
         return ServerAPI.get(`posts/filter/tags?` + queryString)
+    }
+
+    getPostsByUser(userId){
+        return ServerAPI.get(`posts/profile/${userId}`)
     }
 }
 

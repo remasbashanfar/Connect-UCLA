@@ -29,7 +29,7 @@ export default function ButtonAppBar() {
           {!user && <Button color="inherit" href="/login">Login</Button>}
           {user && 
           <Link to={`/profile/${user.username}`}>
-            <Avatar alt={user.username} src={user.profilePicture} />
+            <Avatar alt={user.username} src={user.profilePicture ? user.profilePicture : require('../pages/profile/images/bruin-bear.jpeg')} />
           </Link>}
           <Button color="inherit" href="/maps">Maps</Button>
         </Toolbar>

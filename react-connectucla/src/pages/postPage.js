@@ -50,7 +50,7 @@ export default function PostPage() {
 
             <CalendarButton 
               summary={post.title}
-              description={post.content}
+               description={post.content}
               location={post.location}
               start={post.startTime}
               end={post.endTime}

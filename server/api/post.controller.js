@@ -21,6 +21,16 @@ export default class PostController {
 	  }
   }
 
+  static async apiGetPostsByUser(req, res){
+    try {
+		  const posts = await PostModel.find({ userId: req.params.userId })
+		  res.send(posts)
+	  } catch (err) {
+		  res.status(err)
+	  }
+  }
+
+
   static async apiDeletePost(req, res){
     try {
       await PostModel.deleteOne({ _id: req.params.id })
@@ -45,6 +55,7 @@ export default class PostController {
   static async apiCreatePost(req, res){
     console.log(req.body);
     const post = new PostModel({
+      userId: req.body.userId,
       title: req.body.title,
       content: req.body.content,
       imgurl: req.body.imgurl,

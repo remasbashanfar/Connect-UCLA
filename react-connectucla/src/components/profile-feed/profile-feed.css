@@ -1,0 +1,6 @@
+.feed {
+    display: flex;
+    flex-direction: wrap;
+    justify-content: center;
+    flex-wrap: wrap;
+}

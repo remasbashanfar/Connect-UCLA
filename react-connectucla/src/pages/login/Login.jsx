@@ -14,8 +14,6 @@ export default function Login() {
 
     const handleLogin= (e)=>{
         e.preventDefault();
-        console.log(username.current.value);
-        console.log(password.current.value);
         loginCall (
             {
             username: username.current.value, 

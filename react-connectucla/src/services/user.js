@@ -13,6 +13,11 @@ class UserAPI {
     registerUser(user) {
         return ServerAPI.post(`users/register`, user)
     }
+
+    updateUserById(userId, user) {
+        return ServerAPI.patch(`users/${userId}`, user)
+    }
+
 }
 
 export default new UserAPI();

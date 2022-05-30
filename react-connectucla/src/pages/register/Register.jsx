@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import "./register.css"
 import UserAPI from '../../services/user.js'
 
+
 export default function Register() {
     const username= useRef();
     const password= useRef();
@@ -24,7 +25,7 @@ export default function Register() {
                     username: username.current.value,
                     password: password.current.value,
                     email: email.current.value ? email.current.value : null,
-                    isOrganization: isOrganization.current.checked
+                    isOrganization: isOrganization.current.checked,
                 }
                 await UserAPI.registerUser(user);
                 navigate("/login");

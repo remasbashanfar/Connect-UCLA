@@ -21,7 +21,7 @@ const PostSchema = new mongoose.Schema({
     tags: {
         type: Array,
         required: false,
-    },
+    }, 
     userId: {
         type: ObjectId,
         required: true,

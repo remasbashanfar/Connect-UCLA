@@ -83,10 +83,16 @@ export default function Home() {
                     return (
                         <Grid item xs={12} sm={6} md={4} key={post._id}>
                             <Card 
-                            link={post._id}
-                            image={post.imgurl} 
-                            title={post.title}
-                            description={post.content} //add event stuff, event.title? etc
+                                link={post._id}
+                                userId={post.userId}
+                                image={post.imgurl} 
+                                title={post.title}
+                                content={post.content} //add event stuff, event.title? etc
+                                startTime={post.startTime}
+                                endTime={post.endTime}
+                                location={post.location}
+                                tags={post.tags}
+                                organizer={post.author}
                             />
                         </Grid>
                         )
