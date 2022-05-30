@@ -19,7 +19,7 @@ export default function ButtonAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-        <SvgIcon component={Logo} viewBox="0 0 600 476.6" />
+        <SvgIcon  viewBox="0 0 600 476.6" />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             UCLA Connect
           </Typography>
