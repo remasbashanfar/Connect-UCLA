@@ -1,10 +1,12 @@
-import { useState } from "react";
-import React from "react";
+import React from 'react'
+import {useState, useContext} from 'react'
 import "./addEvent.css";
 import PostAPI from '../services/post.js'
 import {useNavigate} from 'react-router-dom'
 // import NavBar from '../components/navbar.js'
 import TagsInput from './inputTags.js';
+import { AuthContext } from "../context/AuthContext";
+import Button from '@mui/material/Button';
 
 const AddEvent = () => {
     const navigate = useNavigate()
@@ -16,10 +18,13 @@ const AddEvent = () => {
     const [url, setUrl]=useState('')
     const [location, setLocation]=useState('')
     const [tags, setTags] = useState([]);
+    const {user} = useContext(AuthContext);
+
     const handleSubmit = (e) => {
         e.preventDefault()
         //post object MUST CORRESPOND TO POST SCHEMA and be json object
         const event= {
+            userId: user._id,
             title: title, 
             author: organizer, 
             location:location,
@@ -40,6 +45,7 @@ const AddEvent = () => {
     return (
         <div className="createPostPage">
             <div className="cpContainer">
+            <Button color="inherit" href="/">Return to Home</Button>
             <h2>Add New Event Post</h2>
             <form onSubmit={handleSubmit}>
             <div className="inputGp">

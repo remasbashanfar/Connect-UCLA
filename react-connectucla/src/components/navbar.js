@@ -10,6 +10,8 @@ import Button from '@mui/material/Button';
 import { AuthContext } from "../context/AuthContext";
 import Avatar from '@mui/material/Avatar';
 import { Link } from "react-router-dom";
+import SvgIcon from '@mui/material/SvgIcon';
+import { ReactComponent as Logo } from "./ig-logo.svg";
 
 export default function ButtonAppBar() {
   const {user} = useContext(AuthContext);
@@ -17,10 +19,11 @@ export default function ButtonAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
+        <SvgIcon component={Logo} viewBox="0 0 600 476.6" />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             UCLA Connect
           </Typography>
-          <Button color="inherit" href="/addEvent">Add Event</Button>
+          {user && <Button color="inherit" href="/addEvent">Add Event</Button>}
           <Button color="inherit" href="/">Home</Button>
           <Button color="inherit" href="/about">About</Button>
           {!user && <Button color="inherit" href="/login">Login</Button>}

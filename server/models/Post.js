@@ -22,6 +22,10 @@ const PostSchema = new mongoose.Schema({
         type: Array,
         required: false,
     },
+    userId: {
+        type: ObjectId,
+        required: true,
+    },
     author: {
         type: String,
         required: true,
