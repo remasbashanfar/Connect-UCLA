@@ -47,6 +47,8 @@ export default function Maps() {
     const [selected, setSelected] = useState(null);
     const [locationFilterStatus, setLocationFilterStatus] = useState(false)
     const [locationFilter, setLocationFilter] = useState("")
+    const [dateFilterStatus, setDateFilterStatus] = useState(false)
+    const [dateFilter, setDateFilter] = useState("")
 
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey:process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -55,7 +57,7 @@ export default function Maps() {
 
     useEffect(() => {
         locationToMarker();
-    }, [locationFilter]);
+    }, [locationFilter, dateFilter]);
 
     const mapRef = React.useRef();
 
@@ -67,11 +69,14 @@ export default function Maps() {
         PostAPI.getAll()
             .then(response =>{
                 let locations = [];
+                
                 let Posts = response.data
                 
                 for(let i = 0; i < Posts.length; i++ )
                 {
                     locations.push(Posts[i].location)
+                   
+                    
                 }
                 
                 setMarkers([])
@@ -79,25 +84,72 @@ export default function Maps() {
                 {
                     if(!locationFilterStatus)
                     {
-                        Geocode.fromAddress(locations[j]).then(
-                            async (response) => {
-                              const { lat, lng } = await response.results[0].geometry.location;
-    
-                              
-                              setMarkers(current => [...current, {
-                                lat:lat,
-                                lng: lng,
-                                time: new Date(),
-                                startTime: Posts[j].startTime == null ? "n/a" : Posts[j].startTime,
-                                endTime: Posts[j].endTime  == null ? "n/a" : Posts[j].endTime,
-                                location: Posts[j].location == null ? "n/a" : Posts[j].location,
-                                }])})
+                        if(dateFilterStatus)
+                        {
+                            if(Posts[j].startTime.split('T')[0] !== dateFilter)
+                            {
+
+                            }
+                            else
+                            {
+                                Geocode.fromAddress(locations[j]).then(
+                                    async (response) => {
+                                      const { lat, lng } = await response.results[0].geometry.location;
+            
+                                      
+                                      setMarkers(current => [...current, {
+                                        lat:lat,
+                                        lng: lng,
+                                        time: new Date(),
+                                        startTime: Posts[j].startTime == null ? "n/a" : Posts[j].startTime,
+                                        endTime: Posts[j].endTime  == null ? "n/a" : Posts[j].endTime,
+                                        location: Posts[j].location == null ? "n/a" : Posts[j].location,
+                                        }])})
+                            }
+                        }else{
+                            Geocode.fromAddress(locations[j]).then(
+                                async (response) => {
+                                  const { lat, lng } = await response.results[0].geometry.location;
+        
+                                  
+                                  setMarkers(current => [...current, {
+                                    lat:lat,
+                                    lng: lng,
+                                    time: new Date(),
+                                    startTime: Posts[j].startTime == null ? "n/a" : Posts[j].startTime,
+                                    endTime: Posts[j].endTime  == null ? "n/a" : Posts[j].endTime,
+                                    location: Posts[j].location == null ? "n/a" : Posts[j].location,
+                                    }])})
+                        }
                     }
                     else
                     {
                         if(locations[j] !== locationFilter)
                         {
                             
+                        }
+                        else if(dateFilterStatus)
+                        {
+                            if(Posts[j].startTime.split('T')[0] !== dateFilter)
+                            {
+
+                            }
+                            else
+                            {
+                                Geocode.fromAddress(locations[j]).then(
+                                    async (response) => {
+                                      const { lat, lng } = await response.results[0].geometry.location;
+            
+                                      
+                                      setMarkers(current => [...current, {
+                                        lat:lat,
+                                        lng: lng,
+                                        time: new Date(),
+                                        startTime: Posts[j].startTime == null ? "n/a" : Posts[j].startTime,
+                                        endTime: Posts[j].endTime  == null ? "n/a" : Posts[j].endTime,
+                                        location: Posts[j].location == null ? "n/a" : Posts[j].location,
+                                        }])})
+                            }
                         }
                         else
                         {
@@ -116,7 +168,16 @@ export default function Maps() {
                                     }])})
                         }
                     }
+                }
+                if(!dateFilterStatus)
+                {
 
+                }
+                else{
+                    
+                    let tmpMarkers = markers.filter(marker => marker.startTime.split('T')[0] === dateFilter)
+                    
+                    setMarkers([])
                 }
                 
     })}
@@ -132,6 +193,10 @@ export default function Maps() {
                        setLocationFilterStatus = {setLocationFilterStatus}
                        locationFilter = {locationFilter}
                        setLocationFilter = {setLocationFilter}
+                       dateFilterStatus = {dateFilterStatus}
+                       setDateFilterStatus = {setDateFilterStatus}
+                       dateFilter = {dateFilter}
+                       setDateFilter = {setDateFilter}
             />
             <GoogleMap 
                 mapContainerStyle={mapContainerStyle}
