@@ -14,8 +14,8 @@ class UserAPI {
         return ServerAPI.post(`users/register`, user)
     }
 
-    updateUserById(userId, user) {
-        return ServerAPI.patch(`users/${userId}`, user)
+    updateUserById(userId, update) {
+        return ServerAPI.patch(`users/${userId}`, update)
     }
 
 }

@@ -1,6 +1,5 @@
 import UserModel from "../models/User.js"
 import bcrypt from "bcrypt"
-import bodyParser from "body-parser"
 
 export default class UserController {
 
@@ -89,30 +88,15 @@ export default class UserController {
     }
 }   
   ///// 	Update User	        /////
-  // tutorial at https://youtu.be/ldGl6L4Vktk?t=2438
   static async apiUpdateUserById(req, res){
-    // if the user submits their own id 
-    if (req.body.userId === req.params.id) {
-      if (req.body.password){
-        try {
-          const salt = await bcrypt.genSalt(10);
-          req.body.password = await bcrypt.hash(req.body.password, salt);
-        } catch(err){
-          return res.status(500).json({error: "Password Reset Error"})
-        }
-      }
       try {
         const user = await UserModel.findByIdAndUpdate(req.params.id, {
           $set: req.body,
         });
-        res.status(200).json("Account has been updated")
+        res.status(200).json(user)
       } catch {
         return res.status(500).json({ error: "User Update Error" })
       }
-    }
-    else {
-      return res.status(404).json({ error: "User not found" })
-    }
   }
   ///// 	Follow User	        /////
   static async apiFollowUserById(req, res){
