@@ -60,7 +60,7 @@ export default function PostPage() {
               end={post.endTime}
               ></CalendarButton>
             
-            {user.username===post.author && <DeleteButton id={id}>
+            {user._id===post.userId && <DeleteButton id={id}>
             </DeleteButton>}
 
             <RsvpButton id={id}></RsvpButton>
