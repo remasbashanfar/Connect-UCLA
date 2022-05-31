@@ -73,7 +73,7 @@ export default function PostPage() {
               end={post.endTime}
               ></CalendarButton>
             
-            {user._id===post.userId && <DeleteButton id={id}>
+            {user && user._id===post.userId && <DeleteButton id={id}>
             </DeleteButton>}
             {rsvpList!=null ? <RsvpButton id={id} author={post.userId} RSVP_List={rsvpList}></RsvpButton> : null}
             </div>
