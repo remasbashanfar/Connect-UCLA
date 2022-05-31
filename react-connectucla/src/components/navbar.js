@@ -11,7 +11,7 @@ import { AuthContext } from "../context/AuthContext";
 import Avatar from '@mui/material/Avatar';
 import { Link } from "react-router-dom";
 import SvgIcon from '@mui/material/SvgIcon';
-import { ReactComponent as Logo } from "./ig-logo.svg";
+
 
 export default function ButtonAppBar() {
   const {user} = useContext(AuthContext);

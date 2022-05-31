@@ -6,9 +6,13 @@ import CalendarButton from '../components/googleCalendar.js'
 import DeleteButton from '../components/deleteButton.js'
 import RsvpButton from '../components/rsvpButton'
 import "./addEvent.css";
+import { AuthContext } from "../context/AuthContext";
+import {useContext} from 'react';
+
 
 export default function PostPage() {
     // Variables + hooks
+    const {user} = useContext(AuthContext)
     const [post, setPost] = useState([]);
     let { id } = useParams();
 
@@ -56,8 +60,8 @@ export default function PostPage() {
               end={post.endTime}
               ></CalendarButton>
 
-            <DeleteButton id={id}>
-            </DeleteButton>
+            {user && <DeleteButton id={id}>
+            </DeleteButton>}
 
             <RsvpButton id={id}></RsvpButton>
             </div>
