@@ -2,6 +2,9 @@ import Card from '../card.js'
 import PostAPI from '../../services/post.js'
 import React, { useState, useEffect } from "react";
 import Grid from '@mui/material/Grid';
+import { AuthContext } from "../../context/AuthContext";
+import {useContext} from 'react';
+import UserAPI from '../../services/user.js'
 
 import './profile-feed.css';
 
@@ -11,6 +14,9 @@ export default function ProfileFeed({ userId }) {
 
     // Variables + hooks
     const [posts, setPosts] = useState([]);
+    const [rsvpList, setRSVPList] = useState([]);
+    const {user} = useContext(AuthContext);
+
     useEffect(() => {
         const retrievePosts = async () => {
             const res = await PostAPI.getPostsByUser(userId)
@@ -21,8 +27,16 @@ export default function ProfileFeed({ userId }) {
             );
         };
         retrievePosts();
+        retrieveRSVPList();
     }, [userId]);
             //container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+    
+    const retrieveRSVPList = () => {
+        UserAPI.getUser(user.username).then(response => {
+            setRSVPList(response.data.rsvpList)
+        })
+        .catch(error => console.log(error));
+    }
 
     return (
         <div className="feed">
@@ -40,6 +54,7 @@ export default function ProfileFeed({ userId }) {
                                 location={post.location}
                                 tags={post.tags}
                                 organizer={post.author}
+                                RSVP_List={rsvpList}
                             />
                     </Grid>
                 ))}
