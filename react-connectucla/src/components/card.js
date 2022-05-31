@@ -61,7 +61,11 @@ export default function ImgMediaCard(props) {
 
 
       <CardActions disableSpacing>
-        {props.RSVP_List!=null && <RsvpButton id={props.link} author={user._id} RSVP_List={props.RSVP_List}></RsvpButton>}
+        {props.RSVP_List!=null && <RsvpButton 
+        id={props.link} 
+        author={!user ? "placeholder" : user._id} 
+        RSVP_List={props.RSVP_List}>
+        </RsvpButton>}
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
