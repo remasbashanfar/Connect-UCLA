@@ -11,7 +11,6 @@ import Button from '@mui/material/Button';
 const AddEvent = () => {
     const navigate = useNavigate()
     const [title, setTitle]=useState('')
-    const [organizer, setOrganizer]=useState('')
     const [startTime, setstartTime]=useState('')
     const [endTime, setendTime]=useState('')
     const [details, setDetails]=useState('')
@@ -26,7 +25,7 @@ const AddEvent = () => {
         const event= {
             userId: user._id,
             title: title, 
-            author: organizer, 
+            author: user.username, 
             location:location,
             startTime:startTime, 
             endTime:endTime, 
@@ -53,13 +52,6 @@ const AddEvent = () => {
                 <input type="text"
                 value={title}
                 onChange={(e)=> setTitle(e.target.value)}
-                required/>
-            </div>
-            <div className="inputGp">
-            <label>Organizer</label>
-                <input type="text"
-                value={organizer}
-                onChange={(e)=> setOrganizer(e.target.value)}
                 required/>
             </div>
             <div className="inputGp">
