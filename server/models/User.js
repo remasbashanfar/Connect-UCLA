@@ -55,6 +55,10 @@ const UserSchema = new mongoose.Schema({
     relationship: {
         type: Number,
         enum:[1, 2, 3]      // single, married, etc. 
+    },
+    rsvpList: {
+        type: Array,
+        default: []
     }
 },
 // automatically update timestamps
