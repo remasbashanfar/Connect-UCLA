@@ -77,7 +77,7 @@ export default function Home() {
 
             <Box sx={{ flexGrow: 1 }}>
             <Grid container justifyContent="center">
-            <Grid container spacing={3} xs={8}>
+            <Grid item container spacing={3} xs={8}>
                 {posts.map(post => 
                     {
                     return (
