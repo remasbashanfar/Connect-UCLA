@@ -6,7 +6,6 @@ import CardActions from '@mui/material/CardActions';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import RsvpButton from '../components/rsvpButton'
 import CalendarButton from '../components/googleCalendar.js'
@@ -62,7 +61,7 @@ export default function ImgMediaCard(props) {
 
 
       <CardActions disableSpacing>
-        <RsvpButton id={props.link}></RsvpButton>
+        <RsvpButton id={props.link} author={props.userId} RSVP_List={props.RSVP_List}></RsvpButton>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}

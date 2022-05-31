@@ -160,4 +160,28 @@ export default class UserController {
       res.send({ error: "You can only delete your own account."})
     }
   }
+
+  ///// 	Add post id to rsvpList	        /////
+  static async apiLikePost(req, res) {
+    try {
+      const user = await UserModel.findByIdAndUpdate({ _id: req.params.id },{$push:{rsvpList: req.body.postId}})
+		  res.send(user)
+    } catch (error) {
+      console.log(error);
+      res.status(404);
+      res.send({ error: "Cannot add post id to rsvpList" });
+    }
+  }
+
+  ///// 	Remove post id from rsvpList	        /////
+  static async apiUnLikePost(req, res) {
+    try {
+      const user = await UserModel.findByIdAndUpdate({ _id: req.params.id },{$pull:{rsvpList: req.body.postId}})
+		  res.send(user)
+    } catch (error) {
+      console.log(error);
+      res.status(404);
+      res.send({ error: "Cannot remove post id from rsvpList" });
+    }
+  }
 }

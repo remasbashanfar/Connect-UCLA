@@ -23,8 +23,15 @@ class PostAPI {
         return ServerAPI.delete(`posts/${id}`);
     }
 
-    likePost(id) {
-        return ServerAPI.patch(`posts/rsvp1/${id}`);
+    likePost(postid, userid, bool) {
+        if (bool) {
+            // Not optimal, should somehow return results for both requests!
+            ServerAPI.patch(`users/rsvp1/${userid}`,{postId: postid});
+            return ServerAPI.patch(`posts/rsvp1/${postid}`);
+        } else {
+            ServerAPI.patch(`users/rsvp0/${userid}`,{postId: postid});
+            return ServerAPI.patch(`posts/rsvp0/${postid}`);
+        }
     }
 
     getPostByTags(tags){

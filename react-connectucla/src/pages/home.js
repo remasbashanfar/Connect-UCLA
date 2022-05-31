@@ -1,11 +1,13 @@
 import NavBar from '../components/navbar.js'
 import Card from '../components/card.js'
 import PostAPI from '../services/post.js'
+import UserAPI from '../services/user.js'
 import React, { useState, useEffect } from "react";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import FilterBar from "../components/searchFilter"
-
+import { AuthContext } from "../context/AuthContext";
+import {useContext} from 'react';
 
 // Homepage doubles as the feed.
 
@@ -14,16 +16,25 @@ export default function Home() {
     const [posts, setPosts] = useState([]);
     const [tag, setTag] = useState('');
     const [tags, setTags] = useState([]);
+    const [rsvpList, setRSVPList] = useState([]);
+    const {user} = useContext(AuthContext);
 
 
     // Do on render
     useEffect(() => {
         retrievePosts();
+        if (user) {
+            retrieveRSVPList();
+        }
     }, [tags]);
     
-
-
-
+    // Get list of RSVP'ed post for user
+    const retrieveRSVPList = () => {
+        UserAPI.getUser(user.username).then(response => {
+            setRSVPList(response.data.rsvpList)
+        })
+        .catch(error => console.log(error));
+    }
 
     // Get filtered posts from server
     const retrievePosts = () => {
@@ -93,6 +104,7 @@ export default function Home() {
                                 location={post.location}
                                 tags={post.tags}
                                 organizer={post.author}
+                                RSVP_List={rsvpList}
                             />
                         </Grid>
                         )

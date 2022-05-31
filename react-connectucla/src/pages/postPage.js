@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import NavBar from '../components/navbar.js'
 import PostAPI from '../services/post.js'
+import UserAPI from '../services/user.js'
 import CalendarButton from '../components/googleCalendar.js'
 import DeleteButton from '../components/deleteButton.js'
 import RsvpButton from '../components/rsvpButton'
@@ -14,21 +15,33 @@ export default function PostPage() {
     // Variables + hooks
     const {user} = useContext(AuthContext)
     const [post, setPost] = useState([]);
+    const [rsvpList, setRSVPList] = useState(null);
     let { id } = useParams();
 
     // Do on render
     useEffect(() => {
         retrievePost();
+        if (user) {
+            retrieveRSVPList();
+        } else {
+            setRSVPList([])
+        }
     }, []);
 
     const retrievePost = () => {
         PostAPI.getPostById(id)
         .then(response => {
-            console.log(response.data);
             setPost(response.data);
         })
         .catch(error => console.log(error));
     };
+
+    const retrieveRSVPList = () => {
+        UserAPI.getUser(user.username).then(response => {
+            setRSVPList(response.data.rsvpList)
+        })
+        .catch(error => console.log(error));
+    }
 
     return (
         <div>
@@ -62,8 +75,7 @@ export default function PostPage() {
             
             {user._id===post.userId && <DeleteButton id={id}>
             </DeleteButton>}
-
-            <RsvpButton id={id}></RsvpButton>
+            {rsvpList!=null ? <RsvpButton id={id} author={post.userId} RSVP_List={rsvpList}></RsvpButton> : null}
             </div>
             {/* This is the post page ID {post._id} */}
         </div>
