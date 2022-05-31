@@ -7,7 +7,7 @@ dotenv.config();
 export default class PostController {
 
   static async apiGetPosts(req, res) {
-      const posts = await PostModel.find()
+      const posts = await PostModel.find().sort({"RSVP_counter":-1})
       res.send(posts)
   }
   
