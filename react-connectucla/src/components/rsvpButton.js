@@ -70,7 +70,7 @@ export default function RsvpButton(props) {
         return (
             <div>
                 <Button variant="contained" endIcon={<SendIcon />} onClick={() => rsvpPost(false)}>
-                RSVP unlike
+                RSVP
                 </Button>
             </div>
             );
@@ -78,7 +78,7 @@ export default function RsvpButton(props) {
         return (
             <div>
                 <Button variant="outlined" endIcon={<SendIcon />} onClick={() => rsvpPost(true)}>
-                RSVP like
+                RSVP
                 </Button>
             </div>
             );

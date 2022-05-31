@@ -16,7 +16,7 @@ export default function Home() {
     const [posts, setPosts] = useState([]);
     const [tag, setTag] = useState('');
     const [tags, setTags] = useState([]);
-    const [rsvpList, setRSVPList] = useState([]);
+    const [rsvpList, setRSVPList] = useState(null);
     const {user} = useContext(AuthContext);
 
 
@@ -25,6 +25,8 @@ export default function Home() {
         retrievePosts();
         if (user) {
             retrieveRSVPList();
+        } else {
+            setRSVPList([]);
         }
     }, [tags]);
     
