@@ -12,7 +12,6 @@ export default function FilterBar({tag, tags, handleTagChange, addTags, removeTa
                 style={{maxWidth: '200px', maxHeight: '50px', minWidth: '200px', minHeight: '35px'}}
                 />
                 <Button 
-                // style={{maxWidth: '30px', maxHeight: '20px', minWidth: '60px', minHeight: '20px'}}
                 variant="contained" type = "submit">Add Tag</Button>
             </div>
         </form>

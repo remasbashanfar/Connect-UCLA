@@ -42,28 +42,49 @@ export default function PostPage() {
         })
         .catch(error => console.log(error));
     }
-
     return (
-        <div>
+        <div
+        >
             <NavBar></NavBar>
-            <div className="createPostPage">
-            <div className="cpContainer">
-            <h2>Event Name</h2>
+            <div className="createPostPage"
+            style={{ 
+                backgroundImage: `url(${post.imgurl})`,
+                height: '100vh',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'repeat',
+                backgroundSize: 'cover'
+                }}
+            >
+            <div className="cpContainer"
+            style={{ 
+                position: 'absolute',
+                width: '500px',
+                height: '350px',
+                left: '75px'
+            }}>
+            <h2>Event</h2>
             {post.title}
-           <h2>Organizer</h2>
-           {post.author}
            <h2>When?</h2>
-           On {post.date} from {post.startTime} to {post.endTime}
-           <h2>Where?</h2>
+            From {post.startTime} <br></br>
+            To {post.endTime}
+
+            <h2>Where?</h2>
            {post.location}
+            </div>
+            <div className="cpContainer"
+            style={{ 
+                position: 'absolute',
+                width: '500px',
+                height: '350px',
+                right: '75px'
+            }}>
+            <h2>Organizer</h2>
+           {post.author}
            <h2>Details</h2>
            {post.content}
-           <h2>Poster Link</h2>
-           {post.imgurl}
            <h2>Tags</h2>
            {post.tags}
             </div>
-
 
             <CalendarButton 
               summary={post.title}

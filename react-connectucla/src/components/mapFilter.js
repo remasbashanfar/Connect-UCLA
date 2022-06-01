@@ -7,6 +7,10 @@ import Select from '@mui/material/Select';
 import NativeSelect from '@mui/material/NativeSelect';
 import InputBase from '@mui/material/InputBase';
 
+
+
+
+
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   'label + &': {
     marginTop: theme.spacing(3),
@@ -40,7 +44,8 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function mapFilter({locationFilterStatus, setLocationFilterStatus,
+
+export default function MapFilter({locationFilterStatus, setLocationFilterStatus,
                                    locationFilter, setLocationFilter,
                                    dateFilterStatus, setDateFilterStatus,
                                    dateFilter, setDateFilter})
@@ -73,6 +78,7 @@ export default function mapFilter({locationFilterStatus, setLocationFilterStatus
 
   return (
     <div>
+      
       <FormControl sx={{ m: 1 }} variant="standard">
         <InputLabel htmlFor="date-textbox">Date</InputLabel>
         <BootstrapInput id="date-textbox"
