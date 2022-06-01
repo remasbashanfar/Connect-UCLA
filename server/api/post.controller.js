@@ -211,7 +211,7 @@ export default class PostController {
 
   static async apiSearchPosts(req, res) {
     try { // Searches entire post body for search word
-      const posts = await PostModel.find({$text: {$search: "UCLA"}})
+      const posts = await PostModel.find({$text: {$search: req.params.searchString}})
       res.send(posts)
     } catch (error) {
       console.log(error);

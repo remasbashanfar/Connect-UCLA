@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import FilterBar from "../components/searchFilter"
+import SearchButton from "../components/searchPosts"
 import { AuthContext } from "../context/AuthContext";
 import {useContext} from 'react';
 
@@ -18,6 +19,7 @@ export default function Home() {
     const [tags, setTags] = useState([]);
     const [rsvpList, setRSVPList] = useState(null);
     const {user} = useContext(AuthContext);
+    const [indexSearch, setIndexSearch] = useState(false)
 
 
     // Do on render
@@ -28,7 +30,7 @@ export default function Home() {
         } else {
             setRSVPList([]);
         }
-    }, [tags]);
+    }, [tags, indexSearch]);
     
     // Get list of RSVP'ed post for user
     const retrieveRSVPList = () => {
@@ -40,7 +42,14 @@ export default function Home() {
 
     // Get filtered posts from server
     const retrievePosts = () => {
-        if(tags.length === 0)
+        if (indexSearch) {
+            //setTags([]) //resets page again...
+            PostAPI.getPostsByIndex(indexSearch)
+            .then(response =>{
+                setPosts(response.data)
+            })
+            .catch(error => console.log(error));
+        } else if(tags.length === 0)
         {
             if (user) { // Customly sorted posts
                 PostAPI.getPersonalized(user._id)
@@ -74,6 +83,7 @@ export default function Home() {
         event.preventDefault();
         setTags([...tags, tag])
         setTag('');
+        setIndexSearch(false); // remove search index
     }
 
     const handleTagChange = (event) =>{
@@ -84,6 +94,10 @@ export default function Home() {
         setTags(tags.filter(tag => tag !== removedTag))
     }
 
+    const handleIndexSearch = () => {
+        // When searching index, reset tags
+        setTags([])
+    }
 
 
     return (
@@ -95,6 +109,8 @@ export default function Home() {
             <FilterBar tag = {tag} tags = {tags} handleTagChange={handleTagChange} 
                        addTags = {addTags} removeTag = {removeTag}>
             </FilterBar>
+
+            <SearchButton setIndex={setIndexSearch} handleIndexChange={handleIndexSearch}></SearchButton>
 
             <Box sx={{ flexGrow: 1 }}>
             <Grid container justifyContent="center">
