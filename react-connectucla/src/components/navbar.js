@@ -10,16 +10,26 @@ import Button from '@mui/material/Button';
 import { AuthContext } from "../context/AuthContext";
 import Avatar from '@mui/material/Avatar';
 import { Link } from "react-router-dom";
-import SvgIcon from '@mui/material/SvgIcon';
-
+import LogoutIcon from '@mui/icons-material/Logout';
+import {logoutCall} from "../services/loginCall"
+import {useNavigate} from 'react-router-dom';
+import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 
 export default function ButtonAppBar() {
-  const {user} = useContext(AuthContext);
+  const Navigate = useNavigate();
+  const {user, dispatch} = useContext(AuthContext);
+  
+  // logout user interface
+  const handleLogout= (e)=>{
+    e.preventDefault();
+    logoutCall(dispatch);
+    Navigate("/");
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-        <SvgIcon  viewBox="0 0 600 476.6" />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             UCLA Connect
           </Typography>
@@ -27,12 +37,14 @@ export default function ButtonAppBar() {
           <Button color="inherit" href="/">Home</Button>
           <Button color="inherit" href="/about">About</Button>
           {!user && <Button color="inherit" href="/login">Login</Button>}
+          <Button color="inherit" href="/maps" startIcon={<MapOutlinedIcon/>}>Map</Button>
           {user && 
           <Link to={`/profile/${user.username}`}>
             <Avatar alt={user.username} src={user.profilePicture ? user.profilePicture : 
               require('../pages/profile/images/bruin-bear.jpeg')} />
           </Link>}
-          <Button color="inherit" href="/maps">Maps</Button>
+          {user && <Button color="inherit" startIcon={<LogoutIcon />} onClick={handleLogout}>
+              Log Out</Button>}
         </Toolbar>
       </AppBar>
     </Box>

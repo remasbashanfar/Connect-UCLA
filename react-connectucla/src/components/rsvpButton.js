@@ -21,7 +21,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function RsvpButton(props) {
     const {user} = useContext(AuthContext)
     const [open, setOpen] = React.useState(false);
-    const [RsvpBool, setRsvpBool] = React.useState(props.RSVP_List.includes(props.id))
+    const [RsvpBool, setRsvpBool] = React.useState(props.rsvpList.includes(props.id))
 
     const handleClickOpen = () => {
       setOpen(true);

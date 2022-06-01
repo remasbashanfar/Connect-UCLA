@@ -18,17 +18,32 @@ export default class PostController {
 		  const post = await PostModel.findOne({ _id: req.params.id })
 		  res.send(post)
 	  } catch {
-		  res.status(404)
-		  res.send({ error: "Post does not exist" })
+		  return res.status(404).json({ error: "Post does not exist" })
 	  }
   }
 
   static async apiGetPostsByUser(req, res){
     try {
-		  const posts = await PostModel.find({ userId: req.params.userId })
+		  const user = await UserModel.findOne({ username: req.params.username })
+      const posts = await PostModel.find({userId: user._id})
 		  res.send(posts)
 	  } catch (err) {
-		  res.status(err)
+		  return res.status(404).json({ error: "User does not exist" })
+	  }
+  }
+  static async apiGetPostsByRSVP(req, res){
+    try {
+		  const user = await UserModel.findOne({ username: req.params.username })
+      const posts = []
+      for (let index = 0; index < user.rsvpList.length; index++) {
+        const post_id = user.rsvpList[index]
+        const post = await PostModel.findById(post_id)
+        posts.push(post)
+      }
+      console.log(posts)
+		  res.send(posts)
+	  } catch (err) {
+		  return res.status(404).json({ error: "User does not exist" })
 	  }
   }
 
@@ -78,8 +93,7 @@ export default class PostController {
       await PostModel.deleteOne({ _id: req.params.id })
       res.status(204).send()
     } catch {
-      res.status(404)
-      res.send({ error: "Post does not exist" })
+      return res.status(404).json({ error: "Post does not exist" })
     }
   }
 
@@ -90,7 +104,7 @@ export default class PostController {
       const posts = await PostModel.find({tags : {$in : postTags}})
       res.send(posts)
     }catch{
-      res.status(404).send("Cant filter posts")
+      return res.status(404).send("Cant filter posts")
     }
   }
 
@@ -124,8 +138,7 @@ export default class PostController {
       await post.save()
       res.send(post)
     } catch {
-      res.status(404)
-      res.send({ error: "Post does not exist" })
+      return res.status(404).json({ error: "Post does not exist" })
     }
   }
   
@@ -169,8 +182,7 @@ export default class PostController {
       res.send(result)
     } catch (error) {
       console.log(error);
-      res.status(404);
-      res.send({ error: "Post cannot be added to calendar" });
+      return res.status(404).json({ error: "Post cannot be added to calendar" });
     }
   }
 
@@ -181,8 +193,7 @@ export default class PostController {
 		  res.send(post)
     } catch (error) {
       console.log(error);
-      res.status(404);
-      res.send({ error: "Cannot RSVP to post" });
+      return res.status(404).json({ error: "Cannot RSVP to post" });
     }
   }
 

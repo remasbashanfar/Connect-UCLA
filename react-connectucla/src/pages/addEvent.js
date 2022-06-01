@@ -19,7 +19,7 @@ const AddEvent = () => {
     const [location, setLocation]=useState('')
     const [tags, setTags] = useState([]);
     const {user} = useContext(AuthContext);
-
+    console.log(user._id)
     const handleSubmit = (e) => {
         e.preventDefault()
         //post object MUST CORRESPOND TO POST SCHEMA and be json object

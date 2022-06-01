@@ -1,5 +1,5 @@
 import Home from "./pages/home.js"
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import About from "./pages/about.js"
 import ErrorPage from "./pages/errorPage.js"
@@ -21,19 +21,20 @@ function App() {
     <div>
       <GoogleOAuthProvider clientId="1074046883630-561fblnmo26ek7lppki22d1ldflgir10.apps.googleusercontent.com">
        <BrowserRouter>
-       
-       <Routes>
-       {/* <Route path="/login" element={<Login/>}/> */}
-       <Route path="/" element={<Home/>}/>
-       <Route path="/about" element={<About/>}/>
-       <Route path="*" element={<ErrorPage/>}/>
-       <Route path="/login" element={user ? <Home/> : <Login/>}/>
-       <Route path="/register" element={<Register/>}/>
-       <Route path="/addEvent" element={<AddEvent/>}/>
-       <Route path="/profile/:username" element={<Profile/>}/>
-       <Route path="/post/:id" element={<PostPage/>}/>
-       <Route path="/maps" element={<Maps/>}/>
-       </Routes>
+        <Routes>
+        {/* <Route path="/login" element={<Login/>}/> */}
+        <Route path="/" element={<Home/>}/>
+        <Route path="/about" element={<About/>}/>
+        <Route path="*" element={<ErrorPage/>}/>
+        <Route path="/login"
+        element={ user ? <Navigate to="/" /> : <Login /> }/>
+        <Route path="/register" 
+        element={ user ? <Navigate to="/" /> : <Register/>}/>
+        <Route path="/addEvent" element={<AddEvent/>}/>
+        <Route path="/profile/:username" element={<Profile/>}/>
+        <Route path="/post/:id" element={<PostPage/>}/>
+        <Route path="/maps" element={<Maps/>}/>
+        </Routes>
        </BrowserRouter>
       </GoogleOAuthProvider>
     </div>

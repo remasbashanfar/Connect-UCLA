@@ -11,10 +11,11 @@ import RsvpButton from '../components/rsvpButton'
 import CalendarButton from '../components/googleCalendar.js'
 import {AuthContext} from '../context/AuthContext'
 import DeleteButton from '../components/deleteButton.js'
+//        <RsvpButton id={props.link} author={props.userId} rsvpList={props.rsvpList}></RsvpButton>
 
 // expand post interface
 import Collapse from '@mui/material/Collapse';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import IconButton from '@mui/material/IconButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { styled } from '@mui/material/styles';
 
@@ -61,11 +62,11 @@ export default function ImgMediaCard(props) {
 
 
       <CardActions disableSpacing>
-        {props.RSVP_List!=null && <RsvpButton 
+        {/*props.RSVP_List!=null && <RsvpButton 
         id={props.link} 
         author={!user ? "placeholder" : user._id} 
         RSVP_List={props.RSVP_List}>
-        </RsvpButton>}
+        </RsvpButton>*/}
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}

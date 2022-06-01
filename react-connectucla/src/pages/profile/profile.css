@@ -2,12 +2,15 @@
     display: flex;
 }
 
-.profileRight{
+.profileTop{
     flex: 9;
 }
 
 .profileCover{
-    height: 320px;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
     position: relative;
 }
 
@@ -16,17 +19,30 @@
     height: 250px;
     object-fit: cover;
 }
-
+.profileCover .profileInfoBox {
+    
+}
+.editBox {
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* margin-top: 1rem;
+    margin-bottom: 1rem; */
+    border-radius: 10px;
+    padding: 20px;
+    background-color: rgba(139, 184, 232, 0.5);
+}
 .profileUserImg{
     width: 150px;
     height: 150px;
+    top: 150px;
     border-radius: 50%;
     object-fit: cover;
     position: absolute;
     left: 0;
     right: 0;
     margin: auto;
-    top: 150px;
     border: none;
 }
 
@@ -35,23 +51,18 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: absolute;
 }
 
 .profileInfoName{
-    font-size: 24px;
+    font-size: 30px;
+
 }
 
 .profileInfoDesc{
     font-weight: 300;
 }
-.editButton {
-    height: 80px;
-    background-color: rgba(139, 184, 232, 0.5);
-}
-.logoutButton {
-    height: 80px;
-    background-color: rgba(139, 184, 232, 0.5);
-}
+
 .profileBottom{
     margin-left: 20px;
     margin-right: 20px;
@@ -60,7 +71,7 @@
     flex-direction: row;
 }
 .profileBottomLeft{
-    flex: 1;
+    flex: .5;
     display: flex;
 }
 .profileBottomMiddle{
@@ -71,4 +82,10 @@
     flex: 1;
     flex-direction: column;
     display: flex;
+}
+.profileBottom .profileBottomRight .profileButton {
+    margin-top: 10px;
+    height: 220px;
+    width: 200px;
+    background-color: rgba(139, 184, 232, 0.5);
 }

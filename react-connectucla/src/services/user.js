@@ -5,18 +5,35 @@ class UserAPI {
     getAll() {
         return ServerAPI.get(`users`);
     }
-
     getUser(username) {
         return ServerAPI.get(`users/${username}`);
     }
-
     registerUser(user) {
         return ServerAPI.post(`users/register`, user)
     }
-
-    updateUserById(userId, update) {
-        return ServerAPI.patch(`users/${userId}`, update)
+    updateUser(updated_user) {
+        return ServerAPI.patch(`users/`, updated_user)
     }
+    followUser(user, profileUser) {
+        return ServerAPI.put(`/users/follow/${profileUser.username}`, {
+            username: user.username,
+        });
+    }
+    unfollowUser(user, profileUser) {
+        return ServerAPI.put(`/users/unfollow/${profileUser.username}`, {
+            username: user.username,
+        });
+    }
+    acceptFollow(user, requestUsername) {
+        return ServerAPI.put(`/users/accept/${requestUsername}`, {
+            username: user.username
+        });
+    }
+    getFollowRequestUsers(username) {
+        return ServerAPI.get(`/users/requests/${username}`)
+    }
+
+
 
 }
 

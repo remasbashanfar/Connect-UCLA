@@ -3,6 +3,9 @@ import {useNavigate} from 'react-router-dom';
 import Button from '@mui/material/Button';
 import "./register.css"
 import UserAPI from '../../services/user.js'
+import {Link} from 'react-router-dom'
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 
 export default function Register() {
@@ -34,9 +37,6 @@ export default function Register() {
             }
         }
     };
-    const handleLogin=()=> {
-        window.location.href = "/login";
-    }
 
     return (
         <div className="register">
@@ -49,14 +49,12 @@ export default function Register() {
                     ref={username}
                     required
                 />
-                <label>
-                    <input
-                    type="checkbox"
+                <FormControlLabel
                     ref={isOrganization}
-                    />
-                    I am a club / organization. 
-                </label>
-
+                    control={<Checkbox />}
+                    label="I am a club or campus organization"
+                    labelPlacement="end"
+                />
                 <input 
                     className="regInput" 
                     placeholder="Email" 
@@ -85,11 +83,12 @@ export default function Register() {
                 <button className="regButton" 
                 type="submit">Register</button>
 
-                <button 
-                    className="registerLoginButton" 
-                    onClick={handleLogin}>
-                    Return to Log In
-                </button>
+                <Link className="registerLoginButton" to="/login">
+                    <button 
+                        className="registerLoginButton">
+                        Go to login
+                    </button>
+                </Link>
             </form>
         </div>
     );

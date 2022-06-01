@@ -4,17 +4,12 @@ export const loginCall = async(userCredentials, dispatch) => {
     dispatch({type: "LOGIN_START"}); 
     try {
         const res = await ServerAPI.post(`/users/login`, userCredentials);
-        dispatch ({type:"LOGIN_SUCCESS", payload: res.data});
-        
+        await dispatch ({type:"LOGIN_SUCCESS", payload: res.data});
     } catch (err) {
         dispatch({type: "LOGIN_FAILURE", payload: err});
-    }
+    } 
 }; 
 
 export const logoutCall = async(dispatch) => {
-    try {
-        dispatch({type: "LOGOUT_SUCCESS"});
-    } catch(err) {
-        dispatch({type: "LOGOUT_FAILURE", payload: err});
-    }
-}
+    dispatch({type: "LOGOUT_SUCCESS"});
+};
