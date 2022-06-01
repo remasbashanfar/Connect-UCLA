@@ -16,9 +16,11 @@ router.post("/posts", Post.apiCreatePost)
 router.patch("/posts/:id", Post.apiUpdatePost)
 router.delete("/posts/:id", Post.apiDeletePost)
 router.post("/posts/add-to-calendar", Post.apiAddToCalendar)
-router.patch("/posts/rsvp1/:id",Post.apiLikePost)
-router.patch("/posts/rsvp0/:id",Post.apiUnLikePost)
+// router.patch("/posts/rsvp1/:id",Post.apiLikePost)
+// router.patch("/posts/rsvp0/:id",Post.apiUnLikePost).
 router.get("/posts/profile/:username", Post.apiGetPostsByUser)
+//router.get("/posts/rsvp/:username", Post.apiGetUserRSVP)
+router.get("/posts/rsvp/:username", Post.apiGetPostsByRSVP)
 
 ///// 	USERS 	  /////
 router.get("/users", User.apiGetUsers)

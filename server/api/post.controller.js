@@ -23,15 +23,30 @@ export default class PostController {
 
   static async apiGetPostsByUser(req, res){
     try {
-		  const user = await UserModel.find({ username: req.params.username })
+		  const user = await UserModel.findOne({ username: req.params.username })
       const posts = await PostModel.find({userId: user._id})
 		  res.send(posts)
 	  } catch (err) {
 		  return res.status(404).json({ error: "User does not exist" })
 	  }
   }
+  static async apiGetPostsByRSVP(req, res){
+    try {
+		  const user = await UserModel.findOne({ username: req.params.username })
+      const posts = []
+      for (let index = 0; index < user.rsvpList.length; index++) {
+        const post_id = user.rsvpList[index]
+        const post = await PostModel.findById(post_id)
+        posts.push(post)
+      }
+      console.log(posts)
+		  res.send(posts)
+	  } catch (err) {
+		  return res.status(404).json({ error: "User does not exist" })
+	  }
+  }
 
-
+ 
   static async apiDeletePost(req, res){
     try {
       await PostModel.deleteOne({ _id: req.params.id })

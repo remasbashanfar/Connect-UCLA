@@ -118,7 +118,7 @@ export default class UserController {
     } catch {
       return res.status(500).json({error: "Unfollow Error"})
     }
-  }
+  } 
 
   ///// 	Acccept User Follow Request	    /////
   static async apiAcceptFollow(req, res) {

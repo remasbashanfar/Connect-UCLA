@@ -8,6 +8,7 @@ import NavBar from "../../components/navbar";
 import { useParams, useNavigate } from "react-router-dom";
 import UserAPI from '../../services/user';
 import ProfileFeed from "../../components/profile-feed/profile-feed.js"
+import RSVPFeed from "../../components/profile-feed/rsvp-feed.js"
 import Button from '@mui/material/Button';
 import EditIcon from '@mui/icons-material/Edit';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -219,10 +220,8 @@ export default function Profile() {
 
               </div>
               <div className="profileBottomMiddle">
-                <ProfileFeed username="ParkJimin"/>
+                {RSVPFeed(username)} 
               </div>
-
-
               <div className="profileBottomRight">
                 {/* {user && (user._id === profileUser._id) && !edit &&
                 <Button className="profileButton" variant="outlined" startIcon={<EditIcon />} onClick={handleEditButton}>

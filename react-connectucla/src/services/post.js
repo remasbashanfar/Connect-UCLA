@@ -33,7 +33,9 @@ class PostAPI {
             return ServerAPI.patch(`posts/rsvp0/${postid}`);
         }
     }
-
+    getRSVPPosts(username) {
+        return ServerAPI.get(`posts/rsvp/${username}`)
+    }
     getPostByTags(tags){
         let queryString = "";
 
