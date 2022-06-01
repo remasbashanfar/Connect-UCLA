@@ -1,13 +1,15 @@
 import PostModel from "../models/Post.js";
+import UserModel from "../models/User.js";
 import { google } from "googleapis";  // Must use {} destructor
 import dotenv from "dotenv";
+import mongoose from "mongoose";
 
 dotenv.config();
 
 export default class PostController {
 
   static async apiGetPosts(req, res) {
-      const posts = await PostModel.find().sort({"RSVP_counter":-1})
+      const posts = await PostModel.find()
       res.send(posts)
   }
   
@@ -24,6 +26,46 @@ export default class PostController {
   static async apiGetPostsByUser(req, res){
     try {
 		  const posts = await PostModel.find({ userId: req.params.userId })
+		  res.send(posts)
+	  } catch (err) {
+		  res.status(err)
+	  }
+  }
+
+  static async apiGetPersonalized(req, res){
+    try {
+      // Get all posts
+      const posts = await PostModel.find()
+      // Get user object
+		  const user = await UserModel.find({ _id: req.params.userId })
+      // Get all rsvp ids, then posts from user
+      const rsvpList = user[0].rsvpList.map((id)=>mongoose.Types.ObjectId(id))
+      const likedPosts = await PostModel.find({"_id" : {$in : rsvpList}})
+      // Get liked tags in array
+      const tagList = [].concat.apply([],likedPosts.map((post)=>post.tags))
+      // Convert to count dict
+      const count_dict = {}
+      for (const tag of tagList) {
+        if (tag in count_dict) {
+          count_dict[tag] += 1
+        } else {
+          count_dict[tag] = 1
+        }
+      }
+      // Sort posts by count dict w. custom comparator
+      const score = (tag) => {
+        return (tag in count_dict) ? count_dict[tag] : 0
+      }
+      // First sort by popular category, if same score, sort by rsvp count
+      posts.sort(function(a,b){
+        const scoreA = Math.max(...a.tags.map((tag) => score(tag)))
+        const scoreB = Math.max(...b.tags.map((tag) => score(tag)))
+        if (scoreA == scoreB) {
+          return b.RSVP_counter - a.RSVP_counter
+        }
+        return scoreB - scoreA
+      });
+
 		  res.send(posts)
 	  } catch (err) {
 		  res.status(err)

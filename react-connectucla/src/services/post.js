@@ -7,6 +7,10 @@ class PostAPI {
         return ServerAPI.get(`posts`);
     }
 
+    getPersonalized(userid) {
+        return ServerAPI.get(`posts/personalized/${userid}`);
+    }
+
     getPostById(id) {
         return ServerAPI.get(`posts/${id}`);
     }

@@ -19,6 +19,7 @@ router.post("/posts/add-to-calendar", Post.apiAddToCalendar)
 router.patch("/posts/rsvp1/:id",Post.apiLikePost)
 router.patch("/posts/rsvp0/:id",Post.apiUnLikePost)
 router.get("/posts/profile/:userId", Post.apiGetPostsByUser)
+router.get("/posts/personalized/:userId", Post.apiGetPersonalized)
 
 ///// 	USERS 	  /////
 router.get("/users", User.apiGetUsers)

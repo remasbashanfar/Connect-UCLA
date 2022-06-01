@@ -42,13 +42,21 @@ export default function Home() {
     const retrievePosts = () => {
         if(tags.length === 0)
         {
-            PostAPI.getAll()
-            .then(response =>{
-                setPosts(response.data)
-            })
-            .catch(error => console.log(error));
+            if (user) { // Customly sorted posts
+                PostAPI.getPersonalized(user._id)
+                .then(response =>{
+                    setPosts(response.data)
+                })
+                .catch(error => console.log(error));
+            } else { // Default feed if no user logged in 
+                PostAPI.getAll()
+                .then(response =>{
+                    setPosts(response.data)
+                })
+                .catch(error => console.log(error));
+            }
         }
-        else{
+        else{ // If tags are set, return appropriate posts
             PostAPI.getPostByTags(tags)
                 .then(response => {
                     setPosts(response.data)
