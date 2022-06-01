@@ -15,7 +15,6 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    // profile picture here
     profilePicture: {
         type: String,
         default:""
@@ -24,41 +23,37 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default:""
     },
-    // if we want to have followers...
     followers: {
         type: Array,
         default:[]
+    },
+    following: {
+        type: Array,
+        default:[]
+    },
+    followRequests: {
+        type: Array,
+        default: []
     },
     isAdmin: {
         type: Boolean, 
         default: false, 
     },
-    // can implement verification program
-    // true for clubs, sports, etc.
     isOrganization: {
         type: Boolean,
         default: false,
     },
-    // used in users.js 
     description: {
         type: String,
         max: 50
     },
-    city: {
-        type: String,
-        max: 50
-    },
-    from: {
-        type: String,
-        max: 50
-    },
-    relationship: {
-        type: Number,
-        enum:[1, 2, 3]      // single, married, etc. 
-    },
     rsvpList: {
         type: Array,
         default: []
+    },
+    isPrivate: {
+        type: Boolean,
+        default: false,
     }
 },
 // automatically update timestamps

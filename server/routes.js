@@ -18,20 +18,20 @@ router.delete("/posts/:id", Post.apiDeletePost)
 router.post("/posts/add-to-calendar", Post.apiAddToCalendar)
 router.patch("/posts/rsvp1/:id",Post.apiLikePost)
 router.patch("/posts/rsvp0/:id",Post.apiUnLikePost)
-router.get("/posts/profile/:userId", Post.apiGetPostsByUser)
+router.get("/posts/profile/:username", Post.apiGetPostsByUser)
 
 ///// 	USERS 	  /////
 router.get("/users", User.apiGetUsers)
 router.get("/users/:username", User.apiGetUser)
-// router.get("/users/:username", User.apiGetUserByUsername)
 router.post("/users/register", User.apiRegisterUser)
 router.post("/users/login", User.apiUserLogin)
-router.patch("/users/:id", User.apiUpdateUserById)
-router.put("/users/:id", User.apiFollowUserById)
-router.put("/users/:id", User.apiUnfollowUserById)
+router.patch("/users/", User.apiUpdateUser)
+router.put("/users/follow/:username", User.apiFollowUser)
+router.put("/users/unfollow/:userId", User.apiUnfollowUser)
 router.delete("/users/:id", User.apiDeleteUserById)
 router.patch("/users/rsvp1/:id",User.apiLikePost)
 router.patch("/users/rsvp0/:id",User.apiUnLikePost)
+router.put(`/users/request/:username`, User.apiAcceptFollow)
 
 ///// 	GOOGLE CALENDAR 	  /////
 
