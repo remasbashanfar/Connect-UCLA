@@ -12,6 +12,17 @@ import { useState, useEffect } from 'react'
 import Geocode from "react-geocode";
 import PostAPI from '../services/post.js'
 import MapFilter from '../components/mapFilter.js'
+import NavBar from '../components/navbar.js'
+import {Combobox,
+        ComboboxInput,
+        ComboboxPopover,
+        ComboboxList,
+        ComboboxOption} from "@reach/combobox"
+import usePlacesAutoComplete, {
+    getGeocode,
+    getLatLng,
+} from "use-places-autocomplete"
+import DatePicker from "../components/datePicker.js"
 
 const options ={
     styles: mapStyles,
@@ -24,25 +35,22 @@ const mapContainerStyle = {
     height: '100vh',
 }
 
-const center = {
-    lat:34.068920,
-    lng:-118.445183,
-}
+const uclaLAT = 34.068920
+const uclaLNG = -118.445183
+
+let allowedLAT;
+let allowedLNG;
 
 
+let allowedPosition = false;
 Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
 
 
-  /*navigator.geolocation.getCurrentPosition((position) => {
-    console.log("Latitude is :", position.coords.latitude);
-    console.log("Longitude is :", position.coords.longitude);
-  });*/
   
 
 const libraries = ["places"]
 export default function Maps() {
 
-    
     const [markers, setMarkers] = useState([])
     const [selected, setSelected] = useState(null);
     const [locationFilterStatus, setLocationFilterStatus] = useState(false)
@@ -60,10 +68,24 @@ export default function Maps() {
     }, [locationFilter, dateFilter]);
 
     const mapRef = React.useRef();
-
-    const onMapLoad = React.useCallback((map) => {
-        mapRef.current = map;
+    const onMapLoad = React.useCallback(async (map) => {
+        mapRef.current = await map;
     },[])
+    
+    navigator.geolocation.getCurrentPosition(async (position) => {
+        allowedPosition = true;
+        allowedLAT = await position.coords.latitude
+        allowedLNG = await position.coords.longitude
+
+        console.log("Latitude is :", position.coords.latitude);
+        console.log("Longitude is :", position.coords.longitude);
+      });
+    
+      
+    let center = {
+        lat: allowedPosition ? allowedLAT : uclaLAT,
+        lng: allowedPosition ? allowedLNG : uclaLNG,
+    }
 
     const locationToMarker = () => {
         PostAPI.getAll()
@@ -86,6 +108,16 @@ export default function Maps() {
                     {
                         if(dateFilterStatus)
                         {
+                            let tmpArray;
+                            let tmpString = Posts[j].startTime.split('T')[0]
+                            tmpString = tmpString.replace(/-/g, "/")
+                            tmpArray=tmpString.split("/")
+                            const index0  = tmpArray[0]
+                            const index1 = tmpArray[2]
+                            tmpArray[0] = tmpArray[1]
+                            tmpArray[1] = index1
+                            tmpArray[2] = index0
+                            tmpString = tmpArray.join('/')
                             if(Posts[j].startTime.split('T')[0] !== dateFilter)
                             {
 
@@ -110,7 +142,7 @@ export default function Maps() {
                             Geocode.fromAddress(locations[j]).then(
                                 async (response) => {
                                   const { lat, lng } = await response.results[0].geometry.location;
-        
+                                    
                                   
                                   setMarkers(current => [...current, {
                                     lat:lat,
@@ -188,6 +220,7 @@ export default function Maps() {
         return "Loading Maps"
     return(
         <div>
+            <NavBar/>
             <MapFilter 
                        locationFilterStatus = {locationFilterStatus} 
                        setLocationFilterStatus = {setLocationFilterStatus}
@@ -214,7 +247,10 @@ export default function Maps() {
                 {selected ? (
                     <InfoWindow position = {{lat:selected.lat, lng:selected.lng}} 
                                 onCloseClick = { () =>{
-                                    setSelected(null)}
+                                    center.lat = selected.lat
+                                    center.lng = selected.lng
+                                    setSelected(null)
+                                    }
                                 }
                     >
                         <div>
