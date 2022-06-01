@@ -54,7 +54,7 @@ class PostAPI {
         return ServerAPI.get(`posts/filter/tags?` + queryString)
     }
 
-    getPostsByUser(username){
+    getPostsByUser(username){ //! might not work w/o id
         return ServerAPI.get(`posts/profile/${username}`)
     }
 }

@@ -31,6 +31,7 @@ export default class PostController {
 		  return res.status(404).json({ error: "User does not exist" })
 	  }
   }
+  
   static async apiGetPostsByRSVP(req, res){
     try {
 		  const user = await UserModel.findOne({ username: req.params.username })
@@ -188,6 +189,7 @@ export default class PostController {
 
 
   static async apiLikePost(req, res) {
+    console.log("Like post called") //REMOVE
     try {
       const post = await PostModel.findByIdAndUpdate({ _id: req.params.id },{$inc:{RSVP_counter: 1}})
 		  res.send(post)
@@ -198,6 +200,7 @@ export default class PostController {
   }
 
   static async apiUnLikePost(req, res) {
+    console.log("Like post called") //REMOVE
     try {
       const post = await PostModel.findByIdAndUpdate({ _id: req.params.id },{$inc:{RSVP_counter: -1}})
 		  res.send(post)
