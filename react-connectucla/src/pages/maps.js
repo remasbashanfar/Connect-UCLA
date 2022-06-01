@@ -13,16 +13,7 @@ import Geocode from "react-geocode";
 import PostAPI from '../services/post.js'
 import MapFilter from '../components/mapFilter.js'
 import NavBar from '../components/navbar.js'
-import {Combobox,
-        ComboboxInput,
-        ComboboxPopover,
-        ComboboxList,
-        ComboboxOption} from "@reach/combobox"
-import usePlacesAutoComplete, {
-    getGeocode,
-    getLatLng,
-} from "use-places-autocomplete"
-import { width } from '@mui/system'
+
 
 const options ={
     styles: mapStyles,
