@@ -12,6 +12,7 @@
     "@react-oauth/google": "^0.2.4",
     "axios": "^0.27.2",
     "react": "^18.1.0",
+    "react-datepicker": "^4.8.0",
     "react-dom": "^18.1.0",
     "react-geocode": "^0.2.3",
     "react-router-dom": "^6.3.0",
