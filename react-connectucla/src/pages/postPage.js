@@ -75,7 +75,7 @@ export default function PostPage() {
             
             {user && user._id===post.userId && <DeleteButton id={id}>
             </DeleteButton>}
-            {rsvpList!=null ? <RsvpButton id={id} author={post.userId} RSVP_List={rsvpList}></RsvpButton> : null}
+            {rsvpList!=null ? <RsvpButton id={id} author={post.userId} rsvpList={rsvpList}></RsvpButton> : null}
             </div>
             {/* This is the post page ID {post._id} */}
         </div>
