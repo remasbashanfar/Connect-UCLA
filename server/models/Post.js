@@ -44,6 +44,7 @@ const PostSchema = new mongoose.Schema({
     }},
     {collection: "posts"}
 );
+PostSchema.index({'$**': 'text'}); // seach entire object text
  
 
 // changed from "posts" to "Post"

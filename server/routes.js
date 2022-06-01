@@ -22,6 +22,7 @@ router.get("/posts/profile/:username", Post.apiGetPostsByUser)
 //router.get("/posts/rsvp/:username", Post.apiGetUserRSVP)
 router.get("/posts/rsvp/:username", Post.apiGetPostsByRSVP)
 router.get("/posts/personalized/:userId", Post.apiGetPersonalized)
+router.get("/postsearch",Post.apiSearchPosts)  // Searches post index
 
 ///// 	USERS 	  /////
 router.get("/users", User.apiGetUsers)
