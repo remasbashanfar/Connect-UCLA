@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Button from '@mui/material/Button'
 
 export default function FilterBar({tag, tags, handleTagChange, addTags, removeTag}){
 
@@ -8,8 +8,12 @@ export default function FilterBar({tag, tags, handleTagChange, addTags, removeTa
     <div>
         <form onSubmit = {addTags}>
             <div>
-                <input value = {tag} onChange = {handleTagChange}/>
-                <button type = "submit">Add Tag</button>
+                <input value = {tag} onChange = {handleTagChange} placeholder= "filter events by tags"
+                style={{maxWidth: '200px', maxHeight: '50px', minWidth: '200px', minHeight: '35px'}}
+                />
+                <Button 
+                // style={{maxWidth: '30px', maxHeight: '20px', minWidth: '60px', minHeight: '20px'}}
+                variant="contained" type = "submit">Add Tag</Button>
             </div>
         </form>
         <div>
@@ -17,7 +21,7 @@ export default function FilterBar({tag, tags, handleTagChange, addTags, removeTa
                 {tags.map(tag => (
                 <div>
                     <li key = {tag}>{tag}</li>
-                    <button onClick = {(event) => (removeTag(event.target.id))} id = {tag}>Remove Tag</button>
+                    <Button variant="contained" onClick = {(event) => (removeTag(event.target.id))} id = {tag}>Remove Tag</Button>
                 </div>
                 ))}
             </ul>
