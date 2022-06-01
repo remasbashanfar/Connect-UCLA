@@ -10,7 +10,7 @@ import './profile-feed.css';
 
 // Homepage doubles as the feed.
 
-export default function ProfileFeed({ userId }) {
+export default function ProfileFeed({ username }) {
 
     // Variables + hooks
     const [posts, setPosts] = useState([]);
@@ -19,7 +19,7 @@ export default function ProfileFeed({ userId }) {
 
     useEffect(() => {
         const retrievePosts = async () => {
-            const res = await PostAPI.getPostsByUser(userId)
+            const res = await PostAPI.getPostsByUser(username)
             setPosts(
                 res.data.sort((p1, p2) => {
                 return new Date(p2.createdAt) - new Date(p1.createdAt);
@@ -27,6 +27,7 @@ export default function ProfileFeed({ userId }) {
             );
         };
         retrievePosts();
+<<<<<<< Updated upstream
         retrieveRSVPList();
     }, [userId]);
             //container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
@@ -37,7 +38,11 @@ export default function ProfileFeed({ userId }) {
         })
         .catch(error => console.log(error));
     }
+=======
+    }, [username]);
+>>>>>>> Stashed changes
 
+    //container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
     return (
         <div className="feed">
             <Grid container spacing ={3}> 

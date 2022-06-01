@@ -1,96 +1,100 @@
 import React from 'react'
 import {useRef, useContext} from 'react'
-import './editProfileButton.css'
 import Button from '@mui/material/Button';
 import {AuthContext} from "../context/AuthContext"
 import UserAPI from '../services/user';
 import PublishIcon from '@mui/icons-material/Publish';
-//import bcrypt from 'bcrypt'
+import {useNavigate} from 'react-router-dom';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import FormHelperText from '@mui/material/FormHelperText';
+import TextField from '@mui/material/TextField';
+import '../pages/profile/profile.css'
 
 export default function EditProfileButton(){
+    //input fields
     const new_username= useRef();
-    const new_password= useRef();
+    // const new_password= useRef();
     const new_email= useRef();
-    const new_password_again= useRef();
-    const current_password = useRef();
+    // const new_password_again= useRef();
+    const new_description= useRef();
     const new_profile_picture = useRef();
     const new_cover_picture = useRef();
-    const {user} = useContext(AuthContext);
+    const is_private = useRef();
+    //context
+    const {user, dispatch} = useContext(AuthContext);
+    const Navigate = useNavigate();
 
     const handleEditSubmit= async (e)=>{
         e.preventDefault();
-        console.log(user.password)
-        //const validPassword = await bcrypt.compare(current_password.current.value, user.password)            
-        if(new_password_again.current.value !== new_password.current.value) {
-          new_password.current.setCustomValidity("Passwords do not match. Try again.")
-        } else if (new_password_again.current.value) {
-          current_password.current.setCustomValidity("Incorrect Password.")
-        } else {
-            try {
-                const update = {
-                    username: new_username.current.value ? new_username.current.value : user.username,
-                    password: new_password.current.value ? new_password.current.value : user.password,
-                    email: new_email.current.value ? new_email.current.value : user.email,
-                    profilePicture: new_profile_picture ? new_profile_picture : user.profilePicture,
-                    coverPicture: new_cover_picture ? new_cover_picture : user.coverPicture,
-                }
-                await UserAPI.updateUserById(user._id, update);
-            } catch(err){
-                console.log(err);
+        try {
+            const updated_user = {
+                _id: user._id,
+                username: new_username.current.value ? new_username.current.value : user.username,
+                email: new_email.current.value ? new_email.current.value : user.email,
+                profilePicture: new_profile_picture.current.value ? new_profile_picture.current.value : user.profilePicture,
+                coverPicture: new_cover_picture.current.value ? new_cover_picture.current.value : user.coverPicture,
+                description: new_description.current.value ? new_description.current.value : user.description,
+                isPrivate: is_private.current.checked
             }
+            await UserAPI.updateUser(updated_user)
+            Navigate(`/profile/${updated_user.username}`)
+            dispatch({ type: "UPDATE", payload: updated_user });
+        } catch(err){
+            console.log(err);
         }
     };
 
     return (
         <form className="editBox" onSubmit={handleEditSubmit}>
-            <input 
-                className="editInput" 
-                placeholder="new username" 
+            <TextField 
+                label="New Username"
+                placeholder="New Username" 
+                margin="normal"
                 type="username"
                 minLength="8"
-                ref={new_username}
+                inputRef={new_username}
+                variant="standard" 
             />
-            <input 
-                className="editInput" 
-                placeholder="new email" 
+            <TextField 
+                label="New Email"
+                placeholder="New Email" 
+                margin="normal"
                 type="email"
-                minLength="8"
-                ref={new_email}
+                inputRef={new_email}
+                variant="standard" 
             />
-            <input 
-                className="editInput" 
-                placeholder="current password" 
-                type="password"
-                minLength="8"
-                ref={current_password}
-                required
-            />
-            <input 
-                className="editInput" 
-                placeholder="new password" 
-                type="password"
-                minLength="8"
-                ref={new_password}
-            />
-            <input 
-                className="editInput" 
-                placeholder="new password again" 
-                type="password"
-                minLength="8"
-                ref={new_password_again}
-            />
-            <input 
-                className="editInput" 
-                placeholder="new profile photo URL" 
+            <TextField 
+                label="New Profile Picture URL"
+                placeholder="New Profile Picture URL" 
+                margin="normal"
                 type="url"
-                ref={new_profile_picture}
+                inputRef={new_profile_picture}
+                variant="standard" 
             />
-            <input 
-                className="editInput" 
-                placeholder="new cover photo URL" 
+            <TextField 
+                label="New Cover Picture URL"
+                placeholder="New Cover Picture URL" 
+                margin="normal"
                 type="url"
-                ref={new_cover_picture}
+                inputRef={new_cover_picture}
+                variant="standard" 
             />
+            <TextField
+                id="Profile Description"
+                label="New Profile Description"
+                placeholder="New Cover Picture URL" 
+                margin="normal"
+                multiline
+                maxRows={4}
+                inputRef={new_description}
+            />
+            <FormControlLabel
+                control={<Checkbox inputRef={is_private}/>}
+                label="Private Account"
+                labelPlacement="end"
+            />
+            <FormHelperText>A private account is viewable only by followers you approve.</FormHelperText>
             <Button variant="outlined" startIcon={<PublishIcon />} type="submit">Submit</Button>
         </form>
     )

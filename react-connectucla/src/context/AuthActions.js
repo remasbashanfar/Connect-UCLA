@@ -13,3 +13,22 @@ export const LoginFailure=(error)=> ({
     type:"LOGIN_FAILURE",
     payload: error,
 });
+
+export const Follow = (username) => ({
+    type: "FOLLOW",
+    payload: username,
+});
+  
+export const Unfollow = (username) => ({
+    type: "UNFOLLOW",
+    payload: username,
+});
+
+export const AcceptFollow = (username) => ({
+    type: "ACCEPT_FOLLOW",
+    payload: username,
+});
+
+export const LogoutSuccess = () => ({
+    type: "LOGOUT_SUCCESS",
+});

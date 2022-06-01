@@ -22,143 +22,127 @@ export default class UserController {
         const user = await newUser.save();
         res.status(200).json(user);
     } catch {
-        res.status(500).json({ error: "Registration Error" })
+        return res.status(500).json({ error: "Registration Error" })
     }
   } 
-    ///// 	Create User	        /////
-  static async apiCreateUser(req, res){
-    try {
-        // create and encrypt a password using bcrypt (salt = random string)
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
-    
-        // create new user
-        const newUser = new UserModel({
-          username: req.body.username,
-          password: hashedPassword,
-        });
-        
-        // save the new user and send back HTTP response
-        const user = await newUser.save();
-        res.status(200).json(user);
-    } catch {
-        res.status(500).json({ error: "Registration Error" })
-    }
-  } 
-
   ///// 	Login User          /////
   static async apiUserLogin(req, res) {
     try {
         // input username
         const user = await UserModel.findOne({username: req.body.username});
-        !user && res.status(404).json("user not found")
+        if (!user) {
+          return res.status(404).json("user not found")
+        }
     
         // input password
         const validPassword = await bcrypt.compare(req.body.password, user.password)
-        !validPassword && res.status(400).json("wrong password")
+        if (!validPassword) {
+          return res.status(400).json("wrong password")
+        }
     
         // if user + pw match 
         res.status(200).json(user)
     } catch {
-        res.status(500).json({error: "Login Error"})
+        return res.status(500).json({error: "Login Error"})
     }
   }
   ///// 	Get User	        /////
+
+  // get all users
   static async apiGetUsers(req, res) {
     const users = await UserModel.find()
     res.status(200).json(users)
-}
-  // static async apiGetUserById(req, res) {
-  //   try {
-  //       const user = await UserModel.findById(req.params.id)
-  //       // create object "other" that contains the unlisted elements within user._doc
-  //       const {password, updatedAt, isAdmin, isOrganization, createdAt, ...other} = user._doc
-  //       res.status(200).json(other)
-  //   } catch {
-  //       res.status(404).json({ error: "User does not exist" })
-  //   }
-  // }   
+  } 
+  
+  // get one user
   static async apiGetUser(req, res) {
     try {
       const user = await UserModel.findOne({ username: req.params.username });
-      const {password, updatedAt, isAdmin, isOrganization, createdAt, ...other} = user._doc
-      res.status(200).json(other);
+      //const {password, updatedAt, isAdmin, isOrganization, createdAt, ...other} = user._doc
+      res.status(200).json(user);
     } catch (err) {
-      res.status(500).json(err);
+      return res.status(500).json(err);
     }
-}   
+  }   
   ///// 	Update User	        /////
-  static async apiUpdateUserById(req, res){
-      try {
-        const user = await UserModel.findByIdAndUpdate(req.params.id, {
-          $set: req.body,
-        });
-        res.status(200).json(user)
-      } catch {
-        return res.status(500).json({ error: "User Update Error" })
-      }
+  static async apiUpdateUser(req, res){
+    try {
+      const user = await UserModel.findByIdAndUpdate(req.body._id, {
+        $set: req.body,
+      });
+      const updated_user = await UserModel.findById(user._id)
+      res.status(200).json(updated_user)
+    } catch {
+      return res.status(500).json({ error: "User Update Error" })
+    }
   }
   ///// 	Follow User	        /////
-  static async apiFollowUserById(req, res){
-    // confirm that users are different 
-    if(req.body.userId !== req.params.id){
+  static async apiFollowUser(req, res){
       try {
-        // confirm that current user is not already following other
-        const user = await UserModel.findById(req.params.id)
-        const userCurr = await UserModel.findById(req.body.userId)
-        if (!user.followers.includes(req.body.userId)){
-          await user.updateOne( {$push: {followers: req.body.userId} });
-          await userCurr.updateOne( {$push: {followers: req.params.userId} });
-          res.status(200)
-          res.send("Followed")
+        // current user is in the body
+        // profile user is in the params
+        const profileUser = await UserModel.findOne({username: req.params.username})
+        const user = await UserModel.findOne({username: req.body.username})
+        if (!user.followers.includes(req.params.username)){
+          if (profileUser.isPrivate) {
+            await profileUser.updateOne( {$push: {followRequests: req.body.username} });
+          } else {
+            await profileUser.updateOne( {$push: {followers: req.body.username} });
+            await user.updateOne( {$push: {following: req.params.username} });
+          }
+          res.status(200).json("Followed")
         } else{
-          res.status(403)
-          res.send({ error: "Already following user"})
+          return res.status(403).json({ error: "Already following user"})
         }
       } catch {
-        res.status(500) 
-        res.send({error: "Follow Error"})
+        return res.status(500).json({error: "Follow Error"}) 
       }
-    } else{
-      res.status(403)
-      res.send({ error: "You can not follow yourself"})
-    } 
   }
+  
   ///// 	Unfollow User	        /////
-  static async apiUnfollowUserById(req, res){
+  static async apiUnfollowUser(req, res){
     try {
-      const user = await UserModel.findById(req.params.id)
-      const userCurr = await UserModel.findById(req.body.userId)
-      if (user.followers.includes(req.body.userId)){
-        await user.updateOne( {$pull: {followers: req.body.userId} });
-        await userCurr.updateOne( {$pull: {followers: req.body.userId} });
-        res.status(200)
-        res.send("Unfollowed user")
+      // current user is in the body
+      // profile user is in the params
+      const profileUser = await UserModel.findOne({username: req.params.username})
+      const user = await UserModel.findOne({username: req.body.username})
+      if (user.following.includes(req.params.username)){
+        await profileUser.updateOne( {$pull: {followers: req.body.username} });
+        await user.updateOne( {$pull: {following: req.params.username} });
+        res.status(200).json("Unfollowed user")
+      } else if (user.followRequests.includes(req.params.username)) { 
+        await profileUser.updateOne( {$pull: {followRequests: req.body.username} });
       } else {
-        res.status(403)
-        res.send({ error: "Not following user"})
+        return res.status(403).json({ error: "Not following user"})
       }
-    }
-    catch {
-      res.status(500) 
-      res.send({error: "Unfollow Error"})
+    } catch {
+      return res.status(500).json({error: "Unfollow Error"})
     }
   }
+
+  ///// 	Acccept User Follow Request	    /////
+  static async apiAcceptFollow(req, res) {
+    try {
+      // current user is in the body
+      // request username is in the params
+      const requestUser = await UserModel.findOne({username: req.params.username})
+      const user = await UserModel.findOne({username: req.body.username})
+      if (user.followRequests.includes(req.params.username)) {
+        await requestUser.updateOne({$push: {following: req.body.username} })
+        await user.updateOne({$push: {followers: req.params.username} })
+        await requestUser.updateOne({$pull: {followRequests: req.params.username} })
+      } else {
+        return res.status(404).json({ error: "Follow request not found"})
+      }
+    } catch {
+      return res.status(500).json({error: "Accept Follow Error"})
+    }
+  }
+
   ///// 	Delete User	        /////
   static async apiDeleteUserById(req, res){
-    if (req.body.userId === req.params.id) {
-      try {
-        const user = await UserModel.findByIdAndDelete(req.params.id);
-        res.status(200)
-        res.send("Account successfully deleted.")
-      } catch {
-        res.status(500)
-        res.send({ error: "User Deletion Error"}) 
-      }
-    } else {
-      res.status(403)
-      res.send({ error: "You can only delete your own account."})
-    }
+      await UserModel.findByIdAndDelete(req.params.id);
+      return res.status(200).json("Account successfully deleted.")
   }
 
   ///// 	Add post id to rsvpList	        /////

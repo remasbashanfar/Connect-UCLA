@@ -4,13 +4,12 @@ import {loginCall} from "../../services/loginCall"
 import {AuthContext} from "../../context/AuthContext"
 import CircularProgress from '@mui/material/CircularProgress';
 import "./login.css";
-import {useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom'
 
 export default function Login() {
     const username= useRef();
     const password= useRef();
     const {isFetching, dispatch} = useContext(AuthContext);
-    const navigate = useNavigate();
 
     const handleLogin= (e)=>{
         e.preventDefault();
@@ -21,12 +20,8 @@ export default function Login() {
             }, 
             dispatch
         );
-        navigate("/");
-
     };
-    const handleRegister=()=> {
-        window.location.href = "/register";
-    }
+
     return (
         <div className="login">
             <Button className="loginLogoBox" href="/">ConnectUCLA</Button>
@@ -53,11 +48,12 @@ export default function Login() {
                 disabled={isFetching}>
                     {isFetching ? <CircularProgress color="success"/> : "Log In"}
                 </button>
-                <button 
-                    className="loginRegisterButton" 
-                    onClick={handleRegister}>
-                    Create a new account!
-                </button>
+                <Link className="loginRegisterButton" to="/register">
+                    <button 
+                        className="loginRegisterButton">
+                        Create a new account!
+                    </button>
+                </Link>
             </form>
         </div>
     );

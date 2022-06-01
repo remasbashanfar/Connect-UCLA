@@ -48,8 +48,8 @@ class PostAPI {
         return ServerAPI.get(`posts/filter/tags?` + queryString)
     }
 
-    getPostsByUser(userId){
-        return ServerAPI.get(`posts/profile/${userId}`)
+    getPostsByUser(username){
+        return ServerAPI.get(`posts/profile/${username}`)
     }
 }
 

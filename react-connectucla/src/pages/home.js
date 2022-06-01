@@ -79,8 +79,8 @@ export default function Home() {
     return (
         <div >
             <NavBar></NavBar>
-            <h1>Connect UCLA</h1>
-            <h2>Welcome home!</h2>
+            {/* <h1>Connect UCLA</h1>
+            <h2>Welcome home!</h2> */}
             
             <FilterBar tag = {tag} tags = {tags} handleTagChange={handleTagChange} 
                        addTags = {addTags} removeTag = {removeTag}>

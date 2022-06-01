@@ -14,7 +14,7 @@ import DeleteButton from '../components/deleteButton.js'
 
 // expand post interface
 import Collapse from '@mui/material/Collapse';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import IconButton from '@mui/material/IconButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { styled } from '@mui/material/styles';
 
