@@ -3,18 +3,17 @@ import PostAPI from '../../services/post.js'
 import UserAPI from '../../services/user.js'
 import React, { useState, useEffect } from "react";
 import Grid from '@mui/material/Grid';
-
 import './profile-feed.css';
 
 
-export default function ProfileFeed(props) {
+export default function FollowFeed(props) {
     const [rsvpList, setRSVPList] = useState([]);
+    const [posts, setPosts] = useState([]);
 
     // Variables + hooks
-    const [posts, setPosts] = useState([]);
     useEffect(() => {
         const retrievePosts = async () => {
-            const res = await PostAPI.getPostsByUser(props.username)
+            const res = await PostAPI.getPostsByFollowing(props.username)
             setPosts(
                 res.data.sort((p1, p2) => {
                 return new Date(p2.createdAt) - new Date(p1.createdAt);

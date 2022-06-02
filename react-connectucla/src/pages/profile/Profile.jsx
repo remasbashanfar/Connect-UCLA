@@ -11,8 +11,6 @@ import ProfileFeed from "../../components/profile-feed/profile-feed.js"
 import RSVPFeed from "../../components/profile-feed/rsvp-feed.js"
 import Button from '@mui/material/Button';
 import EditIcon from '@mui/icons-material/Edit';
-import LogoutIcon from '@mui/icons-material/Logout';
-import {logoutCall} from "../../services/loginCall"
 import EditProfileButton from "../../components/editProfileButton.js"
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import GroupRemoveIcon from '@mui/icons-material/GroupRemove';
@@ -34,40 +32,61 @@ export default function Profile() {
   const [isOwnProfile, setIsOwnProfile] = useState();
   const [isFollowing, setIsFollowing] = useState();
   const [isRequested, setIsRequested] = useState();
-  const username = useParams().username;
+  const [swapFeed, setSwapFeed] = useState(false);
+  const [displayRequests, setDisplayRequests] = useState(false);
+  const username = useParams(false).username;
   const {user, dispatch} = useContext(AuthContext);
-  //const [isOwnProfile] = useState(user.following.includes(profileUser.username));  
-  console.log("user:")
-  console.log(user)
-  console.log("profileUser:")
-  console.log(profileUser)
-  // follow requests interface 
-
+  
+  
+  // BUTTON TOGGLES
+    const handleSwap = () => {
+      setSwapFeed(swapFeed ? false : true);
+    };
+    const handleRequests = () => {
+      setDisplayRequests(displayRequests ? false : true);
+    };
+    const handleEditButton = () => {
+      setEdit(edit ? false : true);
+      setEdit(!edit);
+    };
   // get profile data interface 
   useEffect(() => {
     const retrieveProfileUser = async () => {
         const res = await UserAPI.getUser(username);
+        console.log(res.data.followRequests.includes(user.username))
         setProfileUser(res.data);
         setIsFollowing(user.following.includes(res.data.username));
         setIsRequested(res.data.followRequests.includes(user.username));
-        setIsOwnProfile(user === res.data)
+        setIsOwnProfile(user.username === res.data.username)
     };
     retrieveProfileUser();
-  }, [username, user]);
+  }, [username, user, swapFeed]);
 
-  // follow user interface
-  const handleFollow = async () => {
+  // accept or deny follow request
+  // const handleFollowRequest = async (bool) => {
+  //   // accepted
+  //   try {
+  //     await UserAPI.acceptFollow(user.username, profileUser.username, bool)
+  //     dispatch({ type: "FOLLOW", payload: profileUser.username });
+  //   } catch (err) {
+  //     console.log(err)
+  //   }   
+  // }
+  const handleFollow = async (props) => {
+    const isrequested = props.requested;
+    const isfollowing = props.following;
     try {
-      if (user.following.includes(profileUser.username)) {
+      if (isfollowing) {
         await UserAPI.unfollowUser(user, profileUser)
         dispatch({ type: "UNFOLLOW", payload: profileUser.username });
-      } else if (user.followRequests.includes(profileUser.username)) {
+      } else if (isrequested) {
         await UserAPI.unfollowUser(user, profileUser)
+        setIsRequested(false)
       } else {
         // followUser function checks if profile is private 
         await UserAPI.followUser(user, profileUser)
-        if (user.isPrivate){
-          //setIsRequested(true)
+        if (profileUser.isPrivate){
+          setIsRequested(true)
         } else {
           dispatch({ type: "FOLLOW", payload: profileUser.username });
         }
@@ -77,43 +96,33 @@ export default function Profile() {
     }
   };
 
-  const handleAcceptFollow = async (username) =>{
-    try {
-      await UserAPI.acceptFollowRequest(user, username)
-      dispatch({type: "ACCEPT_FOLLOW", payload: profileUser.username});
-    } catch (err) {
-      console.log(err);
-    }
-  }
-  // update profile interface 
-  const handleEditButton = async () => {
-    setEdit(edit ? false : true);
-  };
-
-  // logout user interface
-  const handleLogout= (e)=>{
-    e.preventDefault();
-    logoutCall(dispatch);
-    Navigate("/");
-  };
   //follow  / unfollow / request button render control
-  function FollowButton() {
-    if (isOwnProfile) {
-      if (isFollowing) {
+  function FollowButton(props) {
+    const isownprofile = props.ownprofile;
+    const isrequested = props.requested;
+    const isfollowing = props.following;
+    console.log("inside followbutton isownprofile:")
+    console.log(isownprofile)
+    console.log("isrequested inside FollowButton: ")
+    console.log(isrequested)
+    if (!isownprofile) {
+      console.log("own profile inside FollowButton:")
+      console.log(props.ownprofile)
+      if (isfollowing) {
         return (
           <Button
-            variant="outlined" 
+            variant="contained" 
             startIcon={<GroupRemoveIcon />} 
-            onClick={handleFollow}>
+            onClick={() => handleFollow(props)}>
             Unfollow
           </Button>
         )
-      } else if (isRequested) {
+      } else if (isrequested) {
         return (
         <Button
           variant="outlined" 
           startIcon={<MoreHorizIcon />} 
-          onClick={handleFollow}>
+          onClick={() => handleFollow(props)}>
           Requested
         </Button>  
         )
@@ -122,13 +131,13 @@ export default function Profile() {
         <Button
           variant="outlined" 
           startIcon={<GroupAddIcon />} 
-          onClick={handleFollow}>
+          onClick={() => handleFollow(props)}>
           Follow
         </Button>  
         )
       }
     } else {
-      return (
+      return ( 
       <Button 
         variant="outlined" 
         startIcon={<EditIcon />} 
@@ -138,24 +147,11 @@ export default function Profile() {
       )
     }
   }
-
-  function checkFollowRequests(requests) {
-    return (
-      <AvatarGroup total={user.followRequests.length}>
-      {user.followRequests.map((request) => (
-          <Link to={`/profile/${request}`}>
-            <Avatar sx={{ bgcolor: lightBlue[400] }}>{request.charAt(0)}</Avatar>
-          </Link> 
-        ))
-      }
-    </AvatarGroup>
-    )
-  }
-
+  // toggle on and off the follow requests 
   function FollowRequests() {
-    if (isOwnProfile && user.followRequests.length >= 0) {
+    if (isOwnProfile && user.followRequests.length > 0) {
       return (
-        <IconButton onClick={checkFollowRequests(user.followRequests)}> 
+        <IconButton onClick={handleRequests}> 
           <Badge badgeContent={user.followRequests.length} color="primary">
             <FeedbackIcon color="action" />
           </Badge>
@@ -163,21 +159,15 @@ export default function Profile() {
       )
     }
   }
-
-
   return (
     <div>
       <NavBar />
         <div className="profile">
-
             <div className="profileTop">
-     
-
             <div className="profileCover">
-
                 <img
                   className="profileCoverImg"
-                  src={profileUser.profilePicture ? profileUser.coverPicture : require('./images/blue.jpeg')}
+                  src={profileUser.coverPicture  ? profileUser.coverPicture : require('./images/clouds-default.jpeg')}
                   alt="Cover"
                 />
                 <img
@@ -185,13 +175,18 @@ export default function Profile() {
                   src={profileUser.profilePicture ? profileUser.profilePicture : require('./images/default-bruin.webp')}
                   alt="Icon"
                 />
-                <Box classname="profileInfoBox"
+              </div>
+            </div>
+            <Box classname="profileInfoBox"
                   sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    alignItems: { xs: 'center', md: 'flex-start' },
-                    m: 3,
-                    minWidth: { md: 350 },
+                    alignItems: 'center',
+                    m: 0,
+                    minWidth: { md: 300 },
+                    maxHeight: '200px',
+                    borderBottom: 2, 
+                    borderColor: 'gold',
                   }}
                   >
                   <Box component="span" sx={{ fontSize: 40, mt: 1 }}>
@@ -200,40 +195,33 @@ export default function Profile() {
                   <Box component="span" sx={{ fontSize: 24 }}>
                     {profileUser.description}
                   </Box>
-                  <FollowButton />
+                  <FollowButton following={isFollowing} requested={isRequested} ownprofile={isOwnProfile}/>
                   <FollowRequests/>
-                  {!isOwnProfile && user.followRequests.includes(profileUser.username) &&
-                  <Button onClick={handleAcceptFollow}>
-                    <PersonAddOutlinedIcon>
-                    </PersonAddOutlinedIcon>Accept Follow Request
+                  {isOwnProfile && displayRequests && 
+                    <AvatarGroup total={user.followRequests.length}>
+                      {user.followRequests.map((request) => (
+                          <Link to={`/profile/${request}`}>
+                            <Avatar sx={{ bgcolor: lightBlue[400] }}>{request.charAt(0)}</Avatar>
+                          </Link> 
+                        ))
+                      }
+                    </AvatarGroup>
+                  }
+                   {/* {user.followRequests.includes(username) &&
+                  <Button 
+                    onClick={() => handleFollowRequest(user.username, profileUser.username, accept)}>
+                    <PersonAddOutlinedIcon/>
+                    Accept Follow Request
                   </Button>
-                  }   
-                  </Box>
-              
-              
-              </div>
-            </div>
-            
-            
-            <div className="profileBottom">
-              <div className="profileBottomLeft">
+                  }
+                 */}
+              {!swapFeed && <Button onClick={handleSwap}>See RSVPs</Button>}
+              {swapFeed && <Button onClick={handleSwap}>Return to Posts</Button>}   
+            </Box>
 
-              </div>
-              <div className="profileBottomMiddle">
-                {RSVPFeed(username)} 
-              </div>
-              <div className="profileBottomRight">
-                {/* {user && (user._id === profileUser._id) && !edit &&
-                <Button className="profileButton" variant="outlined" startIcon={<EditIcon />} onClick={handleEditButton}>
-                  Edit Profile</Button>} */}
+            <div className="profileBottom">
                 {user && edit && <EditProfileButton> </EditProfileButton>}
-                {/* {user && <Button className="profileButton" variant="outlined" startIcon={<LogoutIcon />} onClick={handleLogout}>
-                  Log Out</Button>} */}
-                {/* {(user.username !== profileUser.username) && 
-                <Button className="profileButton" variant="outlined" 
-                startIcon={user.following.includes(profileUser.username) ? <GroupRemoveIcon/> : <GroupAddIcon/>} 
-                onClick={handleFollow}> */}
-              </div>
+                {swapFeed ? <RSVPFeed username={username}/> : <ProfileFeed username={username}/>}
           </div>
         </div>
       </div>

@@ -11,8 +11,6 @@ import RsvpButton from '../components/rsvpButton'
 import CalendarButton from '../components/googleCalendar.js'
 import {AuthContext} from '../context/AuthContext'
 import DeleteButton from '../components/deleteButton.js'
-//        <RsvpButton id={props.link} author={props.userId} rsvpList={props.rsvpList}></RsvpButton>
-
 // expand post interface
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
