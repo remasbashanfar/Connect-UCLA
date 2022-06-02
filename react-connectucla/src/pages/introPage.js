@@ -20,7 +20,6 @@ function IntroPage() {
       <img src={logo} alt="Logo" 
       style={{height:'350px' , width:'450px'}}
       />
-      {/* <h1>CONNECT UCLA</h1> */}
       <p>Explore different events at UCLA!</p>
       <div className='hero-btns'>
       <Link to='/' className='btn-mobile'>
