@@ -13,14 +13,14 @@ export default function Register() {
     const password= useRef();
     const email= useRef();
     const passwordAgain= useRef();
-    const isOrganization = useRef();
     const navigate = useNavigate();
+    const [isOrganization, setIsOrganization] = React.useState(false);
 
     const handleRegister= async (e)=>{
         e.preventDefault();
         if(passwordAgain.current.value !== password.current.value) {
             password.current.setCustomValidity("Passwords do not match. Try again.")
-        } else if (isOrganization.current.checked && !email.current.value) {
+        } else if (isOrganization && !email.current.value) {
             email.current.setCustomValidity("Email required for organization registration.")
         } else {
             try {
@@ -28,7 +28,7 @@ export default function Register() {
                     username: username.current.value,
                     password: password.current.value,
                     email: email.current.value ? email.current.value : null,
-                    isOrganization: isOrganization.current.checked,
+                    isOrganization: isOrganization,
                 }
                 await UserAPI.registerUser(user);
                 navigate("/login");
@@ -50,7 +50,8 @@ export default function Register() {
                     required
                 />
                 <FormControlLabel
-                    ref={isOrganization}
+                    checked={isOrganization}
+                    onChange={()=>setIsOrganization(true)}
                     control={<Checkbox />}
                     label="I am a club or campus organization"
                     labelPlacement="end"

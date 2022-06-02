@@ -10,6 +10,7 @@ import SearchField from "../components/searchPosts"
 import { AuthContext } from "../context/AuthContext";
 import {useContext} from 'react';
 import FollowFeed from '../components/profile-feed/follow-feed'
+import Button from '@mui/material/Button';
 
 // Homepage doubles as the feed.
 
@@ -20,7 +21,11 @@ export default function Feed() {
     const [rsvpList, setRSVPList] = useState(null);
     const {user} = useContext(AuthContext);
     const [indexSearch, setIndexSearch] = useState(false)
-
+    const [swapFeed, setSwapFeed] = useState(false);
+    //toggle feed
+    const handleSwap = () => {
+        setSwapFeed(swapFeed ? false : true);
+    };
 
     // Do on render
     useEffect(() => {
@@ -30,7 +35,7 @@ export default function Feed() {
         } else {
             setRSVPList([]);
         }
-    }, [tags, indexSearch]);
+    }, [tags, swapFeed, user, indexSearch]);
     
     // Get list of RSVP'ed post for user
     const retrieveRSVPList = () => {
@@ -91,15 +96,31 @@ export default function Feed() {
     return (
         <div >
             <NavBar></NavBar>
-            {/* <h1>Connect UCLA</h1>
-            <h2>Welcome home!</h2> */}
 
+            <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    marginBottom: 4,
+                    maxHeight: '100px',
+                    borderBottom: 2, 
+                    borderColor: 'gold',
+                }}>
+            {user && !swapFeed && <Button size="large" onClick={handleSwap}>See Personalized Timeline</Button>}
+            {user && swapFeed && <Button size="large" onClick={handleSwap}>Return to Community</Button>} 
+            </Box>
             <SearchField setIndex={setIndexSearch} handleIndexChange={handleIndexSearch}></SearchField>
             
             <FilterBar handleTagChange={(tags) => handleTagChange(tags)}></FilterBar>
+            <Box sx={{display: 'flex', flexDirection:'column', alignItems:'center'}}>
+            {user && swapFeed && <FollowFeed username={user.username}/>}
+            </Box>
+            
+            
 
-
+            {!swapFeed && 
             <Box sx={{ flexGrow: 1 }}>
+
             <Grid container justifyContent="center">
             <Grid item container spacing={3} xs={8}>
                 {posts.map(post => 
@@ -125,7 +146,7 @@ export default function Feed() {
                 }
             </Grid>
             </Grid>
-            </Box>
+            </Box>}
 
             
         </div>

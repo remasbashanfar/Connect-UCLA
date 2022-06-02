@@ -4,6 +4,7 @@ import * as React from 'react'
 import {useEffect, useState, useContext} from 'react'
 import {AuthContext} from "../../context/AuthContext"
 import "./profile.css";
+import FormControlLabel from '@mui/material/FormControlLabel';
 import NavBar from "../../components/navbar";
 import { useParams, useNavigate } from "react-router-dom";
 import UserAPI from '../../services/user';
@@ -24,6 +25,8 @@ import { lightBlue } from '@mui/material/colors';
 import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Box from '@mui/material/Box';
+import VerifiedOutlinedIcon from '@mui/icons-material/VerifiedOutlined';
+import Typography from '@mui/material/Typography';
 
 export default function Profile() {
   const Navigate = useNavigate();
@@ -32,11 +35,13 @@ export default function Profile() {
   const [isOwnProfile, setIsOwnProfile] = useState();
   const [isFollowing, setIsFollowing] = useState();
   const [isRequested, setIsRequested] = useState();
+  const [isOrganization, setIsOrganization] = useState();
   const [swapFeed, setSwapFeed] = useState(false);
   const [displayRequests, setDisplayRequests] = useState(false);
   const username = useParams(false).username;
   const {user, dispatch} = useContext(AuthContext);
-  
+
+  console.log(user)
   
   // BUTTON TOGGLES
     const handleSwap = () => {
@@ -58,6 +63,7 @@ export default function Profile() {
         setIsFollowing(user.following.includes(res.data.username));
         setIsRequested(res.data.followRequests.includes(user.username));
         setIsOwnProfile(user.username === res.data.username)
+        setIsOrganization(user.isOrganization)
     };
     retrieveProfileUser();
   }, [username, user, swapFeed]);
@@ -159,6 +165,7 @@ export default function Profile() {
       )
     }
   }
+
   return (
     <div>
       <NavBar />
@@ -189,24 +196,35 @@ export default function Profile() {
                     borderColor: 'gold',
                   }}
                   >
-                  <Box component="span" sx={{ fontSize: 40, mt: 1 }}>
+                  <Box component="span" sx={{ fontSize: 40, mt: 1, display:'flex', flexDirection:'row'}}>
                     {profileUser.username}
-                  </Box>
+                    {/* {isOrganization &&
+                       <Avatar alt="Verified Club" src={require('./images/verified-crest.png')}/> }
+                    {isOrganization &&
+                       <Typography size='small' color='inherit'>club</Typography>} 
+                      */}
+                    </Box>
                   <Box component="span" sx={{ fontSize: 24 }}>
                     {profileUser.description}
                   </Box>
+                  <Box sx={{display:'flex', flexDirection:'row', alignItems:"" }}>
                   <FollowButton following={isFollowing} requested={isRequested} ownprofile={isOwnProfile}/>
+                  {isOrganization &&
+                       <Avatar alt="Verified Club" src={require('./images/verified.png')}/> }
+                    {isOrganization &&
+                       <Typography size='small' color='#064270'>club</Typography>}
                   <FollowRequests/>
                   {isOwnProfile && displayRequests && 
                     <AvatarGroup total={user.followRequests.length}>
                       {user.followRequests.map((request) => (
                           <Link to={`/profile/${request}`}>
-                            <Avatar sx={{ bgcolor: lightBlue[400] }}>{request.charAt(0)}</Avatar>
+                            <Avatar sx={{ bgcolor: '#064270' }}>{request.charAt(0)}</Avatar>
                           </Link> 
                         ))
                       }
                     </AvatarGroup>
                   }
+                  </Box>
                    {/* {user.followRequests.includes(username) &&
                   <Button 
                     onClick={() => handleFollowRequest(user.username, profileUser.username, accept)}>

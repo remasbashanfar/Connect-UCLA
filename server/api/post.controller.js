@@ -31,6 +31,7 @@ export default class PostController {
         const follower_posts = await PostModel.find({userId: follower._id})
         follower_posts.map((post) => posts.push(post))
       }
+      res.send(posts)
     } catch (err) {
 		  return res.status(404).json({ error: "Post retrieval error" })
     }
