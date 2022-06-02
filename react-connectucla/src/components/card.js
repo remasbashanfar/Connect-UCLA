@@ -63,17 +63,11 @@ export default function ImgMediaCard(props) {
   useEffect(() => {
       const retrieveUser = async () => {
           const res = await UserAPI.getUserById(props.userId);
-          console.log("res.data")
-          console.log(res.data)
           setPostUser(res.data.username)
       };
-      console.log("postUser")
-      console.log(postUser)
       retrieveUser();
   }, [props]);
 
-  console.log("props")
-  console.log(props)
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea href={"/post/" + props.link}>
@@ -98,16 +92,18 @@ export default function ImgMediaCard(props) {
 
       <CardActions disableSpacing>
         {/* Render RSVP button only if RSVP_List in props*/}
-        {props.RSVP_List!=null && <RsvpButton 
+        {user &&  
+        <RsvpButton 
         id={props.link} 
-        author={!user ? "placeholder" : user._id} 
+        author={props.userId} 
         rsvpList={props.RSVP_List}>
         </RsvpButton>}
+        
         <Box sx={{marginLeft: 1,}}>
-                  {postUser && 
-                    <Link to={"/profile/"+`${postUser}`}>
-                      <Avatar sx={{ bgcolor: '#064270' }}>{postUser.charAt(0)}</Avatar>
-                    </Link>} 
+          {postUser && 
+            <Link to={"/profile/"+`${postUser}`}>
+              <Avatar sx={{ bgcolor: '#064270' }}>{postUser.charAt(0)}</Avatar>
+            </Link>} 
         </Box>
         <ExpandMore
           expand={expanded}
