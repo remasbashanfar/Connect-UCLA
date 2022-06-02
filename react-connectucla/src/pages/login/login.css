@@ -36,7 +36,7 @@
     margin-top: 1rem;
     border-radius: 10px;
     padding: 20px;
-    background-color: rgba(139, 184, 232, 0.5);
+    background-color: #8bb8e880;
 }
 
 .login .loginBox .loginInput{

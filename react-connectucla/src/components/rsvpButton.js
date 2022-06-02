@@ -32,6 +32,8 @@ export default function RsvpButton(props) {
     };
     
     const rsvpPost = (bool) => {
+        console.log("rsvp post props.id")
+        console.log(props.id)
         PostAPI.likePost(props.id, props.author, bool)
         .then((response) => {
             console.log(response);

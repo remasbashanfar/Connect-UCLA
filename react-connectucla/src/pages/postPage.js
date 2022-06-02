@@ -41,7 +41,7 @@ export default function PostPage() {
         } else {
             setRSVPList([])
         }
-    }, []);
+    }, [user]);
 
     const retrievePost = () => {
         PostAPI.getPostById(id)
@@ -116,7 +116,7 @@ export default function PostPage() {
             
             {user && user._id===post.userId && <DeleteButton id={id}>
             </DeleteButton>}
-            {rsvpList!=null && <RsvpButton id={id} author={!user ? "placeholder" : user._id} rsvpList={rsvpList}></RsvpButton>}
+            {user && rsvpList!=null && <RsvpButton id={id} author={user._id} rsvpList={rsvpList}></RsvpButton>}
             </div>
             {/* This is the post page ID {post._id} */}
         </div>

@@ -66,7 +66,7 @@ export default function ImgMediaCard(props) {
           setPostUser(res.data.username)
       };
       retrieveUser();
-  }, [props]);
+  }, [props, user, expanded]);
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -95,7 +95,7 @@ export default function ImgMediaCard(props) {
         {user &&  
         <RsvpButton 
         id={props.link} 
-        author={props.userId} 
+        author={user._id} 
         rsvpList={props.RSVP_List}>
         </RsvpButton>}
         
