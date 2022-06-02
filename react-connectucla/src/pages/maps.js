@@ -37,8 +37,11 @@ let allowedPosition = false;
 Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
 
 const checkDate = (startTime) => {
-    const d = new Date()
-    let currentTime = d.toISOString()
+    var d = new Date()
+    var date = new Date(); // Or the date you'd like converted.
+    var currentTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
+
+
     let currentTimeArray= currentTime.split("T")
     let startTimeArray = startTime.split("T")
     if(startTimeArray[0] !== currentTimeArray[0])
@@ -46,11 +49,14 @@ const checkDate = (startTime) => {
         return false;
     }
     else{
+        console.log("Current Time: " + currentTime)
+        console.log("StartArray: " + startTimeArray)
+        console.log("Current Array: " + currentTimeArray)
         let startHour = startTimeArray[1].split(":")[0]
         let currentHour = currentTimeArray[1].split(":")[0]
-        console.log("StartHour:" + startHour)
-        console.log("CurrentHour:" + currentHour)
-        if(startHour - currentHour <= 2)
+        console.log("Start: " + startHour)
+        console.log("Current: " + currentHour)
+        if(Math.abs(startHour - currentHour)<= 2)
         {
             return true
         }
@@ -82,6 +88,8 @@ export default function Maps() {
     useEffect(() => {
         locationToMarker();
     }, [locationFilter, dateFilter]);
+
+
 
     const mapRef = React.useRef();
     const onMapLoad = React.useCallback(async (map) => {
@@ -237,7 +245,7 @@ export default function Maps() {
                 options = {options}
                 onLoad = {onMapLoad}
             >
-                {markers.map(marker => <Marker key = {marker.time.toISOString() + marker.location + marker.startTime}
+                {markers.map(marker => <Marker key = {marker.time.toISOString()  + marker.startTime}
                                                position = {{lat: marker.lat, lng: marker.lng}}
                                                onClick = {()=>{
                                                             

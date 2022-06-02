@@ -79,7 +79,8 @@ export default function RsvpButton(props) {
     } else {
         return (
             <div>
-                <Button variant="outlined" endIcon={<SendIcon />} onClick={() => rsvpPost(true)}>
+                <Button variant="outlined" endIcon={<SendIcon />} onClick={() => rsvpPost(true)}
+                style={{backgroundColor:'white'}}>
                 RSVP
                 </Button>
             </div>

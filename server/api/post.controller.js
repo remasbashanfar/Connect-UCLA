@@ -203,7 +203,6 @@ export default class PostController {
 
 
   static async apiLikePost(req, res) {
-    console.log("Like post called") //REMOVE
     try {
       const post = await PostModel.findByIdAndUpdate({ _id: req.params.id },{$inc:{RSVP_counter: 1}})
 		  res.send(post)
@@ -214,7 +213,6 @@ export default class PostController {
   }
 
   static async apiUnLikePost(req, res) {
-    console.log("Like post called") //REMOVE
     try {
       const post = await PostModel.findByIdAndUpdate({ _id: req.params.id },{$inc:{RSVP_counter: -1}})
 		  res.send(post)
@@ -222,6 +220,17 @@ export default class PostController {
       console.log(error);
       res.status(404);
       res.send({ error: "Cannot un-RSVP to post" });
+    }
+  }
+
+  static async apiSearchPosts(req, res) {
+    try { // Searches entire post body for search word
+      const posts = await PostModel.find({$text: {$search: req.params.searchString}})
+      res.send(posts)
+    } catch (error) {
+      console.log(error);
+      res.status(404);
+      res.send({ error: "Cannot search index" });
     }
   }
 

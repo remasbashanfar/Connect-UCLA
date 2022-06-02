@@ -1,29 +1,68 @@
-import React from 'react'
-import Button from '@mui/material/Button'
+import React, { useState, useEffect } from "react";
+import TagIcon from '@mui/icons-material/Tag';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 
-export default function FilterBar({tag, tags, handleTagChange, addTags, removeTag}){
+export default function FilterBar(props){
+    const [tag, setTag] = useState('');
+    const [tags, setTags] = useState([]);
+    
+    useEffect(()=>{
+        props.handleTagChange(tags)
+    }, [tags])
 
+    function handleInput(event) {
+        if (event.key===" ") {
+            addTags(event.target.value)
+            setTag("")
+        }
+      };
+
+    const addTags = (tag) => {
+        if(tag.trim() != '' && !tags.includes(tag))
+        {
+            setTags([...tags, tag])
+        }
+    }
+
+    const removeTag = (removedTag) =>{
+        setTags(tags.filter(tag => tag !== removedTag))
+    }
 
     return(
     <div>
         <form onSubmit = {addTags}>
             <div>
-                <input value = {tag} onChange = {handleTagChange} placeholder= "filter events by tags"
-                style={{maxWidth: '200px', maxHeight: '50px', minWidth: '200px', minHeight: '35px'}}
-                />
-                <Button 
-                variant="contained" type = "submit">Add Tag</Button>
+            <TextField 
+            id="outlined-basic" 
+            label="Tags" 
+            variant="outlined" 
+            InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <TagIcon />
+                  </InputAdornment>
+                ),
+              }}
+            value={tag}
+            onKeyDown={(e) => handleInput(e)}
+            onChange={(e) => setTag(e.target.value.trim())}
+            />
             </div>
         </form>
         <div>
-            <ul>
-                {tags.map(tag => (
-                <div>
-                    <li key = {tag}>{tag}</li>
-                    <Button variant="contained" onClick = {(event) => (removeTag(event.target.id))} id = {tag}>Remove Tag</Button>
-                </div>
-                ))}
-            </ul>
+        <Stack direction="row" spacing={1}>
+            {tags.map(tag => (
+                <Chip
+                label={tag}
+                onDelete={(event) => (removeTag(tag))}
+                key = {tag}
+                />
+            ))}
+
+        </Stack>
         </div>
     </div>
     )

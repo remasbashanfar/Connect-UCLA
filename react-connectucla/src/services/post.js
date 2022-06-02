@@ -61,6 +61,11 @@ class PostAPI {
     getPostsByUser(username){ //! might not work w/o id
         return ServerAPI.get(`posts/profile/${username}`)
     }
+
+    getPostsByIndex(keyword){
+        console.log(keyword)
+        return ServerAPI.get(`postsearch/${keyword}`)
+    }
 }
 
 export default new PostAPI();
