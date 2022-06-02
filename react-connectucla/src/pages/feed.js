@@ -94,9 +94,18 @@ export default function Feed() {
             {/* <h1>Connect UCLA</h1>
             <h2>Welcome home!</h2> */}
 
-            <SearchField setIndex={setIndexSearch} handleIndexChange={handleIndexSearch}></SearchField>
+            <SearchField 
+            style={{
+                position: 'absolute',
+                down: '100px'
+            }}
+            setIndex={setIndexSearch} handleIndexChange={handleIndexSearch}></SearchField>
             
-            <FilterBar handleTagChange={(tags) => handleTagChange(tags)}></FilterBar>
+            <FilterBar 
+            style={{
+                
+            }}
+            handleTagChange={(tags) => handleTagChange(tags)}></FilterBar>
 
 
             <Box sx={{ flexGrow: 1 }}>
