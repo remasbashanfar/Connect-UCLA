@@ -11,7 +11,6 @@ export default function SearchButton(props) {
 
     function handleInput(event) {
         if (event.key==="Enter") {
-            console.log(event.target.value)
             props.setIndex(event.target.value)
             props.handleIndexChange()
             setText("")

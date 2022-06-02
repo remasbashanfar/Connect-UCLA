@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import FilterBar from "../components/searchFilter"
-import SearchButton from "../components/searchPosts"
+import SearchField from "../components/searchPosts"
 import { AuthContext } from "../context/AuthContext";
 import {useContext} from 'react';
 
@@ -15,7 +15,6 @@ import {useContext} from 'react';
 export default function Home() {
     // Variables + hooks
     const [posts, setPosts] = useState([]);
-    const [tag, setTag] = useState('');
     const [tags, setTags] = useState([]);
     const [rsvpList, setRSVPList] = useState(null);
     const {user} = useContext(AuthContext);
@@ -75,23 +74,11 @@ export default function Home() {
     };
     
 
-    const addTags = (event) => {
-        if(tag === '')
-        {
-            return;
-        }
-        event.preventDefault();
-        setTags([...tags, tag])
-        setTag('');
-        setIndexSearch(false); // remove search index
-    }
 
-    const handleTagChange = (event) =>{
-        setTag(event.target.value);
-    }
-
-    const removeTag = (removedTag) =>{
-        setTags(tags.filter(tag => tag !== removedTag))
+    const handleTagChange = (tags) =>{
+        // When adding tags, remove index search
+        setTags(tags)
+        setIndexSearch(false)
     }
 
     const handleIndexSearch = () => {
@@ -105,12 +92,11 @@ export default function Home() {
             <NavBar></NavBar>
             {/* <h1>Connect UCLA</h1>
             <h2>Welcome home!</h2> */}
-            
-            <FilterBar tag = {tag} tags = {tags} handleTagChange={handleTagChange} 
-                       addTags = {addTags} removeTag = {removeTag}>
-            </FilterBar>
 
-            <SearchButton setIndex={setIndexSearch} handleIndexChange={handleIndexSearch}></SearchButton>
+            <SearchField setIndex={setIndexSearch} handleIndexChange={handleIndexSearch}></SearchField>
+            
+            <FilterBar handleTagChange={(tags) => handleTagChange(tags)}></FilterBar>
+
 
             <Box sx={{ flexGrow: 1 }}>
             <Grid container justifyContent="center">
