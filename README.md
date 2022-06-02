@@ -23,7 +23,7 @@ To do this, in your CLI navigate to the server and
 react-connectucla directories (separately) and run:
 npm install
 
-> Expect warnings and vulnerabilities for the client (react-connectucla).
+> Expect warnings and vulnerabilities for the client (react-connectucla).  
 > The server should be installed with no issues. 
 
 **Running the application**
