@@ -9,6 +9,7 @@ import RsvpButton from '../components/rsvpButton'
 import "./addEvent.css";
 import { AuthContext } from "../context/AuthContext";
 import {useContext} from 'react';
+import posts from '../api/posts.js';
 
 function TimeParser(time) {
     const DateTime = time.split("T")
@@ -89,6 +90,7 @@ export default function PostPage() {
             style={{color:'black'}}
             >Where?</a>
            {post.location}
+           <br></br>
            <a style={{color:'black'}}>Organizer</a>
            {post.author}
             </div>

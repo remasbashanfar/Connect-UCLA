@@ -36,9 +36,22 @@ export default function FilterBar(props){
     }
 
     return(
-    <div>
+    <div
+    style={{
+        position: 'absolute',
+        down: '100px'
+    }}
+    >
         <form onSubmit = {addTags}>
-            <div>
+            <div
+            style={{
+                position: 'absolute',
+                height: '30px',
+                width: '200px',
+                top: '30px',
+                left: '10px'
+            }}
+            >
             <TextField 
             id="outlined-basic" 
             label="Tags" 

@@ -19,6 +19,14 @@ export default function SearchButton(props) {
 
     return (
         <TextField 
+        style= {{
+          position: 'absolute',
+          height: '30px',
+          width: '200px',
+          top: '170px',
+          left: '10px'
+
+      }}
             id="outlined-basic" 
             label="Search" 
             variant="outlined" 
