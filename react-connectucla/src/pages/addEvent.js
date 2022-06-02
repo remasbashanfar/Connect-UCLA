@@ -7,7 +7,9 @@ import {useNavigate} from 'react-router-dom'
 import TagsInput from './inputTags.js';
 import { AuthContext } from "../context/AuthContext";
 import Button from '@mui/material/Button';
-
+import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined';
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+import Box from '@mui/material/Box';
 const AddEvent = () => {
     const navigate = useNavigate()
     const [title, setTitle]=useState('')
@@ -45,8 +47,16 @@ const AddEvent = () => {
     return (
         <div className="createPostPage">
             <div className="cpContainer">
-            <Button color="inherit" href="/">Return to Home</Button>
-            <h2>Add New Event Post</h2>
+            <Button variant="outlined" href="/" color="inherit"startIcon={<CottageOutlinedIcon />}>Return to Home</Button>
+            <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    borderBottom: 2, 
+                    borderColor: 'gold',
+                    marginTop: 3,
+            }}><CalendarMonthOutlinedIcon/><h2>Post an Event</h2></Box>
+
             <form onSubmit={handleSubmit}>
             <div className="inputGp">
             <label>Event Name</label>
@@ -103,8 +113,9 @@ const AddEvent = () => {
             <label>Add Tags</label>
                 <TagsInput tags={tags} setTags={setTags}/>
             </div>
-            <button>Add Event</button>
+            <button className="submitButton" color="white">Post Event</button>
             </form>
+            
             </div>
         </div>
     );
