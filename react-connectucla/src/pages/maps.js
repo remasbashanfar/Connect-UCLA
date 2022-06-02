@@ -12,6 +12,8 @@ import { useState, useEffect } from 'react'
 import Geocode from "react-geocode";
 import PostAPI from '../services/post.js'
 import MapFilter from '../components/mapFilter.js'
+import NavBar from '../components/navbar.js'
+
 
 const options ={
     styles: mapStyles,
@@ -24,25 +26,47 @@ const mapContainerStyle = {
     height: '100vh',
 }
 
-const center = {
-    lat:34.068920,
-    lng:-118.445183,
-}
+const uclaLAT = 34.068920
+const uclaLNG = -118.445183
+
+let allowedLAT;
+let allowedLNG;
 
 
+let allowedPosition = false;
 Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
 
+const checkDate = (startTime) => {
+    const d = new Date()
+    let currentTime = d.toISOString()
+    let currentTimeArray= currentTime.split("T")
+    let startTimeArray = startTime.split("T")
+    if(startTimeArray[0] !== currentTimeArray[0])
+    {
+        return false;
+    }
+    else{
+        let startHour = startTimeArray[1].split(":")[0]
+        let currentHour = currentTimeArray[1].split(":")[0]
+        console.log("StartHour:" + startHour)
+        console.log("CurrentHour:" + currentHour)
+        if(startHour - currentHour <= 2)
+        {
+            return true
+        }
+        return false
+    }
+}
+navigator.geolocation.getCurrentPosition(async (position) => {
+    allowedPosition = true;
+    allowedLAT = await position.coords.latitude
+    allowedLNG = await position.coords.longitude
 
-  /*navigator.geolocation.getCurrentPosition((position) => {
-    console.log("Latitude is :", position.coords.latitude);
-    console.log("Longitude is :", position.coords.longitude);
-  });*/
-  
+  });
 
 const libraries = ["places"]
 export default function Maps() {
 
-    
     const [markers, setMarkers] = useState([])
     const [selected, setSelected] = useState(null);
     const [locationFilterStatus, setLocationFilterStatus] = useState(false)
@@ -60,11 +84,17 @@ export default function Maps() {
     }, [locationFilter, dateFilter]);
 
     const mapRef = React.useRef();
-
-    const onMapLoad = React.useCallback((map) => {
-        mapRef.current = map;
+    const onMapLoad = React.useCallback(async (map) => {
+        mapRef.current = await map;
     },[])
-
+    
+    
+      
+    let center = {
+        lat: allowedPosition ? allowedLAT : uclaLAT,
+        lng: allowedPosition ? allowedLNG : uclaLNG,
+    }
+    
     const locationToMarker = () => {
         PostAPI.getAll()
             .then(response =>{
@@ -86,6 +116,7 @@ export default function Maps() {
                     {
                         if(dateFilterStatus)
                         {
+                            
                             if(Posts[j].startTime.split('T')[0] !== dateFilter)
                             {
 
@@ -110,7 +141,7 @@ export default function Maps() {
                             Geocode.fromAddress(locations[j]).then(
                                 async (response) => {
                                   const { lat, lng } = await response.results[0].geometry.location;
-        
+                                    
                                   
                                   setMarkers(current => [...current, {
                                     lat:lat,
@@ -124,7 +155,7 @@ export default function Maps() {
                     }
                     else
                     {
-                        if(locations[j] !== locationFilter)
+                        if(locations[j].toLowerCase() !== locationFilter.toLowerCase())
                         {
                             
                         }
@@ -188,6 +219,7 @@ export default function Maps() {
         return "Loading Maps"
     return(
         <div>
+            <NavBar/>
             <MapFilter 
                        locationFilterStatus = {locationFilterStatus} 
                        setLocationFilterStatus = {setLocationFilterStatus}
@@ -207,17 +239,28 @@ export default function Maps() {
             >
                 {markers.map(marker => <Marker key = {marker.time.toISOString() + marker.location + marker.startTime}
                                                position = {{lat: marker.lat, lng: marker.lng}}
-                                               onClick = {()=>{setSelected(marker)}}
+                                               onClick = {()=>{
+                                                            
+                                                            setSelected(marker)
+                                                            allowedLAT = marker.lat
+                                                            allowedLNG = marker.lng}}
+                                               icon = {checkDate(marker.startTime) ? 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+                                                                                     : 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'}
+                                               
                                         />
                             )
                 }
-                {selected ? (
+
+                {
+                selected != null ? (
                     <InfoWindow position = {{lat:selected.lat, lng:selected.lng}} 
                                 onCloseClick = { () =>{
-                                    setSelected(null)}
+                                    setSelected(null)
+                                    }
                                 }
                     >
                         <div>
+                            {checkDate(selected.startTime) ? <b>Event Soon!</b> : null}
                             <p>Location: {selected.location}</p>
                             <p>Date: {selected.date}</p>
                             <p>Start Time: {selected.startTime.split('T')[0]} at {selected.startTime.split('T')[1]}</p>

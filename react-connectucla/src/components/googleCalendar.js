@@ -34,7 +34,8 @@ export default function CalendarButton(props) {
 
     return(
         <div>
-            <Button variant="outlined" endIcon={<EventAvailableIcon />} onClick={() => login()}>
+            <Button variant="outlined" style={{backgroundColor:'white'}}
+             endIcon={<EventAvailableIcon />} onClick={() => login()}>
             Add to Calendar
             </Button>
         </div>

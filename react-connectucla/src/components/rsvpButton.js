@@ -43,7 +43,9 @@ export default function RsvpButton(props) {
     if (!user) { // No user is logged in - refer to login page
         return (
             <div>
-                <Button variant="outlined" endIcon={<SendIcon />} onClick={handleClickOpen}>
+                <Button variant="outlined" endIcon={<SendIcon />} onClick={handleClickOpen}
+                style={{backgroundColor:'white'}}
+                >
                 RSVP
                 </Button>
                 <Dialog
