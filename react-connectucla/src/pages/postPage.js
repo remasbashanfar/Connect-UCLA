@@ -9,6 +9,7 @@ import RsvpButton from '../components/rsvpButton'
 import "./addEvent.css";
 import { AuthContext } from "../context/AuthContext";
 import {useContext} from 'react';
+import posts from '../api/posts.js';
 
 function TimeParser(time) {
     const DateTime = time.split("T")
@@ -22,7 +23,7 @@ function TimeParser(time) {
     const date = new Date();
     date.setMonth(YMD[1]-1)
     const month = date.toLocaleString('en-US',{month:"short",})
-    DateTime[0] = month + " " + YMD[2].toString()
+    DateTime[0] = month + " " + YMD[2].toString() + " " + YMD[0].toString()
     return DateTime.join(" ")
   }
 export default function PostPage() {
@@ -82,13 +83,13 @@ export default function PostPage() {
            <a
            style={{color:'black'}}
            >When?</a>
-            From {post.startTime}
-            To {post.endTime}
-            {/* {TimeParser(post.startTime)} to {TimeParser(post.endTime)} */}
+            From {post.startTime ? TimeParser(post.startTime) : null} <br/>
+            To {post.endTime ? TimeParser(post.endTime) : null}
             <a
             style={{color:'black'}}
             >Where?</a>
            {post.location}
+           <br></br>
            <a style={{color:'black'}}>Organizer</a>
            {post.author}
             </div>
@@ -102,7 +103,7 @@ export default function PostPage() {
            <a style={{color:'black'}}>Details</a>
            {post.content}
            <a style={{color:'black'}}>Tags</a>
-           {post.tags}
+           {post.tags ? post.tags.join(", ") : null}
            <a style={{color:'black'}} href={post.imgurl}>Click for Poster Link</a>
             </div>
             <CalendarButton 

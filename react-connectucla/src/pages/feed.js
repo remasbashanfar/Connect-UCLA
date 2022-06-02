@@ -97,30 +97,21 @@ export default function Feed() {
         <div >
             <NavBar></NavBar>
 
-            <Box sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    marginBottom: 4,
-                    maxHeight: '100px',
-                    borderBottom: 2, 
-                    borderColor: 'gold',
-                }}>
-            {user && !swapFeed && <Button size="large" onClick={handleSwap}>See Personalized Timeline</Button>}
-            {user && swapFeed && <Button size="large" onClick={handleSwap}>Return to Community</Button>} 
-            </Box>
-            <SearchField setIndex={setIndexSearch} handleIndexChange={handleIndexSearch}></SearchField>
+            <SearchField 
+            style={{
+                position: 'absolute',
+                down: '100px'
+            }}
+            setIndex={setIndexSearch} handleIndexChange={handleIndexSearch}></SearchField>
             
-            <FilterBar handleTagChange={(tags) => handleTagChange(tags)}></FilterBar>
-            <Box sx={{display: 'flex', flexDirection:'column', alignItems:'center'}}>
-            {user && swapFeed && <FollowFeed username={user.username}/>}
-            </Box>
-            
-            
+            <FilterBar 
+            style={{
+                
+            }}
+            handleTagChange={(tags) => handleTagChange(tags)}></FilterBar>
 
-            {!swapFeed && 
+            
             <Box sx={{ flexGrow: 1 }}>
-
             <Grid container justifyContent="center">
             <Grid item container spacing={3} xs={8}>
                 {posts.map(post => 
@@ -146,7 +137,7 @@ export default function Feed() {
                 }
             </Grid>
             </Grid>
-            </Box>}
+            </Box>
 
             
         </div>

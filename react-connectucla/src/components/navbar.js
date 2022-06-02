@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import LogoutIcon from '@mui/icons-material/Logout';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import LocalActivityOutlinedIcon from '@mui/icons-material/LocalActivityOutlined';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import {logoutCall} from "../services/loginCall"
 import {useNavigate} from 'react-router-dom';
@@ -39,7 +39,7 @@ export default function ButtonAppBar() {
           </Typography>
           {user && <Button color="inherit" href="/addEvent" startIcon={<AddBoxOutlinedIcon/>}>Add Event</Button>}
           <Button color="inherit" href="/" startIcon={<HomeOutlinedIcon/>}>Home</Button>
-          <Button color="inherit" href="/feed" startIcon={<InfoOutlinedIcon/>}>Feed</Button>
+          <Button color="inherit" href="/feed" startIcon={<LocalActivityOutlinedIcon/>}>Events</Button>
           {!user && <Button color="inherit" href="/login" startIcon={<LoginOutlinedIcon/>}>Login</Button>}
           <Button color="inherit" href="/maps" startIcon={<MapOutlinedIcon/>}>Map</Button>
           {user && 

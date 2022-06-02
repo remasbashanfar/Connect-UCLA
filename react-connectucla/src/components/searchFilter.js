@@ -14,7 +14,11 @@ export default function FilterBar(props){
     }, [tags])
 
     function handleInput(event) {
-        if (event.key===" ") {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            addTags(event.target.value)
+            setTag("")
+        } else if (event.key===" ") {
             addTags(event.target.value)
             setTag("")
         }
@@ -32,9 +36,22 @@ export default function FilterBar(props){
     }
 
     return(
-    <div>
+    <div
+    style={{
+        position: 'absolute',
+        down: '100px'
+    }}
+    >
         <form onSubmit = {addTags}>
-            <div>
+            <div
+            style={{
+                position: 'absolute',
+                height: '30px',
+                width: '200px',
+                top: '30px',
+                left: '10px'
+            }}
+            >
             <TextField 
             id="outlined-basic" 
             label="Tags" 
