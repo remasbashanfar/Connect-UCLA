@@ -11,6 +11,10 @@ import { AuthContext } from "../context/AuthContext";
 import Avatar from '@mui/material/Avatar';
 import { Link } from "react-router-dom";
 import LogoutIcon from '@mui/icons-material/Logout';
+import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import {logoutCall} from "../services/loginCall"
 import {useNavigate} from 'react-router-dom';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
@@ -33,10 +37,10 @@ export default function ButtonAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             UCLA Connect
           </Typography>
-          {user && <Button color="inherit" href="/addEvent">Add Event</Button>}
-          <Button color="inherit" href="/">Home</Button>
-          <Button color="inherit" href="/about">About</Button>
-          {!user && <Button color="inherit" href="/login">Login</Button>}
+          {user && <Button color="inherit" href="/addEvent" startIcon={<AddBoxOutlinedIcon/>}>Add Event</Button>}
+          <Button color="inherit" href="/" startIcon={<HomeOutlinedIcon/>}>Home</Button>
+          <Button color="inherit" href="/about" startIcon={<InfoOutlinedIcon/>}>About</Button>
+          {!user && <Button color="inherit" href="/login" startIcon={<LoginOutlinedIcon/>}>Login</Button>}
           <Button color="inherit" href="/maps" startIcon={<MapOutlinedIcon/>}>Map</Button>
           {user && 
           <Link to={`/profile/${user.username}`}>

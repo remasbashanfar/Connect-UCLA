@@ -12,24 +12,11 @@ function IntroPage() {
         document.body.style.overflow = "hidden";
       }, []);
   return (
-      <div
-      style = {{
-        backgroundAttachment: 'fixed',
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        minHeight: '100%',
-        backgroundImage: {uclavideo1}
-      }}
-      >
+      <div>
           <NavBar></NavBar>
     <div className='hero-container'>
       <video src={uclavideo1} autoPlay loop muted 
-      style= {{
-        backgroundAttachment: 'fixed',
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        minHeight: '100%'
-      }}/>
+      />
       <img src={logo} alt="Logo" 
       style={{height:'350px' , width:'450px'}}
       />
