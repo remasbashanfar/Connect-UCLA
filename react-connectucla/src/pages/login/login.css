@@ -54,7 +54,7 @@
 
 .login .loginBox span {
     text-align: center;
-    color: rgb(3, 52, 90);
+    color: #03345a;
 }
 
 .login .loginBox .loginButton{
@@ -64,7 +64,7 @@
     border-radius: 10px;
     border: none;
     align-self: center;
-    background-color: rgb(3, 52, 90);
+    background-color: #03345a;
     color: white;
     font-size: 20px;
     font-weight: 500;

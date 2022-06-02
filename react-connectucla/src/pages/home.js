@@ -7,7 +7,6 @@ import IntroPage from "./introPage.js";
         return (
           <div>
               <IntroPage/>
-              <FollowFeed username="JungHoseok"/>
           </div>
         );
 
