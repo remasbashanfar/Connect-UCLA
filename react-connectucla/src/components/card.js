@@ -103,6 +103,12 @@ export default function ImgMediaCard(props) {
         author={!user ? "placeholder" : user._id} 
         rsvpList={props.RSVP_List}>
         </RsvpButton>}
+        <Box sx={{marginLeft: 1,}}>
+                  {postUser && 
+                    <Link to={"/profile/"+`${postUser}`}>
+                      <Avatar sx={{ bgcolor: '#064270' }}>{postUser.charAt(0)}</Avatar>
+                    </Link>} 
+        </Box>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -122,12 +128,6 @@ export default function ImgMediaCard(props) {
                 <Typography paragraph>{props.location}</Typography>
                 <Typography variant="h6">Organizer:</Typography>
                 <Typography vparagraph>{props.organizer}</Typography>
-                <Box sx={{marginBottom: 1, marginTop: 1,}}>
-                  {postUser && 
-                    <Link to={"/profile/"+`${postUser}`}>
-                      <Avatar sx={{ bgcolor: '#064270' }}>{postUser.charAt(0)}</Avatar>
-                    </Link>} 
-                  </Box>
             </Box>
 
           

@@ -98,22 +98,41 @@ export default function Feed() {
 
 
     return (
-        <div className="feed">
+        <div >
             <NavBar></NavBar>
             <Box sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    marginTop: 2,
+                    // marginTop: 2,
                     marginBottom: 2,
                     alignItems:'center',
-                    borderTop: 2, 
+                    backgroundColor: '#8bb8e880',
+                    borderBottom: 2.5, 
                     borderColor: 'gold',
                 }}>
+                <Box sx={{
+                    marginBottom: 4,
+                    marginTop: 2,
+                    marginLeft: 1.5,
+                    maxHeight: '100px',
+                }}>
+
+                <SearchField 
+                    setIndex={setIndexSearch} 
+                    handleIndexChange={handleIndexSearch}
+                ></SearchField>
+
+                <FilterBar handleTagChange={(tags) => handleTagChange(tags)}></FilterBar>
+                    
+                </Box>
                 {user && swapFeed && 
                 <IconButton 
                     aria-label="Return to Home Timeline"
                     onClick={handleSwap}>
                 <HomeOutlinedIcon />
+
+
+
                 </IconButton>}
                 {user && !swapFeed &&
                 <IconButton 
@@ -124,21 +143,16 @@ export default function Feed() {
             </Box>
 
 
-        <div className="feedBottom">
-            <Box sx={{
-                    marginBottom: 4,
-                    marginTop: 4,
-                    marginLeft: 1.5,
-                    maxHeight: '100px',
-                }}>
-  
+        {/* <div className="feedBottom"> */}
+
+{/*   
                 <SearchField 
                     setIndex={setIndexSearch} 
                     handleIndexChange={handleIndexSearch}
                 ></SearchField>
 
-                <FilterBar handleTagChange={(tags) => handleTagChange(tags)}></FilterBar>
-            </Box>
+                <FilterBar handleTagChange={(tags) => handleTagChange(tags)}></FilterBar> */}
+            {/* </Box> */}
 
             <Box sx={{display: 'flex', flexDirection:'column', alignItems:'center'}}>
             {user && swapFeed && <FollowFeed username={user.username}/>}
@@ -172,7 +186,7 @@ export default function Feed() {
             </Grid>
             </Box>}
         </div>
-        </div>
+        // </div>
     )
 }
 
