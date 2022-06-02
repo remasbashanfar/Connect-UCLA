@@ -3,7 +3,10 @@
 Fullstack programming project for CS35L at UCLA.
 
 Developed by:
-Samir Abdalla, Remas Bashanfar, Elyse Foreman and Mathias Duedahl
+Samir Abdalla \[SamirOsAbdalla\]
+Remas Bashanfar \[remasbashanfar\]
+Elyse Foreman \[elyseforeman\]
+Mathias Duedahl \[Lussebullen\]
 
 ## Description
 
