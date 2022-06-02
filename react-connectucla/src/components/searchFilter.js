@@ -37,26 +37,27 @@ export default function FilterBar(props){
 
     return(
     <div
-    style={{
-        position: 'absolute',
-        down: '100px'
-    }}
+    // style={{
+    //     position: 'absolute',
+    //     down: '100px'
+    // }}
     >
         <form onSubmit = {addTags}>
             <div
-            style={{
-                position: 'absolute',
-                height: '30px',
-                width: '200px',
-                top: '30px',
-                left: '10px'
-            }}
+            // style={{
+            //     position: 'absolute',
+            //     height: '30px',
+            //     width: '200px',
+            //     top: '30px',
+            //     left: '10px'
+            // }}
             >
             <TextField 
             id="outlined-basic" 
-            label="Tags" 
+            // label="Tags" 
             variant="outlined" 
             InputProps={{
+                placeholder: "Search by Tags",
                 startAdornment: (
                   <InputAdornment position="start">
                     <TagIcon />

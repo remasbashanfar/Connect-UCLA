@@ -1,6 +1,6 @@
 // From https://mui.com/material-ui/react-card/
 import * as React from 'react';
-import {useContext} from 'react'
+import {useContext, useState, useEffect, } from 'react'
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardActionArea from '@mui/material/CardActionArea';
@@ -16,6 +16,12 @@ import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { styled } from '@mui/material/styles';
+import UserAPI from '../services/user'
+import {Link} from 'react-router-dom'
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box'
+
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -46,13 +52,28 @@ function TimeParser(time) {
 
 export default function ImgMediaCard(props) {
   const {user} = useContext(AuthContext)
-
   const [expanded, setExpanded] = React.useState(false);
-
+  
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  // get post user to link to profile page
+  const [postUser, setPostUser] = useState() 
+  useEffect(() => {
+      const retrieveUser = async () => {
+          const res = await UserAPI.getUserById(props.userId);
+          console.log("res.data")
+          console.log(res.data)
+          setPostUser(res.data.username)
+      };
+      console.log("postUser")
+      console.log(postUser)
+      retrieveUser();
+  }, [props]);
+
+  console.log("props")
+  console.log(props)
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea href={"/post/" + props.link}>
@@ -87,20 +108,29 @@ export default function ImgMediaCard(props) {
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
+          label="Details"
         >
-          <ExpandMoreIcon />Details
+          <ExpandMoreIcon />
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-        <Typography variant="h5">Description:</Typography>
-          <Typography paragraph>{props.content}</Typography>
-          <Typography variant="h5">Location:</Typography>
-          <Typography variant="body1">{props.location}</Typography>
-          <Typography variant="h5">Organizer:</Typography>
-          <Typography variant="body1">{props.organizer}</Typography>
+            <Box sx={{alignContent: 'center',}}>
+              <Typography variant="h6">Description:</Typography>
+                <Typography paragraph>{props.content}</Typography>
+                <Typography variant="h6">Location:</Typography>
+                <Typography paragraph>{props.location}</Typography>
+                <Typography variant="h6">Organizer:</Typography>
+                <Typography vparagraph>{props.organizer}</Typography>
+                <Box sx={{marginBottom: 1, marginTop: 1,}}>
+                  {postUser && 
+                    <Link to={"/profile/"+`${postUser}`}>
+                      <Avatar sx={{ bgcolor: '#064270' }}>{postUser.charAt(0)}</Avatar>
+                    </Link>} 
+                  </Box>
+            </Box>
 
-
+          
           <CalendarButton 
               summary={props.title}
               description={props.content}

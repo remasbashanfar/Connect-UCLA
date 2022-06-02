@@ -35,10 +35,12 @@ export default function RSVPFeed(props) {
     }
     //container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
     return (
-        <div className="feed">
-            <Grid container spacing ={3}> 
-                {posts.map((post) => (
-                    <Grid item key={post._id}>
+            <Grid className="feed"container justifyContent="center">
+            <Grid item container spacing={3} xs={8}>
+                {posts.map(post => 
+                    {
+                    return (
+                        <Grid item md={4} key={post._id}>
                             <Card 
                                 link={post._id}
                                 userId={post.userId}
@@ -52,11 +54,12 @@ export default function RSVPFeed(props) {
                                 organizer={post.author}
                                 RSVP_List={rsvpList}
                             />
-                    </Grid>
-                ))}
+                        </Grid>
+                        )
+                    })
+                }
             </Grid>
-
-        </div>
+            </Grid>
     )
 }
 

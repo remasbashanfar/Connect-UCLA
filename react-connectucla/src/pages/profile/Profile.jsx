@@ -27,7 +27,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Box from '@mui/material/Box';
 import VerifiedOutlinedIcon from '@mui/icons-material/VerifiedOutlined';
 import Typography from '@mui/material/Typography';
-
+import HowToRegIcon from '@mui/icons-material/HowToReg';
 export default function Profile() {
   const Navigate = useNavigate();
   const [profileUser, setProfileUser] = useState({});
@@ -189,21 +189,18 @@ export default function Profile() {
                   >
                   <Box component="span" sx={{ fontSize: 40, mt: 1, display:'flex', flexDirection:'row'}}>
                     {profileUser.username}
-                    {/* {isOrganization &&
-                       <Avatar alt="Verified Club" src={require('./images/verified-crest.png')}/> }
                     {isOrganization &&
-                       <Typography size='small' color='inherit'>club</Typography>} 
-                      */}
+                        <HowToRegIcon/>}
                     </Box>
                   <Box component="span" sx={{ fontSize: 24 }}>
                     {profileUser.description}
+
                   </Box>
                   <Box sx={{display:'flex', flexDirection:'row', alignItems:"" }}>
                   <FollowButton following={isFollowing} requested={isRequested} ownprofile={isOwnProfile}/>
-                  {isOrganization &&
-                       <Avatar alt="Verified Club" src={require('./images/verified.png')}/> }
-                    {isOrganization &&
-                       <Typography size='small' color='#064270'>club</Typography>}
+
+                    {/* // {isOrganization && */}
+                       {/* <Typography size='small' color='#064270'>club</Typography>} */}
                   <FollowRequests/>
                   {isOwnProfile && displayRequests && 
                     <AvatarGroup total={user.followRequests.length}>
@@ -227,12 +224,11 @@ export default function Profile() {
               {!swapFeed && <Button onClick={handleSwap}>See RSVPs</Button>}
               {swapFeed && <Button onClick={handleSwap}>Return to Posts</Button>}   
             </Box>
-
-            <div className="profileBottom">
+            <Box sx={{display: 'flex', flexDirection: 'row' }}>
                 {user && edit && <EditProfileButton> </EditProfileButton>}
                 {swapFeed ? <RSVPFeed username={username}/> : <ProfileFeed username={username}/>}
+            </Box>
           </div>
         </div>
-      </div>
     );
   }

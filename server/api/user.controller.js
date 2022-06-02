@@ -64,6 +64,16 @@ export default class UserController {
       return res.status(500).json(err);
     }
   }   
+  static async apiGetUserById(req, res) {
+    try {
+      const user = await UserModel.findById(req.params.id);
+      //const {password, updatedAt, isAdmin, isOrganization, createdAt, ...other} = user._doc
+      res.status(200).json(user);
+    } catch (err) {
+      return res.status(500).json(err);
+    }
+  }
+
   ///// 	Update User	        /////
   static async apiUpdateUser(req, res){
     try {

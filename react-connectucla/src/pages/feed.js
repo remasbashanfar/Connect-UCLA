@@ -11,7 +11,11 @@ import { AuthContext } from "../context/AuthContext";
 import {useContext} from 'react';
 import FollowFeed from '../components/profile-feed/follow-feed'
 import Button from '@mui/material/Button';
-
+import './feed.css'
+import IconButton from '@mui/material/IconButton';
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import GroupIcon from '@mui/icons-material/Group';
 // Homepage doubles as the feed.
 
 export default function Feed() {
@@ -94,30 +98,59 @@ export default function Feed() {
 
 
     return (
-        <div >
+        <div className="feed">
             <NavBar></NavBar>
+            <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    marginTop: 2,
+                    marginBottom: 2,
+                    alignItems:'center',
+                    borderTop: 2, 
+                    borderColor: 'gold',
+                }}>
+                {user && swapFeed && 
+                <IconButton 
+                    aria-label="Return to Home Timeline"
+                    onClick={handleSwap}>
+                <HomeOutlinedIcon />
+                </IconButton>}
+                {user && !swapFeed &&
+                <IconButton 
+                    aria-label="Switch to Following Timeline"
+                    onClick={handleSwap}>
+                    <GroupIcon /> 
+                </IconButton>}
+            </Box>
 
-            <SearchField 
-            style={{
-                position: 'absolute',
-                down: '100px'
-            }}
-            setIndex={setIndexSearch} handleIndexChange={handleIndexSearch}></SearchField>
-            
-            <FilterBar 
-            style={{
-                
-            }}
-            handleTagChange={(tags) => handleTagChange(tags)}></FilterBar>
 
-            
+        <div className="feedBottom">
+            <Box sx={{
+                    marginBottom: 4,
+                    marginTop: 4,
+                    marginLeft: 1.5,
+                    maxHeight: '100px',
+                }}>
+  
+                <SearchField 
+                    setIndex={setIndexSearch} 
+                    handleIndexChange={handleIndexSearch}
+                ></SearchField>
+
+                <FilterBar handleTagChange={(tags) => handleTagChange(tags)}></FilterBar>
+            </Box>
+
+            <Box sx={{display: 'flex', flexDirection:'column', alignItems:'center'}}>
+            {user && swapFeed && <FollowFeed username={user.username}/>}
+            </Box>
+            {!swapFeed && 
             <Box sx={{ flexGrow: 1 }}>
             <Grid container justifyContent="center">
             <Grid item container spacing={3} xs={8}>
                 {posts.map(post => 
                     {
                     return (
-                        <Grid item xs={12} sm={6} md={4} key={post._id}>
+                        <Grid item md={4} key={post._id}>
                             <Card 
                                 link={post._id}
                                 userId={post.userId}
@@ -137,9 +170,8 @@ export default function Feed() {
                 }
             </Grid>
             </Grid>
-            </Box>
-
-            
+            </Box>}
+        </div>
         </div>
     )
 }

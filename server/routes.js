@@ -36,6 +36,8 @@ router.put("/users/unfollow/:username", User.apiUnfollowUser)
 router.delete("/users/:id", User.apiDeleteUserById)
 router.patch("/users/rsvp1/:id",User.apiLikePost)
 router.patch("/users/rsvp0/:id",User.apiUnLikePost)
+router.get("/users/get/:id", User.apiGetUserById) 
+
 // router.put(`/users/request/:profileUsername`, User.apiAcceptFollow)
 
 ///// 	GOOGLE CALENDAR 	  /////

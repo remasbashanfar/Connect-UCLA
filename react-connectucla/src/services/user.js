@@ -8,6 +8,10 @@ class UserAPI {
     getUser(username) {
         return ServerAPI.get(`users/${username}`);
     }
+    getUserById(userId) {
+        return ServerAPI.get(`users/get/${userId}`);
+    }
+
     registerUser(user) {
         return ServerAPI.post(`users/register`, user)
     }
@@ -29,6 +33,7 @@ class UserAPI {
     //         username: userUsername, accepted: bool
     //     });
     // }
+
     getFollowRequestUsers(username) {
         return ServerAPI.get(`/users/requests/${username}`)
     }

@@ -3,7 +3,7 @@ import PostAPI from '../../services/post.js'
 import UserAPI from '../../services/user.js'
 import React, { useState, useEffect } from "react";
 import Grid from '@mui/material/Grid';
-
+import Box from '@mui/material/Box'
 import './profile-feed.css';
 
 
@@ -15,12 +15,16 @@ export default function ProfileFeed(props) {
     useEffect(() => {
         const retrievePosts = async () => {
             const res = await PostAPI.getPostsByUser(props.username)
+            console.log("res.data")
+            console.log(res.data)
             setPosts(
                 res.data.sort((p1, p2) => {
                 return new Date(p2.createdAt) - new Date(p1.createdAt);
                 })
             );
         };
+        console.log("profile-feed posts:" )
+        console.log(posts)
         retrievePosts();
         retrieveRSVPList();
     }, [props.username]);
@@ -33,10 +37,14 @@ export default function ProfileFeed(props) {
     }
     //container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
     return (
-        <div className="feed">
-            <Grid container spacing ={3}> 
-                {posts.map((post) => (
-                    <Grid item key={post._id}>
+           <Box sx={{ flexGrow: 1 }}>
+            <div className="feed">
+            <Grid container justifyContent="center">
+            <Grid item container md={6} spacing={3}>
+                {posts.map(post => 
+                    {
+                    return (
+                        <Grid item key={post._id}>
                             <Card 
                                 link={post._id}
                                 userId={post.userId}
@@ -50,11 +58,14 @@ export default function ProfileFeed(props) {
                                 organizer={post.author}
                                 RSVP_List={rsvpList}
                             />
-                    </Grid>
-                ))}
+                        </Grid>
+                        )
+                    })
+                }
             </Grid>
-
-        </div>
+            </Grid>
+            </div>
+            </Box>
     )
 }
 
