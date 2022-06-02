@@ -16,6 +16,8 @@ export default function FilterBar(props){
     function handleInput(event) {
         if (event.keyCode == 13) {
             event.preventDefault();
+            addTags(event.target.value)
+            setTag("")
         } else if (event.key===" ") {
             addTags(event.target.value)
             setTag("")
