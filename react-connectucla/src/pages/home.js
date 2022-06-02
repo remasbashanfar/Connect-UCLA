@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import FilterBar from "../components/searchFilter"
 import { AuthContext } from "../context/AuthContext";
 import {useContext} from 'react';
+import FollowFeed from '../components/profile-feed/follow-feed'
 
 // Homepage doubles as the feed.
 

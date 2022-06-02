@@ -18,20 +18,21 @@ class UserAPI {
         return ServerAPI.put(`/users/follow/${profileUser.username}`, {
             username: user.username,
         });
-    }
+    } 
     unfollowUser(user, profileUser) {
         return ServerAPI.put(`/users/unfollow/${profileUser.username}`, {
             username: user.username,
         });
     }
-    acceptFollow(user, requestUsername) {
-        return ServerAPI.put(`/users/accept/${requestUsername}`, {
-            username: user.username
-        });
-    }
+    // acceptFollow(userUsername, profileUsername, bool) {
+    //     return ServerAPI.put(`/users/accept/${profileUsername}`, {
+    //         username: userUsername, accepted: bool
+    //     });
+    // }
     getFollowRequestUsers(username) {
         return ServerAPI.get(`/users/requests/${username}`)
     }
+
 
 
 

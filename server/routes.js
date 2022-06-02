@@ -22,6 +22,7 @@ router.get("/posts/profile/:username", Post.apiGetPostsByUser)
 //router.get("/posts/rsvp/:username", Post.apiGetUserRSVP)
 router.get("/posts/rsvp/:username", Post.apiGetPostsByRSVP)
 router.get("/posts/personalized/:userId", Post.apiGetPersonalized)
+router.get("/posts/following/:username", Post.apiGetPostsByFollowing)
 
 ///// 	USERS 	  /////
 router.get("/users", User.apiGetUsers)
@@ -30,11 +31,11 @@ router.post("/users/register", User.apiRegisterUser)
 router.post("/users/login", User.apiUserLogin)
 router.patch("/users/", User.apiUpdateUser)
 router.put("/users/follow/:username", User.apiFollowUser)
-router.put("/users/unfollow/:userId", User.apiUnfollowUser)
+router.put("/users/unfollow/:username", User.apiUnfollowUser)
 router.delete("/users/:id", User.apiDeleteUserById)
 router.patch("/users/rsvp1/:id",User.apiLikePost)
 router.patch("/users/rsvp0/:id",User.apiUnLikePost)
-router.put(`/users/request/:username`, User.apiAcceptFollow)
+// router.put(`/users/request/:profileUsername`, User.apiAcceptFollow)
 
 ///// 	GOOGLE CALENDAR 	  /////
 

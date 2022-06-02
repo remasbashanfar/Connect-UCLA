@@ -21,6 +21,20 @@ export default class PostController {
 		  return res.status(404).json({ error: "Post does not exist" })
 	  }
   }
+  // username is in the params
+  static async apiGetPostsByFollowing(req, res) {
+    try{
+      const user = await UserModel.findOne({username: req.params.username})
+      var posts = [];
+      for (let i = 0; i < user.following.length; i++) {
+        const follower = await UserModel.findOne({username: user.following[i]})
+        const follower_posts = await PostModel.find({userId: follower._id})
+        follower_posts.map((post) => posts.push(post))
+      }
+    } catch (err) {
+		  return res.status(404).json({ error: "Post retrieval error" })
+    }
+  }
 
   static async apiGetPostsByUser(req, res){
     try {

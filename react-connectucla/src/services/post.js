@@ -7,6 +7,10 @@ class PostAPI {
         return ServerAPI.get(`posts`);
     }
 
+    getPostsByFollowing(username) {
+        return ServerAPI.get(`/posts/following/${username}`)
+    }
+    
     getPersonalized(userid) {
         return ServerAPI.get(`posts/personalized/${userid}`);
     }

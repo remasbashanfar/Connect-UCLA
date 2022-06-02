@@ -31,6 +31,7 @@ const UserSchema = new mongoose.Schema({
         type: Array,
         default:[]
     },
+    // contains a list of users that have requested to follow you
     followRequests: {
         type: Array,
         default: []

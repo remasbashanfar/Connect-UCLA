@@ -110,7 +110,7 @@ export default class UserController {
         await profileUser.updateOne( {$pull: {followers: req.body.username} });
         await user.updateOne( {$pull: {following: req.params.username} });
         res.status(200).json("Unfollowed user")
-      } else if (user.followRequests.includes(req.params.username)) { 
+      } else if (profileUser.followRequests.includes(req.body.username)) { 
         await profileUser.updateOne( {$pull: {followRequests: req.body.username} });
       } else {
         return res.status(403).json({ error: "Not following user"})
@@ -121,23 +121,26 @@ export default class UserController {
   } 
 
   ///// 	Acccept User Follow Request	    /////
-  static async apiAcceptFollow(req, res) {
-    try {
-      // current user is in the body
-      // request username is in the params
-      const requestUser = await UserModel.findOne({username: req.params.username})
-      const user = await UserModel.findOne({username: req.body.username})
-      if (user.followRequests.includes(req.params.username)) {
-        await requestUser.updateOne({$push: {following: req.body.username} })
-        await user.updateOne({$push: {followers: req.params.username} })
-        await requestUser.updateOne({$pull: {followRequests: req.params.username} })
-      } else {
-        return res.status(404).json({ error: "Follow request not found"})
-      }
-    } catch {
-      return res.status(500).json({error: "Accept Follow Error"})
-    }
-  }
+  // static async apiAcceptFollow(req, res) {
+  //   try {
+  //     // current user is in the body
+  //     // request username is in the params
+  //     const profileUser = await UserModel.findOne({username: req.params.profileUsername})
+  //     const user = await UserModel.findOne({username: req.body.username})
+  //     // if request accepted 
+  //     if (req.body.accepted) {
+  //       // profile increments "folllowing" and loses a "followRequests"
+  //       await profileUser.updateOne({$push: {following: req.body.username} })
+  //       // user gains a follower and loses a follow request
+  //       await user.updateOne({$push: {followers: req.params.profileUsername} })
+  //       await user.updateOne({$pull: {followRequests: req.params.profileUsername} })
+  //     } else {
+  //       return res.status(404).json({ error: "Follow request not found"})
+  //     }
+  //   } catch {
+  //     return res.status(500).json({error: "Accept Follow Error"})
+  //   }
+  // }
 
   ///// 	Delete User	        /////
   static async apiDeleteUserById(req, res){
