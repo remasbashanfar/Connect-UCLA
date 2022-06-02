@@ -28,6 +28,22 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
+function TimeParser(time) {
+  const DateTime = time.split("T")
+  // Convert to American Time
+  const HourMin = DateTime[1].split(":")
+  HourMin[0] = ((parseInt(HourMin[0]) + 11) % 12 + 1).toString()
+  const suffix = parseInt(HourMin[0]) > 11 ? "AM" : "PM"
+  DateTime[1] = HourMin.join(":") + " " + suffix
+  
+  const YMD = DateTime[0].split("-").map((i)=>parseInt(i))
+  const date = new Date();
+  date.setMonth(YMD[1]-1)
+  const month = date.toLocaleString('en-US',{month:"short",})
+  DateTime[0] = month + " " + YMD[2].toString()
+  return DateTime.join(" ")
+}
+
 export default function ImgMediaCard(props) {
   const {user} = useContext(AuthContext)
 
@@ -53,7 +69,7 @@ export default function ImgMediaCard(props) {
           {props.description}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {props.startTime} to {props.endTime}
+          {TimeParser(props.startTime)} to {TimeParser(props.endTime)}
         </Typography>
       </CardContent>
       </CardActionArea>
