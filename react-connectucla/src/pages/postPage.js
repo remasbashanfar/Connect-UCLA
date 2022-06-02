@@ -10,7 +10,21 @@ import "./addEvent.css";
 import { AuthContext } from "../context/AuthContext";
 import {useContext} from 'react';
 
-
+function TimeParser(time) {
+    const DateTime = time.split("T")
+    // Convert to American Time
+    const HourMin = DateTime[1].split(":")
+    HourMin[0] = ((parseInt(HourMin[0]) + 11) % 12 + 1).toString()
+    const suffix = parseInt(HourMin[0]) > 11 ? "AM" : "PM"
+    DateTime[1] = HourMin.join(":") + " " + suffix
+    
+    const YMD = DateTime[0].split("-").map((i)=>parseInt(i))
+    const date = new Date();
+    date.setMonth(YMD[1]-1)
+    const month = date.toLocaleString('en-US',{month:"short",})
+    DateTime[0] = month + " " + YMD[2].toString()
+    return DateTime.join(" ")
+  }
 export default function PostPage() {
     // Variables + hooks
     const {user} = useContext(AuthContext)
@@ -62,14 +76,21 @@ export default function PostPage() {
                 height: '350px',
                 left: '75px'
             }}>
-            <h2>Event</h2>
+            <a style={{color:'black'}}
+            >Event</a>
             {post.title}
-           <h2>When?</h2>
-            From {post.startTime} <br></br>
+           <a
+           style={{color:'black'}}
+           >When?</a>
+            From {post.startTime}
             To {post.endTime}
-
-            <h2>Where?</h2>
+            {/* {TimeParser(post.startTime)} to {TimeParser(post.endTime)} */}
+            <a
+            style={{color:'black'}}
+            >Where?</a>
            {post.location}
+           <a style={{color:'black'}}>Organizer</a>
+           {post.author}
             </div>
             <div className="cpContainer"
             style={{ 
@@ -78,14 +99,12 @@ export default function PostPage() {
                 height: '350px',
                 right: '75px'
             }}>
-            <h2>Organizer</h2>
-           {post.author}
-           <h2>Details</h2>
+           <a style={{color:'black'}}>Details</a>
            {post.content}
-           <h2>Tags</h2>
+           <a style={{color:'black'}}>Tags</a>
            {post.tags}
+           <a style={{color:'black'}} href={post.imgurl}>Click for Poster Link</a>
             </div>
-
             <CalendarButton 
               summary={post.title}
                description={post.content}

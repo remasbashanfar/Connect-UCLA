@@ -8,13 +8,16 @@ import uclavideo1 from './uclavideo1.mp4'
 import NavBar from '../components/navbar.js'
 
 function IntroPage() {
-    useEffect(() => {
-        document.body.style.overflow = "hidden";
-      }, []);
   return (
-      <div>
+      <div
+      >
           <NavBar></NavBar>
-    <div className='hero-container'>
+    <div className='hero-container'
+          style= {{
+            overflow: 'hidden',
+            maxHeight: '90vh'
+      }}
+    >
       <video src={uclavideo1} autoPlay loop muted 
       />
       <img src={logo} alt="Logo" 
