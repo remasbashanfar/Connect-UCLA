@@ -40,8 +40,6 @@ export default function Profile() {
   const [displayRequests, setDisplayRequests] = useState(false);
   const username = useParams(false).username;
   const {user, dispatch} = useContext(AuthContext);
-
-  console.log(user)
   
   // BUTTON TOGGLES
     const handleSwap = () => {
@@ -58,7 +56,6 @@ export default function Profile() {
   useEffect(() => {
     const retrieveProfileUser = async () => {
         const res = await UserAPI.getUser(username);
-        console.log(res.data.followRequests.includes(user.username))
         setProfileUser(res.data);
         setIsFollowing(user.following.includes(res.data.username));
         setIsRequested(res.data.followRequests.includes(user.username));
@@ -107,13 +104,7 @@ export default function Profile() {
     const isownprofile = props.ownprofile;
     const isrequested = props.requested;
     const isfollowing = props.following;
-    console.log("inside followbutton isownprofile:")
-    console.log(isownprofile)
-    console.log("isrequested inside FollowButton: ")
-    console.log(isrequested)
     if (!isownprofile) {
-      console.log("own profile inside FollowButton:")
-      console.log(props.ownprofile)
       if (isfollowing) {
         return (
           <Button
