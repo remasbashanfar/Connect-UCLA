@@ -15,6 +15,8 @@ It acts as a billboard where users can create and post their events for others t
 
 ## Installation
 
+First and foremost, Node.js is required. It can be downlaoded from here: https://nodejs.org/en/download/
+
 After cloning the repository, packages and their dependencies should be installed.
 
 To do this, in your CLI navigate to the server and
