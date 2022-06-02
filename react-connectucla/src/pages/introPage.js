@@ -22,7 +22,7 @@ function IntroPage() {
       />
       <p>Explore different events at UCLA!</p>
       <div className='hero-btns'>
-      <Link to='/' className='btn-mobile'>
+      <Link to='/feed' className='btn-mobile'>
         <Button
           className='btns'
           buttonStyle='btn--outline'

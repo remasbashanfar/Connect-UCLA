@@ -39,7 +39,7 @@ export default function ButtonAppBar() {
           </Typography>
           {user && <Button color="inherit" href="/addEvent" startIcon={<AddBoxOutlinedIcon/>}>Add Event</Button>}
           <Button color="inherit" href="/" startIcon={<HomeOutlinedIcon/>}>Home</Button>
-          <Button color="inherit" href="/about" startIcon={<InfoOutlinedIcon/>}>About</Button>
+          <Button color="inherit" href="/feed" startIcon={<InfoOutlinedIcon/>}>Feed</Button>
           {!user && <Button color="inherit" href="/login" startIcon={<LoginOutlinedIcon/>}>Login</Button>}
           <Button color="inherit" href="/maps" startIcon={<MapOutlinedIcon/>}>Map</Button>
           {user && 

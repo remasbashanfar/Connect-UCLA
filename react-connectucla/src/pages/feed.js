@@ -13,7 +13,7 @@ import FollowFeed from '../components/profile-feed/follow-feed'
 
 // Homepage doubles as the feed.
 
-export default function Home() {
+export default function Feed() {
     // Variables + hooks
     const [posts, setPosts] = useState([]);
     const [tags, setTags] = useState([]);
