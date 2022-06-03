@@ -144,7 +144,6 @@ export default function Maps() {
                                         location: Posts[j].location == null ? "n/a" : Posts[j].location,
                                         title: Posts[j].title == null ? "n/a" : Posts[j].title,
                                         link: Posts[j]._id == null ? "n/a" : Posts[j]._id,
-
                                         }])})
                             }
                         }else{
@@ -281,9 +280,9 @@ export default function Maps() {
                     >
                         <div>
                             {checkDate(selected.startTime) ? <b>Event Soon!</b> : null}
-                            
+                            <p>Event: {selected.title}</p>
                             <p>Location: {selected.location}</p>
-                            <p>date: {selected.date}</p>
+                            {/* <p>date: {selected.date}</p> */}
                             <p>Start Time: {selected.startTime.split('T')[0]} at {selected.startTime.split('T')[1]}</p>
                             <p>End Time: {selected.endTime.split('T')[0]} at {selected.endTime.split('T')[1]}</p>
                             <Link to={"/post/"+`${selected.link}`}><Button>Go to event</Button></Link> 
