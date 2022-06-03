@@ -42,6 +42,13 @@ To launch the client:
 
 > Your browser should open localhost:3000 and you should see the homepage.
 
+### Note
+
+This application is not made for production, as such there are limitations. 
+The Google Calendar API will not work locally unless your @g.ucla.edu email is added as a test user (Our TA is added).
+The MongoDB database is not hosted locally, it is hosted at cloud.mongodb.com, as such your network needs to allow
+communications through the appropirate ports for the server to be able to connect (e.g. UCLA Web does not allow this, Eduroam does).
+
 ## Acknowledgements
 
 We couldn't have figured everything out for this project without help from our fellow developers. 
