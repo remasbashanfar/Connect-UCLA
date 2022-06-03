@@ -47,15 +47,15 @@ To launch the client:
 We couldn't have figured everything out for this project without help from our fellow developers. 
 Resources provided by the following people were of significant help:
 
-Home Page Design
+Home Page Design  
 Brian Design, https://github.com/briancodex/react-website-v1/tree/starter/public
 
-Google Maps API
+Google Maps API  
 Leigh Halliday, https://github.com/leighhalliday/google-maps-react-2020
 
-Context API and Backend Development
+Context API and Backend Development  
 Safak, https://github.com/safak/youtube/tree/mern-social-app
 
-MERN Stack Code Architecture
+MERN Stack Code Architecture  
 Beau Carnes, FreeCodeCamp, https://github.com/beaucarnes/restaurant-reviews
 
