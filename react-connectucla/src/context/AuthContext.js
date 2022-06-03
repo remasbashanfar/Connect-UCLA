@@ -1,3 +1,5 @@
+// ALL CONTEXT API FILES WITHIN src/context CONTAIN CODE SOURCED FROM https://github.com/safak/youtube/tree/mern-social-app/client/src
+
 import {createContext, useReducer, useEffect} from "react"
 import React from 'react'
 import AuthReducer from "./AuthReducer"

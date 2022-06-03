@@ -1,3 +1,5 @@
+// ALL CONTEXT API FILES WITHIN src/context CONTAIN CODE SOURCED FROM https://github.com/safak/youtube/tree/mern-social-app/client/src
+
 // all of the possible outcomes of login
 
 export const LoginStart=(userCredentials)=> ({
