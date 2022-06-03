@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import express from "express";
 import cors from "cors";
 import routes from "./routes.js";
-
+require("dotenv").config();
 // more middleware
 //import bodyParser from "body-parser"; 
 
