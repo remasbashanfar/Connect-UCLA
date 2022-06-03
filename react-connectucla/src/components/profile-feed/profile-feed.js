@@ -4,7 +4,6 @@ import UserAPI from '../../services/user.js'
 import React, { useState, useEffect } from "react";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box'
-import './profile-feed.css';
 
 
 export default function ProfileFeed(props) {
@@ -40,7 +39,7 @@ export default function ProfileFeed(props) {
            <Box sx={{ flexGrow: 1 }}>
             <div className="feed">
             <Grid container justifyContent="center">
-            <Grid item container md={6} spacing={3}>
+            <Grid item container md={7} spacing={2}>
                 {posts.map(post => 
                     {
                     return (

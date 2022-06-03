@@ -9,8 +9,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import FormHelperText from '@mui/material/FormHelperText';
 import TextField from '@mui/material/TextField';
-import '../pages/profile/profile.css'
-
+import Box from '@mui/material/Box';
 export default function EditProfileButton(){
     //input fields
     const new_username= useRef();
@@ -46,6 +45,7 @@ export default function EditProfileButton(){
     };
 
     return (
+        <Box sx={{display: 'flex', flexDirection: "column", maxWidth: "400px"}}>
         <form className="editBox" onSubmit={handleEditSubmit}>
             <TextField 
                 label="New Username"
@@ -89,13 +89,14 @@ export default function EditProfileButton(){
                 maxRows={4}
                 inputRef={new_description}
             />
-            <FormControlLabel
+            {/* <FormControlLabel
                 control={<Checkbox inputRef={is_private}/>}
                 label="Private Account"
                 labelPlacement="end"
-            />
+            /> */}
             <FormHelperText>A private account is viewable only by followers you approve.</FormHelperText>
             <Button variant="outlined" startIcon={<PublishIcon />} type="submit">Submit</Button>
         </form>
+        </Box>
     )
 }

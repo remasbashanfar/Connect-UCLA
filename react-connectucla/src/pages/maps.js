@@ -5,7 +5,7 @@ import {
     Marker,
     InfoWindow,
 } from "@react-google-maps/api"
-import { renderMatches } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import "@reach/combobox/styles.css"
 import mapStyles from "../components/mapStyles.js"
 import { useState, useEffect } from 'react'
@@ -13,8 +13,7 @@ import Geocode from "react-geocode";
 import PostAPI from '../services/post.js'
 import MapFilter from '../components/mapFilter.js'
 import NavBar from '../components/navbar.js'
-
-
+import Button from "@mui/material/Button"
 const options ={
     styles: mapStyles,
     disableDefaultUI:true,
@@ -107,13 +106,13 @@ export default function Maps() {
         PostAPI.getAll()
             .then(response =>{
                 let locations = [];
-                
+                let links = [];
+                let titles = [];
                 let Posts = response.data
                 
                 for(let i = 0; i < Posts.length; i++ )
                 {
                     locations.push(Posts[i].location)
-                   
                     
                 }
                 
@@ -143,6 +142,9 @@ export default function Maps() {
                                         startTime: Posts[j].startTime == null ? "n/a" : Posts[j].startTime,
                                         endTime: Posts[j].endTime  == null ? "n/a" : Posts[j].endTime,
                                         location: Posts[j].location == null ? "n/a" : Posts[j].location,
+                                        title: Posts[j].title == null ? "n/a" : Posts[j].title,
+                                        link: Posts[j]._id == null ? "n/a" : Posts[j]._id,
+
                                         }])})
                             }
                         }else{
@@ -158,6 +160,9 @@ export default function Maps() {
                                     startTime: Posts[j].startTime == null ? "n/a" : Posts[j].startTime,
                                     endTime: Posts[j].endTime  == null ? "n/a" : Posts[j].endTime,
                                     location: Posts[j].location == null ? "n/a" : Posts[j].location,
+                                    title: Posts[j].title == null ? "n/a" : Posts[j].title,
+                                    link: Posts[j]._id == null ? "n/a" : Posts[j]._id,
+
                                     }])})
                         }
                     }
@@ -187,6 +192,9 @@ export default function Maps() {
                                         startTime: Posts[j].startTime == null ? "n/a" : Posts[j].startTime,
                                         endTime: Posts[j].endTime  == null ? "n/a" : Posts[j].endTime,
                                         location: Posts[j].location == null ? "n/a" : Posts[j].location,
+                                        title: Posts[j].title == null ? "n/a" : Posts[j].title,
+                                        link: Posts[j]._id == null ? "n/a" : Posts[j]._id,
+
                                         }])})
                             }
                         }
@@ -195,8 +203,9 @@ export default function Maps() {
                             Geocode.fromAddress(locations[j]).then(
                                 async (response) => {
                                   const { lat, lng } = await response.results[0].geometry.location;
+                                  console.log("title")
         
-                                  
+                                  console.log(Posts[j].title)
                                   setMarkers(current => [...current, {
                                     lat:lat,
                                     lng: lng,
@@ -204,6 +213,8 @@ export default function Maps() {
                                     startTime: Posts[j].startTime == null ? "n/a" : Posts[j].startTime,
                                     endTime: Posts[j].endTime  == null ? "n/a" : Posts[j].endTime,
                                     location: Posts[j].location == null ? "n/a" : Posts[j].location,
+                                    title: Posts[j].title == null ? "n/a" : Posts[j].title, 
+                                    link: Posts[j]._id == null ? "n/a" : Posts[j]._id,
                                     }])})
                         }
                     }
@@ -248,7 +259,8 @@ export default function Maps() {
                 {markers.map(marker => <Marker key = {marker.time.toISOString()  + marker.startTime}
                                                position = {{lat: marker.lat, lng: marker.lng}}
                                                onClick = {()=>{
-                                                            
+                                                   console.log("marker title")
+                                                            console.log(marker.title)
                                                             setSelected(marker)
                                                             allowedLAT = marker.lat
                                                             allowedLNG = marker.lng}}
@@ -269,10 +281,13 @@ export default function Maps() {
                     >
                         <div>
                             {checkDate(selected.startTime) ? <b>Event Soon!</b> : null}
+                            
                             <p>Location: {selected.location}</p>
-                            <p>Date: {selected.date}</p>
+                            <p>date: {selected.date}</p>
                             <p>Start Time: {selected.startTime.split('T')[0]} at {selected.startTime.split('T')[1]}</p>
                             <p>End Time: {selected.endTime.split('T')[0]} at {selected.endTime.split('T')[1]}</p>
+                            <Link to={"/post/"+`${selected.link}`}><Button>Go to event</Button></Link> 
+
                         </div>
                     </InfoWindow>) : null
                 }

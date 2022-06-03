@@ -57,10 +57,12 @@ export default function Profile() {
     const retrieveProfileUser = async () => {
         const res = await UserAPI.getUser(username);
         setProfileUser(res.data);
-        setIsFollowing(user.following.includes(res.data.username));
-        setIsRequested(res.data.followRequests.includes(user.username));
-        setIsOwnProfile(user.username === res.data.username)
-        setIsOrganization(user.isOrganization)
+        if (user) {
+          setIsFollowing(user.following.includes(res.data.username));
+          setIsRequested(res.data.followRequests.includes(user.username));
+          setIsOwnProfile(user.username === res.data.username)
+          setIsOrganization(user.isOrganization)
+        }
     };
     retrieveProfileUser();
   }, [username, user, swapFeed]);
@@ -198,9 +200,6 @@ export default function Profile() {
                   </Box>
                   <Box sx={{display:'flex', flexDirection:'row', alignItems:"" }}>
                   <FollowButton following={isFollowing} requested={isRequested} ownprofile={isOwnProfile}/>
-
-                    {/* // {isOrganization && */}
-                       {/* <Typography size='small' color='#064270'>club</Typography>} */}
                   <FollowRequests/>
                   {isOwnProfile && displayRequests && 
                     <AvatarGroup total={user.followRequests.length}>
@@ -224,10 +223,11 @@ export default function Profile() {
               {!swapFeed && <Button onClick={handleSwap}>See RSVPs</Button>}
               {swapFeed && <Button onClick={handleSwap}>Return to Posts</Button>}   
             </Box>
-            <Box sx={{display: 'flex', flexDirection: 'row' }}>
-                {user && edit && <EditProfileButton> </EditProfileButton>}
+            {user && edit && <EditProfileButton> </EditProfileButton>}
+            {!edit && 
+            <Box className="posts" sx={{display: 'flex', flexDirection: 'row'}}>
                 {swapFeed ? <RSVPFeed username={username}/> : <ProfileFeed username={username}/>}
-            </Box>
+            </Box>}
           </div>
         </div>
     );

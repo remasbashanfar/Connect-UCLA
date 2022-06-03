@@ -4,6 +4,7 @@ import UserAPI from '../../services/user.js'
 import React, { useState, useEffect } from "react";
 import Grid from '@mui/material/Grid';
 import './profile-feed.css';
+import Box from '@mui/material/Box'
 
 // Homepage doubles as the feed.
 
@@ -35,31 +36,35 @@ export default function RSVPFeed(props) {
     }
     //container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
     return (
-            <Grid className="feed"container justifyContent="center">
-            <Grid item container spacing={3} xs={8}>
-                {posts.map(post => 
-                    {
-                    return (
-                        <Grid item md={4} key={post._id}>
-                            <Card 
-                                link={post._id}
-                                userId={post.userId}
-                                image={post.imgurl} 
-                                title={post.title}
-                                content={post.content} //add event stuff, event.title? etc
-                                startTime={post.startTime}
-                                endTime={post.endTime}
-                                location={post.location}
-                                tags={post.tags}
-                                organizer={post.author}
-                                RSVP_List={rsvpList}
-                            />
-                        </Grid>
-                        )
-                    })
-                }
-            </Grid>
-            </Grid>
+            <Box sx={{ flexGrow: 1 }}>
+             <div className="feed">
+             <Grid container justifyContent="center">
+             <Grid item container md={8} sm={6}spacing={2}>
+                 {posts.map(post => 
+                     {
+                     return (
+                         <Grid item key={post._id}>
+                             <Card 
+                                 link={post._id}
+                                 userId={post.userId}
+                                 image={post.imgurl} 
+                                 title={post.title}
+                                 content={post.content} //add event stuff, event.title? etc
+                                 startTime={post.startTime}
+                                 endTime={post.endTime}
+                                 location={post.location}
+                                 tags={post.tags}
+                                 organizer={post.author}
+                                 RSVP_List={rsvpList}
+                             />
+                         </Grid>
+                         )
+                     })
+                 }
+             </Grid>
+             </Grid>
+             </div>
+             </Box>
     )
 }
 

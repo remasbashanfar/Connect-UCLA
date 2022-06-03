@@ -6,6 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import NativeSelect from '@mui/material/NativeSelect';
 import InputBase from '@mui/material/InputBase';
+import { getOutlinedInputUtilityClass } from '@mui/material';
 
 
 
@@ -13,15 +14,17 @@ import InputBase from '@mui/material/InputBase';
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   'label + &': {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(2),
   },
   '& .MuiInputBase-input': {
     borderRadius: 4,
     position: 'relative',
-    backgroundColor: theme.palette.background.paper,
-    border: '1px solid #ced4da',
+    backgroundColor: '#8bb8e880',
+    border: '1px solid #03345ae6',
     fontSize: 16,
-    padding: '10px 26px 10px 12px',
+    padding: '10px 26px 18px 12px',
+    bottomBorder: 2,
+    borderColor: '#6b9ed5',
     transition: theme.transitions.create(['border-color', 'box-shadow']),
     // Use the system font instead of the default Roboto font.
     fontFamily: [
@@ -80,12 +83,12 @@ export default function MapFilter({locationFilterStatus, setLocationFilterStatus
     <div>
       
       <FormControl sx={{ m: 1 }} variant="standard">
-        <InputLabel htmlFor="date-textbox">Date</InputLabel>
+        <InputLabel htmlFor="date-textbox">Search by Date</InputLabel>
         <BootstrapInput id="date-textbox"
                         onChange = {handleDateChange}/>
       </FormControl>
       <FormControl sx={{ m: 1 }} variant="standard">
-        <InputLabel htmlFor="location-textbox">Location</InputLabel>
+        <InputLabel htmlFor="location-textbox">Search by Location</InputLabel>
         <BootstrapInput id="location-textbox" 
                         onChange = {handleLocationChange}/>
       </FormControl>

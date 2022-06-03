@@ -22,11 +22,14 @@
     object-fit: cover;
 }
 
-.editBox {
+.profile .editBox {
+    margin-left: 520px;
     height: 500px;
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: absolute;
     /* margin-top: 1rem;
     margin-bottom: 1rem; */
     border-radius: 10px;
