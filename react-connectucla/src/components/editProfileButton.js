@@ -19,7 +19,7 @@ export default function EditProfileButton(){
     const new_description= useRef();
     const new_profile_picture = useRef();
     const new_cover_picture = useRef();
-    const is_private = useRef();
+    // const is_private = useRef();
     //context
     const {user, dispatch} = useContext(AuthContext);
     const Navigate = useNavigate();
@@ -34,7 +34,7 @@ export default function EditProfileButton(){
                 profilePicture: new_profile_picture.current.value ? new_profile_picture.current.value : user.profilePicture,
                 coverPicture: new_cover_picture.current.value ? new_cover_picture.current.value : user.coverPicture,
                 description: new_description.current.value ? new_description.current.value : user.description,
-                isPrivate: is_private.current.checked
+                // isPrivate: is_private.current.checked
             }
             await UserAPI.updateUser(updated_user)
             Navigate(`/profile/${updated_user.username}`)

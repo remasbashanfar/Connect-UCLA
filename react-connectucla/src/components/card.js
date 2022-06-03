@@ -92,7 +92,7 @@ export default function ImgMediaCard(props) {
 
       <CardActions disableSpacing>
         {/* Render RSVP button only if RSVP_List in props*/}
-        {user &&  
+        {user &&  props.RSVP_List &&
         <RsvpButton 
         id={props.link} 
         author={user._id} 
