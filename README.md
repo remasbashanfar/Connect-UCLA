@@ -12,7 +12,7 @@ Mathias Duedahl \[Lussebullen\]
 
 The application is a website for hosting UCLA events.
 It acts as a billboard where users can create and post their events for others to see, all in order to make events in the UCLA community accessible in a more centralized manner.
-
+For more information about the process of creating this project, check out theses slides https://docs.google.com/presentation/d/16Qb3CllMVC3zJgQWSLNZ2SlvnrPWLA2zl4yzv5_qLdI/edit?usp=sharing
 ## Installation
 
 First and foremost, Node.js is required. It can be downlaoded from here: https://nodejs.org/en/download/
